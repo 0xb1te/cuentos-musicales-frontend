@@ -1,0 +1,28 @@
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
+  @for (story of gridItems; track story.id) {
+  <a
+    [routerLink]="['/story', story.id]"
+    class="cursor-pointer hover:scale-105 transition-transform duration-200"
+  >
+    <div class="text-center">
+      <div
+        class="w-full aspect-square bg-orange-500 flex items-center justify-center rounded mb-2"
+      >
+        @if (story.imageUrl) {
+        <img
+          [src]="story.imageUrl"
+          [alt]="story.title"
+          class="w-full h-full object-cover rounded"
+        />
+        } @else {
+        <span class="text-white">IMG</span>
+        }
+      </div>
+      <p class="text-sm font-medium truncate">{{ story.title }}</p>
+      @if (story.description) {
+      <p class="text-xs text-gray-600 mt-1">{{ story.description }}</p>
+      }
+    </div>
+  </a>
+  }
+</div>
