@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Story } from '../interfaces/story';
 
-enum HttpRoutes {
+export enum HttpRoutes {
+  GetMenu = '/api/menu',
   GetStories = '/api/stories',
 }
 

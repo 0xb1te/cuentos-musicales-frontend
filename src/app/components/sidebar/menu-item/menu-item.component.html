@@ -1,0 +1,33 @@
+<div>
+  @if (item.children && item.children.length > 0) {
+  <button
+    (click)="toggleOpen()"
+    class="w-full p-2 text-left flex items-center justify-between hover:bg-gray-100"
+  >
+    <span>{{ item.title }}</span>
+    <svg
+      [class.rotate-180]="isOpen()"
+      class="w-4 h-4 transition-transform"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </button>
+  @if (isOpen()) {
+  <div class="pl-4">
+    @for (child of item.children; track child.id) {
+    <app-menu-item [item]="child" class="block"> </app-menu-item>
+    }
+  </div>
+  } } @else {
+  <a [routerLink]="item.route" class="block p-2 hover:bg-gray-100">
+    {{ item.title }}
+  </a>
+  }
+</div>
