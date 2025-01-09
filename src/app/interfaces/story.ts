@@ -7,6 +7,7 @@ export interface Story {
   hasInteractiveElements: boolean;
   interactiveElements?: InteractiveElement[];
   teachingGuide?: TeachingGuide;
+  menuLevelId?: number;
 }
 
 export interface TeachingGuide {

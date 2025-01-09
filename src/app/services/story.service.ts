@@ -15,7 +15,16 @@ export enum HttpRoutes {
 export class StoryService {
   constructor(private http: HttpClient) {}
 
-  getStories(): Observable<Story[]> {
+  getStoriesById(menuLevelId?: number | null): Observable<Story[]> {
+    let url = `${environment.apiBaseUrl}${HttpRoutes.Stories}`;
+
+    if (menuLevelId) {
+      url += `/by-menu-level?menuLevelId=${menuLevelId}`; // Add menuLevelId as a query parameter
+    }
+    return this.http.get<Story[]>(url);
+  }
+
+  getAllStories(): Observable<Story[]> {
     return this.http.get<Story[]>(
       `${environment.apiBaseUrl}${HttpRoutes.Stories}`
     );
