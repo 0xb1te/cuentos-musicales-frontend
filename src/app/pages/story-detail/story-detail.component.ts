@@ -41,45 +41,8 @@ export class StoryDetailComponent implements OnInit {
             'Error al cargar la historia. Por favor, intenta de nuevo más tarde.'
           );
           this.loading.set(false);
-
-          // For development: Load mock data
-          // this.loadMockData();
         },
       });
-  }
-
-  private loadMockData() {
-    const mockStory: Story = {
-      id: 1,
-      title: 'El Viaje Musical de Luna',
-      description:
-        'Una aventura mágica donde Luna descubre el poder de la música para conectar con sus emociones y con los demás.',
-      content: 'Contenido detallado de la historia...',
-      imageUrl: '',
-      hasInteractiveElements: true,
-      interactiveElements: [
-        {
-          id: 1,
-          title: 'Juego Musical',
-          description:
-            'Explora diferentes instrumentos y crea tu propia melodía.',
-          type: 'game',
-        },
-        {
-          id: 2,
-          title: 'Actividad de Reflexión',
-          description: 'Conecta con tus emociones a través de la música.',
-          type: 'activity',
-        },
-      ],
-      teachingGuide: {
-        id: 1,
-        preview:
-          'Esta guía incluye actividades prácticas y reflexiones para trabajar las emociones a través de la música...',
-      },
-    };
-
-    this.story.set(mockStory);
   }
 
   onReadStory() {
