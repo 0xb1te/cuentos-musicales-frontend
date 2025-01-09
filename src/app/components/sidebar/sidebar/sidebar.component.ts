@@ -1,3 +1,4 @@
+// sidebar.component.ts
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -26,7 +27,8 @@ export class SidebarComponent {
   loadMenu() {
     this.menuService.getMenuStructure().subscribe({
       next: (items) => {
-        this.menuItems.set(items);
+        console.log('Response from menu', items.menuStructure.items);
+        this.menuItems.set(items.menuStructure.items);
         this.loading.set(false);
       },
       error: (err) => {
@@ -35,7 +37,7 @@ export class SidebarComponent {
         this.loading.set(false);
 
         // Load mock data for development
-        this.loadMockData();
+        // this.loadMockData();
       },
     });
   }
@@ -86,5 +88,10 @@ export class SidebarComponent {
 
   toggleSidebar() {
     this.sidebarOpen.update((value) => !value);
+  }
+
+  onMenuItemClick(item: MenuItem) {
+    console.log('Item clicked:', item);
+    // Handle the item click event here
   }
 }

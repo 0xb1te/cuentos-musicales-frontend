@@ -1,3 +1,4 @@
+<!-- menu-item.component.html -->
 <div>
   @if (item.children && item.children.length > 0) {
   <button
@@ -22,11 +23,20 @@
   @if (isOpen()) {
   <div class="pl-4">
     @for (child of item.children; track child.id) {
-    <app-menu-item [item]="child" class="block"> </app-menu-item>
+    <app-menu-item
+      [item]="child"
+      (itemClicked)="onItemClick($event)"
+      class="block"
+    >
+    </app-menu-item>
     }
   </div>
   } } @else {
-  <a [routerLink]="item.route" class="block p-2 hover:bg-gray-100">
+  <a
+    [routerLink]="item.route"
+    class="block p-2 hover:bg-gray-100"
+    (click)="onItemClick(item)"
+  >
     {{ item.title }}
   </a>
   }

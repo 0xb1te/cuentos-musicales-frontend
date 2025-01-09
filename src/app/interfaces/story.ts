@@ -1,6 +1,3 @@
-import { InteractiveElement } from './interactive-element';
-import { TeachingGuide } from './teaching-guide';
-
 export interface Story {
   id: number;
   title: string;
@@ -10,4 +7,18 @@ export interface Story {
   hasInteractiveElements: boolean;
   interactiveElements?: InteractiveElement[];
   teachingGuide?: TeachingGuide;
+}
+
+export interface TeachingGuide {
+  id: number;
+  preview: string;
+  fullContent?: string;
+  downloadUrl?: string;
+}
+
+export interface InteractiveElement {
+  id: number;
+  title: string;
+  description: string;
+  type: 'game' | 'quiz' | 'activity';
 }

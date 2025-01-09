@@ -43,7 +43,7 @@ export class StoryDetailComponent implements OnInit {
           this.loading.set(false);
 
           // For development: Load mock data
-          this.loadMockData();
+          // this.loadMockData();
         },
       });
   }
