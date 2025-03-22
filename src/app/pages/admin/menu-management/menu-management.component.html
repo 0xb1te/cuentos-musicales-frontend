@@ -1,0 +1,111 @@
+<div class="menu-management-container max-w-4xl mx-auto p-4">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-bold mb-4 text-center">
+      Insertar una opción de menú
+    </h2>
+
+    <form [formGroup]="menuOptionForm" (ngSubmit)="onSubmit()">
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-sm font-medium">Imagen</label>
+          <input
+            type="file"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+            class="w-full p-2 border rounded mt-1"
+          />
+          <button
+            type="button"
+            class="bg-blue-500 text-white px-4 py-1 rounded mt-2 text-sm"
+            [disabled]="!selectedFile || isLoading"
+          >
+            Añadir
+          </button>
+        </div>
+
+        <div class="image-select-area">
+          <h3 class="text-sm font-medium mb-2">Resumen de Imágenes a subir:</h3>
+          <div class="grid grid-cols-1 gap-2">
+            <div
+              *ngFor="let image of uploadedImages; let i = index"
+              class="flex items-center justify-between bg-gray-100 p-2 rounded"
+            >
+              <span>Imagen {{ i + 1 }}</span>
+              <button
+                type="button"
+                (click)="removeImage(i)"
+                class="bg-red-500 text-white px-3 py-1 rounded-full text-xs"
+              >
+                X
+              </button>
+            </div>
+            <div
+              *ngIf="uploadedImages.length === 0"
+              class="text-gray-500 text-sm italic"
+            >
+              No hay imágenes seleccionadas
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium"
+          >Título de la opción del menú</label
+        >
+        <input
+          type="text"
+          formControlName="title"
+          class="w-full p-2 border rounded mt-1"
+        />
+        <div
+          *ngIf="
+            menuOptionForm.get('title')?.invalid &&
+            menuOptionForm.get('title')?.touched
+          "
+          class="text-red-500 text-sm mt-1"
+        >
+          El título es obligatorio
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Ruta (opcional)</label>
+        <input
+          type="text"
+          formControlName="route"
+          class="w-full p-2 border rounded mt-1"
+          placeholder="/ruta/aqui"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Opción padre</label>
+        <select
+          formControlName="parentId"
+          class="w-full p-2 border rounded mt-1"
+        >
+          <option [value]="0">Nivel principal</option>
+          <ng-container *ngFor="let item of menuItems">
+            <option [value]="item.id">{{ item.title }}</option>
+            <ng-container *ngIf="item.children">
+              <option *ngFor="let child of item.children" [value]="child.id">
+                -- {{ child.title }}
+              </option>
+            </ng-container>
+          </ng-container>
+        </select>
+      </div>
+
+      <div class="flex justify-end mt-4">
+        <button
+          type="submit"
+          class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
+          [disabled]="menuOptionForm.invalid || isLoading"
+        >
+          {{ isLoading ? "Procesando..." : "Continuar" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

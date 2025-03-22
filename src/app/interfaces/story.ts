@@ -8,6 +8,16 @@ export interface Story {
   interactiveElements?: InteractiveElement[];
   teachingGuide?: TeachingGuide;
   menuLevelId?: number;
+  author?: string;
+  isFree?: boolean;
+  audioPreviewUrl?: string;
+  audioFullUrl?: string;
+  indicativeImage1?: string;
+  indicativeImage2?: string;
+  emotionalGuideUrl?: string;
+  musicalGuideUrl?: string;
+  educationalGuideUrl?: string;
+  duration?: number; // in minutes
 }
 
 export interface TeachingGuide {

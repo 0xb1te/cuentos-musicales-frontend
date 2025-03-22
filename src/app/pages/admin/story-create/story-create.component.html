@@ -1,0 +1,149 @@
+<div class="create-story-container max-w-4xl mx-auto p-4">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-bold mb-4 text-center">Crear un cuento</h2>
+
+    <form [formGroup]="storyForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Título del cuento</label>
+        <input
+          type="text"
+          formControlName="title"
+          class="w-full p-2 border rounded mt-1"
+        />
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-sm font-medium"
+            >Imagen de presentación</label
+          >
+          <input
+            type="file"
+            (change)="handleFileUpload($event, 'imageUrl')"
+            class="w-full p-2 border rounded mt-1"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Autor</label>
+          <input
+            type="file"
+            (change)="handleFileUpload($event, 'author')"
+            class="w-full p-2 border rounded mt-1"
+          />
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Es gratis</label>
+        <div class="flex mt-1">
+          <div class="mr-4">
+            <input
+              type="radio"
+              id="free-yes"
+              [value]="true"
+              formControlName="isFree"
+              class="mr-1"
+            />
+            <label for="free-yes">Sí</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="free-no"
+              [value]="false"
+              formControlName="isFree"
+              class="mr-1"
+            />
+            <label for="free-no">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-sm font-medium"
+            >Subir archivo (gratis)</label
+          >
+          <input
+            type="file"
+            (change)="handleFileUpload($event, 'audioPreviewUrl')"
+            class="w-full p-2 border rounded mt-1"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Subir archivo (pago)</label>
+          <input
+            type="file"
+            (change)="handleFileUpload($event, 'audioFullUrl')"
+            class="w-full p-2 border rounded mt-1"
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-sm font-medium">Imagen indicativa</label>
+          <input
+            type="file"
+            (change)="handleFileUpload($event, 'indicativeImage1')"
+            class="w-full p-2 border rounded mt-1"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Imagen indicativa</label>
+          <input
+            type="file"
+            (change)="handleFileUpload($event, 'indicativeImage2')"
+            class="w-full p-2 border rounded mt-1"
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 mb-4">
+        <div>
+          <label class="block text-sm font-medium">Guía Emocional</label>
+          <input
+            type="file"
+            (change)="handleFileUpload($event, 'emotionalGuideUrl')"
+            class="w-full p-2 border rounded mt-1"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Guía Musical</label>
+          <input
+            type="file"
+            (change)="handleFileUpload($event, 'musicalGuideUrl')"
+            class="w-full p-2 border rounded mt-1"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Guía Didáctica</label>
+          <input
+            type="file"
+            (change)="handleFileUpload($event, 'educationalGuideUrl')"
+            class="w-full p-2 border rounded mt-1"
+          />
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Duración</label>
+        <input
+          type="number"
+          formControlName="duration"
+          class="w-full p-2 border rounded mt-1"
+          placeholder="Minutos"
+        />
+      </div>
+
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
+        >
+          Continuar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

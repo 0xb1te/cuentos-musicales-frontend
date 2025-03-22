@@ -1,0 +1,81 @@
+<div class="edit-story-container max-w-4xl mx-auto p-4">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-xl font-bold mb-4 text-center">
+      Insertar una opción de menú
+    </h2>
+
+    <form [formGroup]="storyForm" (ngSubmit)="onSubmit()">
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-sm font-medium">Imagen</label>
+          <input type="file" class="w-full p-2 border rounded mt-1" />
+          <button
+            type="button"
+            class="bg-blue-500 text-white px-4 py-1 rounded mt-2 text-sm"
+          >
+            Enviar
+          </button>
+        </div>
+
+        <div class="image-select-area">
+          <h3 class="text-sm font-medium mb-2">Resumen de Imágenes a subir:</h3>
+          <div class="grid grid-cols-1 gap-2">
+            <div
+              class="flex items-center justify-between bg-gray-100 p-2 rounded"
+            >
+              <span>Imagen 1</span>
+              <button
+                type="button"
+                class="bg-red-500 text-white px-3 py-1 rounded-full text-xs"
+              >
+                X
+              </button>
+            </div>
+            <div
+              class="flex items-center justify-between bg-gray-100 p-2 rounded"
+            >
+              <span>Imagen 2</span>
+              <button
+                type="button"
+                class="bg-red-500 text-white px-3 py-1 rounded-full text-xs"
+              >
+                X
+              </button>
+            </div>
+            <div
+              class="flex items-center justify-between bg-gray-100 p-2 rounded"
+            >
+              <span>Imagen 3</span>
+              <button
+                type="button"
+                class="bg-red-500 text-white px-3 py-1 rounded-full text-xs"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium"
+          >Título de la opción del menú</label
+        >
+        <input
+          type="text"
+          formControlName="title"
+          class="w-full p-2 border rounded mt-1"
+        />
+      </div>
+
+      <div class="flex justify-end mt-4">
+        <button
+          type="submit"
+          class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
+        >
+          Continuar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

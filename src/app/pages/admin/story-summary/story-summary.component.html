@@ -1,0 +1,77 @@
+<div class="story-summary-container max-w-6xl mx-auto p-4">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-bold">Resumen de cuentos</h2>
+      <div class="flex space-x-3">
+        <a
+          routerLink="/admin/menu"
+          class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
+          >Insertar opción de menú</a
+        >
+        <a
+          routerLink="/admin/create"
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >Crear un cuento</a
+        >
+      </div>
+    </div>
+
+    <div class="overflow-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Título
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Descripción
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Imagen
+            </th>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let story of stories">
+            <td class="px-6 py-4 whitespace-nowrap">{{ story.title }}</td>
+            <td class="px-6 py-4">{{ story.description }}</td>
+            <td class="px-6 py-4">
+              <img
+                *ngIf="story.imageUrl"
+                [src]="story.imageUrl"
+                alt="{{ story.title }}"
+                class="h-10 w-10 object-cover rounded"
+              />
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <div class="flex space-x-2">
+                <a
+                  [routerLink]="['/admin/edit', story.id]"
+                  class="text-indigo-600 hover:text-indigo-900"
+                  >Editar</a
+                >
+                <button
+                  (click)="deleteStory(story.id)"
+                  class="text-red-600 hover:text-red-900"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

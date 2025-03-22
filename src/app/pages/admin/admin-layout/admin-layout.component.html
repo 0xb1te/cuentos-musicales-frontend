@@ -1,0 +1,13 @@
+<div class="admin-layout">
+  <div class="admin-header bg-gray-800 text-white p-4">
+    <h1 class="text-xl font-bold">Panel de Administración</h1>
+    <div class="flex space-x-4 mt-2">
+      <a routerLink="/admin/summary" class="hover:text-blue-300">Resumen</a>
+      <a routerLink="/admin/create" class="hover:text-blue-300">Crear Cuento</a>
+      <a routerLink="/admin/menu" class="hover:text-blue-300">Gestionar Menú</a>
+    </div>
+  </div>
+  <div class="admin-content p-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>
