@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -10,5 +11,9 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./admin-layout.component.css'],
 })
 export class AdminLayoutComponent {
-  // Admin layout component
+  constructor(private authService: AuthService) {}
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

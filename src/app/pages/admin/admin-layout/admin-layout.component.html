@@ -1,6 +1,14 @@
 <div class="admin-layout">
   <div class="admin-header bg-gray-800 text-white p-4">
-    <h1 class="text-xl font-bold">Panel de Administración</h1>
+    <div class="flex justify-between items-center">
+      <h1 class="text-xl font-bold">Panel de Administración</h1>
+      <button
+        (click)="logout()"
+        class="text-white bg-red-600 hover:bg-red-700 px-4 py-1 rounded text-sm"
+      >
+        Cerrar sesión
+      </button>
+    </div>
     <div class="flex space-x-4 mt-2">
       <a routerLink="/admin/summary" class="hover:text-blue-300">Resumen</a>
       <a routerLink="/admin/create" class="hover:text-blue-300">Crear Cuento</a>

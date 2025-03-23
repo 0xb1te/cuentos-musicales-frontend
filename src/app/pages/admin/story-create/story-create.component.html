@@ -12,6 +12,33 @@
         />
       </div>
 
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Autor</label>
+        <input
+          type="text"
+          formControlName="author"
+          class="w-full p-2 border rounded mt-1"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Descripción</label>
+        <textarea
+          formControlName="description"
+          class="w-full p-2 border rounded mt-1"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Contenido</label>
+        <textarea
+          formControlName="content"
+          class="w-full p-2 border rounded mt-1"
+          rows="5"
+        ></textarea>
+      </div>
+
       <div class="grid grid-cols-2 gap-4 mb-4">
         <div>
           <label class="block text-sm font-medium"
@@ -21,40 +48,32 @@
             type="file"
             (change)="handleFileUpload($event, 'imageUrl')"
             class="w-full p-2 border rounded mt-1"
+            accept="image/*"
           />
         </div>
         <div>
-          <label class="block text-sm font-medium">Autor</label>
-          <input
-            type="file"
-            (change)="handleFileUpload($event, 'author')"
-            class="w-full p-2 border rounded mt-1"
-          />
-        </div>
-      </div>
-
-      <div class="mb-4">
-        <label class="block text-sm font-medium">Es gratis</label>
-        <div class="flex mt-1">
-          <div class="mr-4">
-            <input
-              type="radio"
-              id="free-yes"
-              [value]="true"
-              formControlName="isFree"
-              class="mr-1"
-            />
-            <label for="free-yes">Sí</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="free-no"
-              [value]="false"
-              formControlName="isFree"
-              class="mr-1"
-            />
-            <label for="free-no">No</label>
+          <label class="block text-sm font-medium">Es gratis</label>
+          <div class="flex mt-1">
+            <div class="mr-4">
+              <input
+                type="radio"
+                id="free-yes"
+                [value]="true"
+                formControlName="isFree"
+                class="mr-1"
+              />
+              <label for="free-yes">Sí</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="free-no"
+                [value]="false"
+                formControlName="isFree"
+                class="mr-1"
+              />
+              <label for="free-no">No</label>
+            </div>
           </div>
         </div>
       </div>
@@ -62,39 +81,43 @@
       <div class="grid grid-cols-2 gap-4 mb-4">
         <div>
           <label class="block text-sm font-medium"
-            >Subir archivo (gratis)</label
+            >Audio de vista previa (gratis)</label
           >
           <input
             type="file"
             (change)="handleFileUpload($event, 'audioPreviewUrl')"
             class="w-full p-2 border rounded mt-1"
+            accept="audio/*"
           />
         </div>
         <div>
-          <label class="block text-sm font-medium">Subir archivo (pago)</label>
+          <label class="block text-sm font-medium">Audio completo (pago)</label>
           <input
             type="file"
             (change)="handleFileUpload($event, 'audioFullUrl')"
             class="w-full p-2 border rounded mt-1"
+            accept="audio/*"
           />
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4 mb-4">
         <div>
-          <label class="block text-sm font-medium">Imagen indicativa</label>
+          <label class="block text-sm font-medium">Imagen indicativa 1</label>
           <input
             type="file"
             (change)="handleFileUpload($event, 'indicativeImage1')"
             class="w-full p-2 border rounded mt-1"
+            accept="image/*"
           />
         </div>
         <div>
-          <label class="block text-sm font-medium">Imagen indicativa</label>
+          <label class="block text-sm font-medium">Imagen indicativa 2</label>
           <input
             type="file"
             (change)="handleFileUpload($event, 'indicativeImage2')"
             class="w-full p-2 border rounded mt-1"
+            accept="image/*"
           />
         </div>
       </div>
@@ -106,6 +129,7 @@
             type="file"
             (change)="handleFileUpload($event, 'emotionalGuideUrl')"
             class="w-full p-2 border rounded mt-1"
+            accept=".pdf,.doc,.docx"
           />
         </div>
         <div>
@@ -114,6 +138,7 @@
             type="file"
             (change)="handleFileUpload($event, 'musicalGuideUrl')"
             class="w-full p-2 border rounded mt-1"
+            accept=".pdf,.doc,.docx"
           />
         </div>
         <div>
@@ -122,26 +147,86 @@
             type="file"
             (change)="handleFileUpload($event, 'educationalGuideUrl')"
             class="w-full p-2 border rounded mt-1"
+            accept=".pdf,.doc,.docx"
           />
         </div>
       </div>
 
       <div class="mb-4">
-        <label class="block text-sm font-medium">Duración</label>
+        <label class="block text-sm font-medium">Duración (minutos)</label>
         <input
           type="number"
           formControlName="duration"
           class="w-full p-2 border rounded mt-1"
           placeholder="Minutos"
+          min="0"
         />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium">Elementos interactivos</label>
+        <div class="flex mt-1">
+          <div class="mr-4">
+            <input
+              type="radio"
+              id="interactive-yes"
+              [value]="true"
+              formControlName="hasInteractiveElements"
+              class="mr-1"
+            />
+            <label for="interactive-yes">Sí</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="interactive-no"
+              [value]="false"
+              formControlName="hasInteractiveElements"
+              class="mr-1"
+            />
+            <label for="interactive-no">No</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error message -->
+      <div
+        *ngIf="errorMessage"
+        class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"
+      >
+        <p>{{ errorMessage }}</p>
       </div>
 
       <div class="flex justify-end">
         <button
           type="submit"
-          class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
+          class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          [disabled]="storyForm.invalid || isLoading"
         >
-          Continuar
+          <span *ngIf="isLoading" class="flex items-center">
+            <svg
+              class="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            Guardando...
+          </span>
+          <span *ngIf="!isLoading">Guardar</span>
         </button>
       </div>
     </form>

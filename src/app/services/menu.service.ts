@@ -32,6 +32,21 @@ export class MenuService {
     );
   }
 
+  // Update an existing menu option
+  updateMenuOption(id: number, menuOption: MenuOptionRequest): Observable<any> {
+    return this.http.put(
+      `${environment.apiBaseUrl}/api/admin/menu-option/${id}`,
+      menuOption
+    );
+  }
+
+  // Delete a menu option
+  deleteMenuOption(id: number): Observable<any> {
+    return this.http.delete(
+      `${environment.apiBaseUrl}/api/admin/menu-option/${id}`
+    );
+  }
+
   // Upload a menu option image
   uploadMenuImage(file: File): Observable<any> {
     const formData = new FormData();
@@ -41,6 +56,13 @@ export class MenuService {
     return this.http.post(
       `${environment.apiBaseUrl}/api/admin/upload`,
       formData
+    );
+  }
+
+  // Get all menu options in a flat structure for dropdown
+  getMenuOptionsFlat(): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${environment.apiBaseUrl}/api/menu-options/flat`
     );
   }
 }

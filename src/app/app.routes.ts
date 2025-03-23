@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { StoryGridComponent } from './components/story-grid/story-grid.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -14,11 +15,19 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'admin/login',
+    loadComponent: () =>
+      import('./pages/admin/login/login.component').then(
+        (m) => m.LoginComponent
+      ),
+  },
+  {
     path: 'admin',
     loadComponent: () =>
       import('./pages/admin/admin-layout/admin-layout.component').then(
         (m) => m.AdminLayoutComponent
       ),
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'create',

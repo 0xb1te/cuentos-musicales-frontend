@@ -16,6 +16,7 @@ import { MenuItem, MenuOptionRequest } from '../../../interfaces/menu';
 export class MenuManagementComponent implements OnInit {
   menuOptionForm: FormGroup;
   menuItems: MenuItem[] = [];
+  menuOptionsFlat: any[] = [];
   selectedFile: File | null = null;
   uploadedImages: string[] = [];
   isLoading = false;
@@ -35,11 +36,27 @@ export class MenuManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMenuItems();
+    this.loadMenuOptionsFlat();
   }
 
   loadMenuItems(): void {
     this.menuService.getMenuStructure().subscribe((response) => {
       this.menuItems = response.menuStructure.items;
+    });
+  }
+
+  loadMenuOptionsFlat(): void {
+    this.menuService.getMenuOptionsFlat().subscribe({
+      next: (options) => {
+        this.menuOptionsFlat = options;
+        console.log('Opciones de menú cargadas en formato plano:', options);
+      },
+      error: (error) => {
+        console.error(
+          'Error al cargar opciones de menú en formato plano:',
+          error
+        );
+      },
     });
   }
 
