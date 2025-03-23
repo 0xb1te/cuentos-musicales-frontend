@@ -1,7 +1,57 @@
 <div class="menu-management-container max-w-4xl mx-auto p-4">
+  <!-- Sección de gestión de opciones de menú -->
+  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <h2 class="text-xl font-bold mb-4 text-center">
+      Gestión de Opciones de Menú
+    </h2>
+
+    <!-- Lista de opciones de menú -->
+    <div class="mb-6">
+      <h3 class="text-lg font-medium mb-2">Opciones de Menú Actuales</h3>
+      <div class="bg-gray-50 p-3 rounded-lg max-h-60 overflow-y-auto">
+        <table class="w-full">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="py-2 px-3 text-left">Título</th>
+              <th class="py-2 px-3 text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let option of menuOptionsFlat"
+              class="border-b border-gray-200 hover:bg-gray-100"
+            >
+              <td class="py-2 px-3">{{ option.title }}</td>
+              <td class="py-2 px-3 flex justify-center space-x-2">
+                <button
+                  (click)="selectOptionForEdit(option)"
+                  class="bg-blue-500 text-white px-3 py-1 rounded text-xs"
+                >
+                  Editar
+                </button>
+                <button
+                  (click)="deleteOption(option.id)"
+                  class="bg-red-500 text-white px-3 py-1 rounded text-xs"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="menuOptionsFlat.length === 0">
+              <td colspan="2" class="py-4 text-center text-gray-500">
+                No hay opciones de menú disponibles
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario para añadir/editar opciones de menú -->
   <div class="bg-white rounded-lg shadow-md p-6">
     <h2 class="text-xl font-bold mb-4 text-center">
-      Insertar una opción de menú
+      {{ isEditing ? "Editar opción de menú" : "Insertar una opción de menú" }}
     </h2>
 
     <form [formGroup]="menuOptionForm" (ngSubmit)="onSubmit()">
@@ -24,7 +74,7 @@
         </div>
 
         <div class="image-select-area">
-          <h3 class="text-sm font-medium mb-2">Resumen de Imágenes a subir:</h3>
+          <h3 class="text-sm font-medium mb-2">Resumen de Imágenes:</h3>
           <div class="grid grid-cols-1 gap-2">
             <div
               *ngFor="let image of uploadedImages; let i = index"
@@ -92,13 +142,23 @@
         </select>
       </div>
 
-      <div class="flex justify-end mt-4">
+      <div class="flex justify-end mt-4 space-x-3">
+        <button
+          *ngIf="isEditing"
+          type="button"
+          (click)="cancelEdit()"
+          class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500"
+        >
+          Cancelar
+        </button>
         <button
           type="submit"
           class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
           [disabled]="menuOptionForm.invalid || isLoading"
         >
-          {{ isLoading ? "Procesando..." : "Continuar" }}
+          {{
+            isLoading ? "Procesando..." : isEditing ? "Actualizar" : "Continuar"
+          }}
         </button>
       </div>
     </form>

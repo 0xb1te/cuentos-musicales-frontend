@@ -20,6 +20,8 @@ export class MenuManagementComponent implements OnInit {
   selectedFile: File | null = null;
   uploadedImages: string[] = [];
   isLoading = false;
+  isEditing = false;
+  currentOptionId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -60,6 +62,66 @@ export class MenuManagementComponent implements OnInit {
     });
   }
 
+  // Seleccionar opción para editar
+  selectOptionForEdit(option: any): void {
+    this.isEditing = true;
+    this.currentOptionId = option.id;
+
+    // Rellenar el formulario con los datos de la opción seleccionada
+    this.menuOptionForm.patchValue({
+      parentId: option.parentId || 0,
+      title: option.title,
+      route: option.route || '',
+    });
+
+    if (option.imageUrl) {
+      this.uploadedImages = [option.imageUrl];
+    } else {
+      this.uploadedImages = [];
+    }
+  }
+
+  // Cancelar edición
+  cancelEdit(): void {
+    this.isEditing = false;
+    this.currentOptionId = null;
+    this.resetForm();
+  }
+
+  // Eliminar opción de menú
+  deleteOption(id: number): void {
+    if (
+      confirm(
+        '¿Está seguro de eliminar esta opción de menú? Esta acción no se puede deshacer.'
+      )
+    ) {
+      this.isLoading = true;
+      this.menuService.deleteMenuOption(id).subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.loadMenuItems();
+          this.loadMenuOptionsFlat();
+          alert('Opción de menú eliminada correctamente');
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error('Error eliminando opción de menú:', error);
+          alert('Error al eliminar la opción de menú');
+        },
+      });
+    }
+  }
+
+  resetForm(): void {
+    this.menuOptionForm.reset({
+      parentId: 0,
+      title: '',
+      route: '',
+      imageUrl: '',
+    });
+    this.uploadedImages = [];
+  }
+
   onFileSelected(event: any): void {
     if (event.target.files && event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
@@ -75,7 +137,7 @@ export class MenuManagementComponent implements OnInit {
       next: (response) => {
         this.isLoading = false;
         // Add the image URL to our list of uploaded images
-        this.uploadedImages.push(response);
+        this.uploadedImages = [response]; // Reemplazar por la nueva imagen
         // Clear the file input
         this.selectedFile = null;
       },
@@ -99,16 +161,44 @@ export class MenuManagementComponent implements OnInit {
       };
 
       this.isLoading = true;
-      this.menuService.addMenuOption(menuOption).subscribe({
-        next: () => {
-          this.isLoading = false;
-          this.router.navigate(['/admin']);
-        },
-        error: (error) => {
-          this.isLoading = false;
-          console.error('Error creating menu option:', error);
-        },
-      });
+
+      if (this.isEditing && this.currentOptionId) {
+        // Actualizar opción existente
+        this.menuService
+          .updateMenuOption(this.currentOptionId, menuOption)
+          .subscribe({
+            next: () => {
+              this.isLoading = false;
+              this.isEditing = false;
+              this.currentOptionId = null;
+              this.resetForm();
+              this.loadMenuItems();
+              this.loadMenuOptionsFlat();
+              alert('Opción de menú actualizada correctamente');
+            },
+            error: (error) => {
+              this.isLoading = false;
+              console.error('Error actualizando opción de menú:', error);
+              alert('Error al actualizar la opción de menú');
+            },
+          });
+      } else {
+        // Crear nueva opción
+        this.menuService.addMenuOption(menuOption).subscribe({
+          next: () => {
+            this.isLoading = false;
+            this.resetForm();
+            this.loadMenuItems();
+            this.loadMenuOptionsFlat();
+            alert('Opción de menú creada correctamente');
+          },
+          error: (error) => {
+            this.isLoading = false;
+            console.error('Error creating menu option:', error);
+            alert('Error al crear la opción de menú');
+          },
+        });
+      }
     }
   }
 }
