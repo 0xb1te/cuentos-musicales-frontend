@@ -1,6 +1,12 @@
-import { Component, OnInit, signal, inject, DestroyRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  signal,
+  inject,
+  DestroyRef,
+  Input,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 import { StoryService } from '../../services/story.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Story } from '../../interfaces/story';
@@ -9,11 +15,13 @@ import { switchMap, tap } from 'rxjs';
 @Component({
   selector: 'app-story-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: 'story-detail.component.html',
 })
 export class StoryDetailComponent implements OnInit {
-  private route = inject(ActivatedRoute);
+  @Input() storyId!: number;
+  @Input() view: string = 'detail';
+
   private storyService = inject(StoryService);
   private destroyRef = inject(DestroyRef);
 
@@ -23,27 +31,11 @@ export class StoryDetailComponent implements OnInit {
   currentView = signal<string>('detail');
 
   ngOnInit() {
-    this.route.data
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        tap((data) => {
-          if (data['view']) {
-            this.currentView.set(data['view']);
-          } else {
-            this.currentView.set('detail');
-          }
-        })
-      )
-      .subscribe();
+    this.currentView.set(this.view);
 
-    this.route.params
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        switchMap((params) => {
-          const id = Number(params['id']);
-          return this.storyService.getStoryById(id);
-        })
-      )
+    this.storyService
+      .getStoryById(this.storyId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (story) => {
           this.story.set(story);

@@ -8,6 +8,8 @@ import {
 } from '@angular/common/http';
 import { routes } from './app.routes';
 import { AuthService } from './services/auth.service';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 // Define the auth interceptor as a function
 function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
@@ -35,5 +37,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([authInterceptor])),
+    provideAnimations(),
+    provideAnimationsAsync(),
   ],
 };

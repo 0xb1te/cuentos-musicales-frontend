@@ -1,13 +1,4 @@
 <div class="min-h-full bg-gray-50">
-  <!-- Navigation breadcrumb -->
-  <div class="bg-white border-b">
-    <div class="px-4 py-3">
-      <a routerLink="/" class="text-blue-500 hover:text-blue-700"
-        >← Volver a historias</a
-      >
-    </div>
-  </div>
-
   <!-- Main content -->
   <main class="px-4 py-8">
     @if (error()) {
@@ -125,12 +116,6 @@
             </p>
             }
           </div>
-          <a
-            [routerLink]="['/story', story()?.id]"
-            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition inline-block"
-          >
-            Volver a detalles
-          </a>
           } @case ('dedication') {
           <div class="mb-6">
             <h2 class="text-xl font-semibold mb-3">
@@ -141,12 +126,6 @@
               presentación del cuento.
             </p>
           </div>
-          <a
-            [routerLink]="['/story', story()?.id]"
-            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition inline-block"
-          >
-            Volver a detalles
-          </a>
           } @case ('guide') {
           <div class="mb-6">
             <h2 class="text-xl font-semibold mb-3">Guía Didáctica</h2>
@@ -187,12 +166,6 @@
               }
             </div>
           </div>
-          <a
-            [routerLink]="['/story', story()?.id]"
-            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition inline-block"
-          >
-            Volver a detalles
-          </a>
           } }
         </div>
       </div>

@@ -3,13 +3,13 @@ import { Component, OnInit, effect } from '@angular/core'; // Import effect
 import { CommonModule } from '@angular/common';
 import { StoryService } from '../../services/story.service';
 import { Story } from '../../interfaces/story';
-import { RouterModule } from '@angular/router';
 import { CategoryService } from '../../services/category.service'; // Import the service
+import { PopupService } from '../../services/popup.service';
 
 @Component({
   selector: 'app-story-grid',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './story-grid.component.html',
   styleUrl: './story-grid.component.scss',
 })
@@ -18,7 +18,8 @@ export class StoryGridComponent implements OnInit {
 
   constructor(
     private storyService: StoryService,
-    private categoryService: CategoryService // Inject the service
+    private categoryService: CategoryService,
+    private popupService: PopupService
   ) {
     // Use effect to react to changes in the selected category ID
     effect(() => {
@@ -49,5 +50,9 @@ export class StoryGridComponent implements OnInit {
           console.error('Error fetching stories:', error);
         },
       });
+  }
+
+  openStoryDetail(storyId: number, view: string = 'detail') {
+    this.popupService.openStoryDetail(storyId, view);
   }
 }

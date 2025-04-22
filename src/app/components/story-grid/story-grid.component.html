@@ -36,51 +36,60 @@
       <div
         class="flex flex-col gap-1 w-full sm:flex-1 items-center justify-center"
       >
-        <a
-          [routerLink]="['/story', story.id, 'preview']"
+        @if (story.isFree) {
+        <button
+          (click)="openStoryDetail(story.id, 'preview')"
+          class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
+        >
+          Escucha el cuento
+        </button>
+        } @else {
+        <button
+          (click)="openStoryDetail(story.id, 'preview')"
           class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
         >
           Escuchar un fragmento
-        </a>
-        <a
-          [routerLink]="['/story', story.id]"
+        </button>
+        <button
+          (click)="openStoryDetail(story.id)"
           class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
           [ngClass]="{
             'bg-blue-500 text-white hover:bg-blue-600': !story.isFree
           }"
         >
-          {{ story.isFree ? "Descargar" : "Compra el cuento" }}
-        </a>
+          Compra el cuento
+        </button>
+        }
       </div>
 
-      <a
-        [routerLink]="['/story', story.id, 'dedication']"
+      <button
+        (click)="openStoryDetail(story.id, 'dedication')"
         class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full sm:flex-1 flex items-center justify-center h-full"
       >
         Dedicatoria / Presentación
-      </a>
+      </button>
 
       <div
         class="flex flex-col gap-1 w-full sm:flex-1 items-center justify-center"
       >
-        <a
-          [routerLink]="['/story', story.id, 'guide']"
+        <button
+          (click)="openStoryDetail(story.id, 'guide')"
           class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
         >
           Guía emocional
-        </a>
-        <a
-          [routerLink]="['/story', story.id, 'guide']"
+        </button>
+        <button
+          (click)="openStoryDetail(story.id, 'guide')"
           class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
         >
           Guía desglosador
-        </a>
-        <a
-          [routerLink]="['/story', story.id, 'guide']"
+        </button>
+        <button
+          (click)="openStoryDetail(story.id, 'guide')"
           class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
         >
           Guía musical
-        </a>
+        </button>
       </div>
     </div>
   </div>
