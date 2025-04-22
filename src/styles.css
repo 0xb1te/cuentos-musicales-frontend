@@ -4,3 +4,137 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Material Overrides */
+.mat-mdc-card {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+.mat-mdc-card-title {
+  color: #ffffff !important;
+}
+
+.mat-mdc-card-subtitle {
+  color: #b3b3b3 !important;
+}
+
+.mat-mdc-button {
+  color: #ffffff !important;
+}
+
+.mat-mdc-raised-button {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+.mat-mdc-raised-button:hover {
+  background-color: #2563eb !important;
+}
+
+.mat-mdc-icon-button {
+  color: #ffffff !important;
+}
+
+/* Sidenav Specific Styles */
+.mat-mdc-sidenav {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.mat-mdc-sidenav-container {
+  background-color: #000000 !important;
+}
+
+.mat-mdc-sidenav-content {
+  background-color: #000000 !important;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+/* Links */
+a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* Inputs and Form Controls */
+.mat-mdc-form-field {
+  --mdc-filled-text-field-container-color: #1a1a1a !important;
+  --mdc-filled-text-field-input-text-color: #ffffff !important;
+  --mdc-filled-text-field-label-text-color: #b3b3b3 !important;
+  --mdc-filled-text-field-focus-label-text-color: #3b82f6 !important;
+  --mdc-filled-text-field-focus-active-indicator-color: #3b82f6 !important;
+}
+
+/* Dialog Overlay */
+.cdk-overlay-container {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Dialog Content */
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: #1a1a1a !important;
+  --mdc-dialog-supporting-text-color: #ffffff !important;
+}
+
+/* Table Styling */
+.mat-mdc-table {
+  background-color: #1a1a1a !important;
+}
+
+.mat-mdc-header-cell {
+  color: #ffffff !important;
+  background-color: #2d2d2d !important;
+}
+
+.mat-mdc-cell {
+  color: #ffffff !important;
+}
+
+/* Paginator */
+.mat-mdc-paginator {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+/* Snackbar */
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #1a1a1a !important;
+  --mdc-snackbar-supporting-text-color: #ffffff !important;
+}

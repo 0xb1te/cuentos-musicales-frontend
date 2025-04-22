@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoryGridComponent } from '../../components/story-grid/story-grid.component';
 
@@ -9,27 +9,11 @@ import { StoryGridComponent } from '../../components/story-grid/story-grid.compo
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
-  scrolled = false;
-
-  constructor() {}
-
-  ngOnInit(): void {
-    // Check initial scroll position
-    this.checkScroll();
-  }
-
-  @HostListener('window:scroll', [])
-  checkScroll(): void {
-    // Update scrolled property based on scroll position
-    this.scrolled = window.scrollY > 50;
-  }
-
-  scrollToStories(): void {
-    // Smooth scroll to the stories section
-    const element = document.getElementById('stories-section');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+export class HomeComponent {
+  scrollToStories() {
+    const storiesSection = document.getElementById('stories');
+    if (storiesSection) {
+      storiesSection.scrollIntoView({ behavior: 'smooth' });
     }
   }
 }

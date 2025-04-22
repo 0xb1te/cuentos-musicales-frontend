@@ -1,0 +1,60 @@
+<mat-sidenav-container class="h-full bg-black">
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    opened
+    class="bg-black border-r border-gray-800"
+  >
+    <div class="p-4">
+      <div class="flex items-center justify-between mb-8">
+        <h1 class="text-2xl font-bold text-white">Cuentos Musicales</h1>
+        <button
+          mat-icon-button
+          (click)="sidenav.toggle()"
+          class="text-white hover:bg-gray-800"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+
+      <nav class="space-y-2">
+        <a
+          routerLink="/"
+          routerLinkActive="bg-gray-800"
+          class="flex items-center p-2 text-white hover:bg-gray-800 rounded-lg transition-colors duration-200"
+        >
+          <mat-icon class="mr-2">home</mat-icon>
+          Inicio
+        </a>
+        <a
+          routerLink="/stories"
+          routerLinkActive="bg-gray-800"
+          class="flex items-center p-2 text-white hover:bg-gray-800 rounded-lg transition-colors duration-200"
+        >
+          <mat-icon class="mr-2">book</mat-icon>
+          Cuentos
+        </a>
+        <a
+          routerLink="/about"
+          routerLinkActive="bg-gray-800"
+          class="flex items-center p-2 text-white hover:bg-gray-800 rounded-lg transition-colors duration-200"
+        >
+          <mat-icon class="mr-2">info</mat-icon>
+          Sobre Nosotros
+        </a>
+        <a
+          routerLink="/contact"
+          routerLinkActive="bg-gray-800"
+          class="flex items-center p-2 text-white hover:bg-gray-800 rounded-lg transition-colors duration-200"
+        >
+          <mat-icon class="mr-2">email</mat-icon>
+          Contacto
+        </a>
+      </nav>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="bg-black">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
