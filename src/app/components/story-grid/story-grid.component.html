@@ -1,28 +1,88 @@
-<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
+<div class="flex flex-col w-full p-2">
   @for (story of gridItems; track story.id) {
-  <a
-    [routerLink]="['/story', story.id]"
-    class="cursor-pointer hover:scale-105 transition-transform duration-200"
+  <div
+    class="flex flex-col md:flex-row items-center w-full mb-6 px-2 border rounded-lg p-3"
   >
-    <div class="text-center">
-      <div
-        class="w-full aspect-square bg-orange-500 flex items-center justify-center rounded mb-2"
-      >
-        @if (story.imageUrl) {
-        <img
-          [src]="story.imageUrl"
-          [alt]="story.title"
-          class="w-full h-full object-fill rounded"
-        />
-        } @else {
-        <span class="text-white">IMG</span>
-        }
+    <div class="flex items-center w-full md:w-auto mb-4 md:mb-0">
+      <!-- Story image -->
+      <div class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 mr-3 flex-shrink-0">
+        <div
+          class="w-full h-full bg-orange-500 flex items-center justify-center rounded border-2 border-orange-600"
+        >
+          @if (story.imageUrl) {
+          <img
+            [src]="story.imageUrl"
+            [alt]="story.title"
+            class="w-full h-full object-fill rounded"
+          />
+          } @else {
+          <span class="text-white text-lg">IMG</span>
+          }
+        </div>
       </div>
-      <p class="text-sm font-medium truncate">{{ story.title }}</p>
-      @if (story.description) {
-      <p class="text-xs text-gray-600 mt-1">{{ story.description }}</p>
-      }
+
+      <!-- Story title -->
+      <div
+        class="text-base sm:text-lg font-bold md:text-center w-full md:w-40 lg:w-48 mr-0 md:mr-6 flex items-center"
+      >
+        {{ story.title }}
+      </div>
     </div>
-  </a>
+
+    <!-- Action buttons -->
+    <div
+      class="flex flex-col sm:flex-row gap-3 w-full overflow-x-auto justify-between items-center"
+    >
+      <div
+        class="flex flex-col gap-1 w-full sm:flex-1 items-center justify-center"
+      >
+        <a
+          [routerLink]="['/story', story.id, 'preview']"
+          class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
+        >
+          Escuchar un fragmento
+        </a>
+        <a
+          [routerLink]="['/story', story.id]"
+          class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
+          [ngClass]="{
+            'bg-blue-500 text-white hover:bg-blue-600': !story.isFree
+          }"
+        >
+          {{ story.isFree ? "Descargar" : "Compra el cuento" }}
+        </a>
+      </div>
+
+      <a
+        [routerLink]="['/story', story.id, 'dedication']"
+        class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full sm:flex-1 flex items-center justify-center h-full"
+      >
+        Dedicatoria / Presentación
+      </a>
+
+      <div
+        class="flex flex-col gap-1 w-full sm:flex-1 items-center justify-center"
+      >
+        <a
+          [routerLink]="['/story', story.id, 'guide']"
+          class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
+        >
+          Guía emocional
+        </a>
+        <a
+          [routerLink]="['/story', story.id, 'guide']"
+          class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
+        >
+          Guía desglosador
+        </a>
+        <a
+          [routerLink]="['/story', story.id, 'guide']"
+          class="whitespace-nowrap text-sm p-2 rounded border-2 border-gray-300 hover:bg-gray-200 text-center w-full"
+        >
+          Guía musical
+        </a>
+      </div>
+    </div>
+  </div>
   }
 </div>

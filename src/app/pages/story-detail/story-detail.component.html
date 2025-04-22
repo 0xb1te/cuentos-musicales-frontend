@@ -50,14 +50,28 @@
             <p class="text-gray-600">{{ story()?.description }}</p>
           </div>
 
+          <!-- Different views based on currentView -->
+          @switch (currentView()) { @case ('detail') {
           <!-- Action buttons -->
           <div class="flex flex-wrap gap-4">
+            @if (story()?.isFree) {
             <button
-              (click)="onReadStory()"
+              (click)="onDownloadStory()"
+              class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+            >
+              Descargar Gratis
+            </button>
+            } @else {
+            <div class="mb-4">
+              <p class="text-xl font-bold text-gray-900">Precio: 5€</p>
+            </div>
+            <button
+              (click)="onBuyStory()"
               class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
             >
-              Leer Cuento
+              Comprar Cuento
             </button>
+            }
             <button
               (click)="onDownloadGuide()"
               class="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
@@ -97,7 +111,89 @@
               Ver guía completa →
             </button>
           </div>
-          }
+          } } @case ('preview') {
+          <div class="mb-6">
+            <h2 class="text-xl font-semibold mb-3">Fragmento de Audio</h2>
+            @if (story()?.audioPreviewUrl) {
+            <audio controls class="w-full">
+              <source [src]="story()?.audioPreviewUrl" type="audio/mpeg" />
+              Tu navegador no soporta el elemento de audio.
+            </audio>
+            } @else {
+            <p class="text-gray-600">
+              No hay fragmento de audio disponible para esta historia.
+            </p>
+            }
+          </div>
+          <a
+            [routerLink]="['/story', story()?.id]"
+            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition inline-block"
+          >
+            Volver a detalles
+          </a>
+          } @case ('dedication') {
+          <div class="mb-6">
+            <h2 class="text-xl font-semibold mb-3">
+              Dedicatoria / Presentación
+            </h2>
+            <p class="text-gray-600">
+              Esta sección contiene información sobre dedicatorias y
+              presentación del cuento.
+            </p>
+          </div>
+          <a
+            [routerLink]="['/story', story()?.id]"
+            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition inline-block"
+          >
+            Volver a detalles
+          </a>
+          } @case ('guide') {
+          <div class="mb-6">
+            <h2 class="text-xl font-semibold mb-3">Guía Didáctica</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              @if (story()?.emotionalGuideUrl) {
+              <a
+                [href]="story()?.emotionalGuideUrl"
+                target="_blank"
+                class="p-4 bg-orange-50 rounded-lg hover:bg-orange-100"
+              >
+                <h3 class="font-medium mb-2">Guía Emocional</h3>
+                <p class="text-gray-600 text-sm">
+                  Guía para entender las emociones del cuento.
+                </p>
+              </a>
+              } @if (story()?.musicalGuideUrl) {
+              <a
+                [href]="story()?.musicalGuideUrl"
+                target="_blank"
+                class="p-4 bg-blue-50 rounded-lg hover:bg-blue-100"
+              >
+                <h3 class="font-medium mb-2">Guía Musical</h3>
+                <p class="text-gray-600 text-sm">
+                  Elementos musicales y sonoros del cuento.
+                </p>
+              </a>
+              } @if (story()?.educationalGuideUrl) {
+              <a
+                [href]="story()?.educationalGuideUrl"
+                target="_blank"
+                class="p-4 bg-green-50 rounded-lg hover:bg-green-100"
+              >
+                <h3 class="font-medium mb-2">Guía Educativa</h3>
+                <p class="text-gray-600 text-sm">
+                  Guía para uso educativo del cuento.
+                </p>
+              </a>
+              }
+            </div>
+          </div>
+          <a
+            [routerLink]="['/story', story()?.id]"
+            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition inline-block"
+          >
+            Volver a detalles
+          </a>
+          } }
         </div>
       </div>
     </div>

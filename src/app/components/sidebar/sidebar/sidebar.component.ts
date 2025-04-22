@@ -1,6 +1,7 @@
 // sidebar.component.ts
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { MenuService } from '../../../services/menu.service';
 import { MenuItem } from '../../../interfaces/menu';
@@ -12,16 +13,29 @@ import { MenuItem } from '../../../interfaces/menu';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
-export class SidebarComponent {
-  sidebarOpen = signal(true);
+export class SidebarComponent implements OnInit {
+  sidebarOpen = signal(false);
   menuItems = signal<MenuItem[]>([]);
   loading = signal(true);
   error = signal<string | null>(null);
 
-  constructor(private menuService: MenuService) {}
+  constructor(private menuService: MenuService, private router: Router) {
+    // Initialize sidebar state based on screen size
+    this.checkScreenSize();
+  }
 
   ngOnInit() {
     this.loadMenu();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    // Open by default on desktop (screens wider than 768px)
+    this.sidebarOpen.set(window.innerWidth >= 768);
   }
 
   loadMenu() {
@@ -45,6 +59,19 @@ export class SidebarComponent {
 
   onMenuItemClick(item: MenuItem) {
     console.log('Item clicked:', item);
-    // Handle the item click event here
+
+    // If the item has images and no route, navigate to dynamic content page
+    if (item.route && item.images && item.images.length > 0) {
+      console.log('Navigating to dynamic content page for menu item:', item.id);
+      this.router.navigate(['/content', item.id]);
+    } else {
+      console.log('Navigating to route:', item.route);
+      this.router.navigate([item.route || '/']);
+    }
+
+    // Close sidebar on mobile after clicking a menu item
+    if (window.innerWidth < 768) {
+      this.sidebarOpen.set(false);
+    }
   }
 }

@@ -1,0 +1,47 @@
+// Add any additional styling for the home component here
+
+// Optional smooth scrolling for the entire page
+:host {
+  display: block;
+  scroll-behavior: smooth;
+}
+
+// Enhance the cover image section
+.h-screen {
+  height: 100vh;
+  min-height: 500px; // Minimum height for smaller screens
+}
+
+// Text styling
+h1,
+h2 {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+// Scroll indicator animation
+.animate-bounce {
+  animation: bounce 2s infinite;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .h-screen {
+    min-height: 400px;
+  }
+}

@@ -1,0 +1,59 @@
+<div class="relative">
+  <!-- Full-screen cover image -->
+  <div
+    class="h-screen w-full relative flex items-center justify-center overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 bg-cover bg-center bg-blue-600"
+      style="background-image: url('https://via.placeholder.com/1920x1080')"
+    >
+      <!--
+        Note: You'll need to add an actual image file at:
+        /src/assets/images/cover.jpg
+
+        For now, we're using a placeholder image and a blue background color as fallback.
+        Replace the URL with your actual image when available.
+      -->
+
+      <!-- Add a dark overlay for better text visibility -->
+      <div class="absolute inset-0 bg-black opacity-40"></div>
+    </div>
+
+    <!-- Text content centered on the image -->
+    <div class="relative z-10 text-center text-white px-4">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">
+        Cuentos Musicales para el Alma
+      </h1>
+      <p class="text-xl md:text-2xl mb-8">
+        Historias que inspiran a través de la música
+      </p>
+
+      <!-- Scroll down indicator -->
+      <div class="animate-bounce mt-10" (click)="scrollToStories()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-10 w-10 mx-auto"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          />
+        </svg>
+        <span class="text-sm">Desliza hacia abajo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stories section -->
+  <div id="stories-section" class="bg-gray-50 py-8">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-8">Nuestros Cuentos</h2>
+      <app-story-grid></app-story-grid>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { StoryService } from '../../services/story.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Story } from '../../interfaces/story';
-import { switchMap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-story-detail',
@@ -20,8 +20,22 @@ export class StoryDetailComponent implements OnInit {
   story = signal<Story | null>(null);
   error = signal<string | null>(null);
   loading = signal<boolean>(true);
+  currentView = signal<string>('detail');
 
   ngOnInit() {
+    this.route.data
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap((data) => {
+          if (data['view']) {
+            this.currentView.set(data['view']);
+          } else {
+            this.currentView.set('detail');
+          }
+        })
+      )
+      .subscribe();
+
     this.route.params
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -48,6 +62,16 @@ export class StoryDetailComponent implements OnInit {
   onReadStory() {
     console.log('Reading story:', this.story()?.id);
     // Implement story reading logic
+  }
+
+  onBuyStory() {
+    console.log('Buying story:', this.story()?.id);
+    // Implement story purchase logic
+  }
+
+  onDownloadStory() {
+    console.log('Downloading story:', this.story()?.id);
+    // Implement story download logic
   }
 
   onDownloadGuide() {

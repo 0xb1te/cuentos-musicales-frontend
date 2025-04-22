@@ -31,7 +31,7 @@
     </app-menu-item>
     }
   </div>
-  } } @else {
+  } } @else if (item.route || (item.images && item.images.length > 0)) {
   <a
     [routerLink]="item.route"
     class="block p-2 hover:bg-gray-100"
@@ -39,5 +39,9 @@
   >
     {{ item.title }}
   </a>
+  } @else {
+  <span class="block p-2 text-gray-500 cursor-not-allowed">
+    {{ item.title }}
+  </span>
   }
 </div>

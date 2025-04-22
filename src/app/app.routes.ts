@@ -5,7 +5,22 @@ import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
-    component: StoryGridComponent,
+    loadComponent: () =>
+      import('./pages/home/home.component').then((c) => c.HomeComponent),
+  },
+  {
+    path: 'stories',
+    loadComponent: () =>
+      import('./components/story-grid/story-grid.component').then(
+        (c) => c.StoryGridComponent
+      ),
+  },
+  {
+    path: 'content/:id',
+    loadComponent: () =>
+      import('./pages/dynamic-content/dynamic-content.component').then(
+        (c) => c.DynamicContentComponent
+      ),
   },
   {
     path: 'story/:id',
@@ -13,6 +28,30 @@ export const routes: Routes = [
       import('./pages/story-detail/story-detail.component').then(
         (m) => m.StoryDetailComponent
       ),
+  },
+  {
+    path: 'story/:id/preview',
+    loadComponent: () =>
+      import('./pages/story-detail/story-detail.component').then(
+        (m) => m.StoryDetailComponent
+      ),
+    data: { view: 'preview' },
+  },
+  {
+    path: 'story/:id/dedication',
+    loadComponent: () =>
+      import('./pages/story-detail/story-detail.component').then(
+        (m) => m.StoryDetailComponent
+      ),
+    data: { view: 'dedication' },
+  },
+  {
+    path: 'story/:id/guide',
+    loadComponent: () =>
+      import('./pages/story-detail/story-detail.component').then(
+        (m) => m.StoryDetailComponent
+      ),
+    data: { view: 'guide' },
   },
   {
     path: 'admin/login',

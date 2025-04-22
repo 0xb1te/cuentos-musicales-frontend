@@ -1,0 +1,42 @@
+<div class="dynamic-content-container">
+  @if (loading) {
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Cargando contenido...</p>
+  </div>
+  } @else if (error) {
+  <div class="error-container">
+    <p>Lo sentimos, ha ocurrido un error al cargar el contenido.</p>
+    <button (click)="router.navigate(['/'])">Volver al inicio</button>
+  </div>
+  } @else if (menuItem) {
+  <div class="content-header">
+    <h1>{{ menuItem.title }}</h1>
+    @if (menuItem.description) {
+    <p class="description">{{ menuItem.description }}</p>
+    }
+  </div>
+
+  @if (menuItem.images && menuItem.images.length > 0) {
+  <div class="images-block">
+    @for (image of menuItem.images; track $index) {
+    <div class="image-block">
+      <img
+        [src]="image"
+        [alt]="menuItem.title + ' - Imagen ' + ($index + 1)"
+        class="block-image"
+      />
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="no-images">
+    <p>No hay imágenes disponibles para este contenido.</p>
+  </div>
+  } } @else {
+  <div class="not-found">
+    <p>El contenido solicitado no existe.</p>
+    <button (click)="router.navigate(['/'])">Volver al inicio</button>
+  </div>
+  }
+</div>
