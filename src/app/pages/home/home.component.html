@@ -1,100 +1,198 @@
-<div class="relative bg-black">
-  <!-- Full-screen cover images -->
-  <div class="w-full relative flex flex-col items-center">
-    <!-- First image -->
-    <div class="h-screen w-full relative flex items-center justify-center">
+<!-- Floating Navbar -->
+<app-navbar></app-navbar>
+
+<div class="relative bg-black min-h-screen">
+  <!-- Hero Section with Professional Design -->
+  <div class="relative">
+    <!-- Main Hero -->
+    <div
+      class="min-h-screen flex items-center justify-center relative overflow-hidden"
+    >
       <div
-        class="absolute inset-0 bg-cover bg-center"
-        style="
-          background-image: url('https://via.placeholder.com/1920x1080/1a365d/ffffff?text=Imagen+1');
-        "
+        class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800"
       >
-        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <div class="absolute inset-0 bg-black opacity-40"></div>
       </div>
-      <div class="relative z-10 text-center text-white px-4">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4">
-          Cuentos Musicales para el Alma
-        </h1>
-        <p class="text-xl md:text-2xl mb-8">
-          Historias que inspiran a través de la música
+
+      <!-- Animated background elements -->
+      <div class="absolute inset-0 opacity-10">
+        <div
+          class="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-600 rounded-full blur-3xl animate-pulse"
+        ></div>
+        <div
+          class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse delay-1000"
+        ></div>
+      </div>
+
+      <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <div class="mb-8">
+          <h1
+            class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent leading-tight"
+          >
+            Cuentos Musicales
+          </h1>
+          <h2 class="text-3xl md:text-5xl font-light text-gray-300 mb-8">
+            para el Alma
+          </h2>
+        </div>
+
+        <p
+          class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
+        >
+          Descubre historias que tocan el corazón a través del poder
+          transformador de la música
         </p>
+
+        <div
+          class="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        >
+          <button
+            (click)="scrollToStories()"
+            class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            Explorar Catálogo
+          </button>
+          <button
+            class="px-8 py-4 border-2 border-gray-600 text-gray-300 font-semibold rounded-full hover:border-gray-400 hover:text-white transform hover:scale-105 transition-all duration-300"
+          >
+            Escuchar Muestra
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div class="py-8 w-full bg-black">
-      <hr class="w-full border-t-4 border-gray-600" />
-    </div>
-
-    <!-- Second image -->
-    <div class="h-screen w-full relative flex items-center justify-center">
+      <!-- Scroll indicator -->
       <div
-        class="absolute inset-0 bg-cover bg-center"
-        style="
-          background-image: url('https://via.placeholder.com/1920x1080/2d3748/ffffff?text=Imagen+2');
-        "
+        class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+        (click)="scrollToStories()"
       >
-        <div class="absolute inset-0 bg-black opacity-60"></div>
-      </div>
-      <div class="relative z-10 text-center text-white px-4">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">
-          Descubre Nuestras Historias
-        </h2>
-        <p class="text-xl md:text-2xl">Cada cuento es una aventura única</p>
-      </div>
-    </div>
-
-    <div class="py-8 w-full bg-black">
-      <hr class="w-full border-t-4 border-gray-600" />
-    </div>
-
-    <!-- Third image -->
-    <div class="h-screen w-full relative flex items-center justify-center">
-      <div
-        class="absolute inset-0 bg-cover bg-center"
-        style="
-          background-image: url('https://via.placeholder.com/1920x1080/4a5568/ffffff?text=Imagen+3');
-        "
-      >
-        <div class="absolute inset-0 bg-black opacity-60"></div>
-      </div>
-      <div class="relative z-10 text-center text-white px-4">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">
-          Explora Nuestro Catálogo
-        </h2>
-        <p class="text-xl md:text-2xl mb-8">
-          Encuentra tu próxima historia favorita
-        </p>
-        <div class="animate-bounce" (click)="scrollToStories()">
+        <div
+          class="flex flex-col items-center text-gray-400 hover:text-white transition-colors"
+        >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-10 w-10 mx-auto"
+            class="w-6 h-6 mb-2"
             fill="none"
-            viewBox="0 0 24 24"
             stroke="currentColor"
+            viewBox="0 0 24 24"
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
               d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
+            ></path>
           </svg>
-          <span class="text-sm">Desliza hacia abajo</span>
+          <span class="text-sm">Desliza</span>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="py-8 w-full bg-black">
-    <hr class="w-full border-t-4 border-gray-600" />
+  <!-- Features Section -->
+  <div class="py-20 bg-gradient-to-b from-black to-gray-900">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+          Una Experiencia Única
+        </h2>
+        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+          Cada cuento combina narrativa cautivadora con paisajes sonoros
+          envolventes
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+        <div class="text-center group">
+          <div
+            class="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
+          >
+            <svg
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-4">Audio Inmersivo</h3>
+          <p class="text-gray-400">
+            Experimenta cada historia con música original y efectos de sonido
+            diseñados especialmente
+          </p>
+        </div>
+
+        <div class="text-center group">
+          <div
+            class="w-20 h-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
+          >
+            <svg
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-4">
+            Historias que Sanan
+          </h3>
+          <p class="text-gray-400">
+            Cada cuento está creado para tocar fibras emocionales profundas y
+            generar transformación
+          </p>
+        </div>
+
+        <div class="text-center group">
+          <div
+            class="w-20 h-20 bg-gradient-to-r from-green-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
+          >
+            <svg
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-4">Guías Incluidas</h3>
+          <p class="text-gray-400">
+            Accede a guías emocionales, musicales y de despertar para
+            profundizar tu experiencia
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Stories section -->
-  <div id="stories" class="bg-black py-8">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-8 text-white">
-        Nuestros Cuentos
-      </h2>
+  <!-- Stories section with professional header -->
+  <div id="stories" class="bg-black py-20">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+          Nuestro Catálogo
+        </h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          Explora nuestra colección de historias cuidadosamente creadas para
+          inspirar y transformar
+        </p>
+      </div>
       <app-story-grid></app-story-grid>
     </div>
   </div>

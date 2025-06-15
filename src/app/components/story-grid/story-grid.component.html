@@ -1,103 +1,236 @@
-<div class="flex flex-col w-full p-2 bg-black">
-  @for (story of gridItems; track story.id) {
-  <div class="flex flex-col md:flex-row items-center w-full mb-6 px-2">
+<div class="bg-black py-8">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto px-4">
+    @for (story of gridItems; track story.id) {
     <div
-      class="flex flex-col md:flex-row items-center w-full md:w-auto mb-4 md:mb-0"
+      class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl overflow-hidden shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:scale-105 border border-gray-700"
     >
-      <!-- Story image -->
-      <div
-        class="w-32 h-32 sm:w-40 sm:h-40 md:w-36 md:h-36 mb-3 md:mb-0 md:mr-6 flex-shrink-0"
-      >
-        <div
-          class="w-full h-full bg-orange-500 flex items-center justify-center rounded-lg border border-gray-700"
-        >
-          @if (story.imageUrl) {
-          <img
-            [src]="story.imageUrl"
-            [alt]="story.title"
-            class="w-full h-full object-fill rounded-lg"
-          />
-          } @else {
-          <span class="text-white text-lg">IMG</span>
+      <div class="flex flex-col md:flex-row">
+        <!-- Story Cover Image -->
+        <div class="md:w-64 md:h-80 w-full h-64 flex-shrink-0 relative">
+          <div
+            class="w-full h-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center"
+          >
+            @if (story.imageUrl) {
+            <img
+              [src]="story.imageUrl"
+              [alt]="story.title"
+              class="w-full h-full object-cover"
+            />
+            } @else {
+            <div class="text-center text-white">
+              <svg
+                class="w-16 h-16 mx-auto mb-4 opacity-80"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2M7 4h10M7 4L6 20h12l-1-16M10 8v8m4-8v8"
+                ></path>
+              </svg>
+              <p class="text-lg font-medium">{{ story.title }}</p>
+            </div>
+            }
+          </div>
+          <!-- Premium Badge if not free -->
+          @if (!story.isFree) {
+          <div
+            class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-3 py-1 rounded-full text-xs font-bold"
+          >
+            PREMIUM
+          </div>
           }
         </div>
-      </div>
 
-      <!-- Story title -->
-      <div
-        class="text-base sm:text-lg font-bold text-center w-full md:w-40 lg:w-48 flex items-center justify-center md:justify-start text-gray-300"
-      >
-        {{ story.title }}
+        <!-- Story Content -->
+        <div class="flex-1 p-8 flex flex-col justify-between">
+          <!-- Story Header -->
+          <div class="mb-6">
+            <h3 class="text-2xl font-bold text-white mb-3 leading-tight">
+              {{ story.title }}
+            </h3>
+            <p class="text-gray-400 text-sm mb-4 line-clamp-3">
+              Una experiencia musical única que transformará tu perspectiva.
+              Cada historia está cuidadosamente diseñada para tocar las fibras
+              más profundas del alma.
+            </p>
+            <div class="flex items-center space-x-4 text-sm text-gray-500">
+              <span class="flex items-center">
+                <svg
+                  class="w-4 h-4 mr-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                25-35 min
+              </span>
+              <span class="flex items-center">
+                <svg
+                  class="w-4 h-4 mr-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+                  ></path>
+                </svg>
+                Audio Original
+              </span>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="space-y-4">
+            <!-- Primary Actions Row -->
+            <div class="flex flex-col sm:flex-row gap-3">
+              @if (story.isFree) {
+              <button
+                (click)="openStoryDetail(story.id, 'preview')"
+                class="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10v4a2 2 0 002 2h2a2 2 0 002-2v-4M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1"
+                  ></path>
+                </svg>
+                Escuchar Gratis
+              </button>
+              } @else {
+              <button
+                (click)="openStoryDetail(story.id, 'preview')"
+                class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10v4a2 2 0 002 2h2a2 2 0 002-2v-4M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1"
+                  ></path>
+                </svg>
+                Muestra Gratis
+              </button>
+              <button
+                (click)="openStoryDetail(story.id)"
+                class="flex-1 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 11V7a4 4 0 00-8 0v4M8 11v6a2 2 0 002 2h4a2 2 0 002-2v-6M8 11h8"
+                  ></path>
+                </svg>
+                Comprar Ahora
+              </button>
+              }
+            </div>
+
+            <!-- Secondary Actions Row -->
+            <div class="grid grid-cols-2 gap-3">
+              <button
+                (click)="openStoryDetail(story.id, 'dedication')"
+                class="bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 border border-gray-600 hover:border-gray-500 flex items-center justify-center text-sm"
+              >
+                <svg
+                  class="w-4 h-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  ></path>
+                </svg>
+                Dedicatoria
+              </button>
+              <button
+                (click)="openStoryDetail(story.id, 'guide')"
+                class="bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 border border-gray-600 hover:border-gray-500 flex items-center justify-center text-sm"
+              >
+                <svg
+                  class="w-4 h-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  ></path>
+                </svg>
+                Guías
+              </button>
+            </div>
+
+            <!-- Additional Guide Buttons -->
+            <div class="pt-2 border-t border-gray-700">
+              <p class="text-xs text-gray-500 mb-3">
+                Recursos adicionales incluidos:
+              </p>
+              <div class="grid grid-cols-3 gap-2">
+                <button
+                  (click)="openStoryDetail(story.id, 'guide')"
+                  class="bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-gray-300 text-xs py-2 px-3 rounded-md transition-all duration-300 border border-gray-700 hover:border-gray-600"
+                >
+                  Guía Emocional
+                </button>
+                <button
+                  (click)="openStoryDetail(story.id, 'guide')"
+                  class="bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-gray-300 text-xs py-2 px-3 rounded-md transition-all duration-300 border border-gray-700 hover:border-gray-600"
+                >
+                  Despertar
+                </button>
+                <button
+                  (click)="openStoryDetail(story.id, 'guide')"
+                  class="bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-gray-300 text-xs py-2 px-3 rounded-md transition-all duration-300 border border-gray-700 hover:border-gray-600"
+                >
+                  Musical
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Action buttons container -->
-    <div
-      class="flex flex-col sm:flex-row gap-6 w-full overflow-x-auto justify-between items-stretch p-4"
-    >
-      <!-- Listen/Buy buttons -->
-      <div
-        class="flex flex-col gap-2 w-full sm:flex-1 items-center bg-white p-4 justify-center rounded-lg border border-gray-700"
-      >
-        @if (story.isFree) {
-        <button
-          (click)="openStoryDetail(story.id, 'preview')"
-          class="whitespace-nowrap text-sm p-2 text-center w-full bg-black hover:bg-gray-100 transition-colors rounded-lg duration-200"
-        >
-          Escucha el cuento
-        </button>
-        } @else {
-        <button
-          (click)="openStoryDetail(story.id, 'preview')"
-          class="whitespace-nowrap text-sm p-2 text-center w-full bg-black hover:bg-gray-100 transition-colors rounded-lg duration-200"
-        >
-          Escuchar un fragmento
-        </button>
-        <button
-          (click)="openStoryDetail(story.id)"
-          class="whitespace-nowrap text-sm p-2 text-center w-full bg-black hover:bg-gray-100 transition-colors rounded-lg duration-200"
-        >
-          Compra el cuento
-        </button>
-        }
-      </div>
-
-      <!-- Dedication button -->
-      <div
-        class="flex items-center justify-center w-full sm:flex-1 bg-white p-4 rounded-lg border border-gray-700"
-      >
-        <button
-          (click)="openStoryDetail(story.id, 'dedication')"
-          class="whitespace-nowrap text-sm p-2 text-center w-full bg-black hover:bg-gray-100 transition-colors rounded-lg duration-200"
-        >
-          Dedicatoria / Presentación
-        </button>
-      </div>
-
-      <!-- Guides buttons -->
-      <div
-        class="flex flex-col gap-2 w-full sm:flex-1 items-center justify-center bg-white p-4 rounded-lg border border-gray-700"
-      >
-        <button
-          (click)="openStoryDetail(story.id, 'guide')"
-          class="whitespace-nowrap text-sm p-2 text-center w-full bg-black hover:bg-gray-100 transition-colors rounded-lg duration-200"
-        >
-          Guía emocional
-        </button>
-        <button
-          (click)="openStoryDetail(story.id, 'guide')"
-          class="whitespace-nowrap text-sm p-2 text-center w-full bg-black hover:bg-gray-100 transition-colors rounded-lg duration-200"
-        >
-          Guía despertador
-        </button>
-        <button
-          (click)="openStoryDetail(story.id, 'guide')"
-          class="whitespace-nowrap text-sm p-2 text-center w-full bg-black hover:bg-gray-100 transition-colors rounded-lg duration-200"
-        >
-          Guía musical
-        </button>
-      </div>
-    </div>
+    }
   </div>
-  }
 </div>
