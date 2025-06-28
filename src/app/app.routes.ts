@@ -16,6 +16,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'contact',
+    loadComponent: () =>
+      import('./pages/contact/contact.component').then(
+        (c) => c.ContactComponent
+      ),
+  },
+  {
     path: 'content/:id',
     loadComponent: () =>
       import('./pages/dynamic-content/dynamic-content.component').then(
@@ -44,6 +51,14 @@ export const routes: Routes = [
         (m) => m.StoryDetailComponent
       ),
     data: { view: 'dedication' },
+  },
+  {
+    path: 'story/:id/presentation',
+    loadComponent: () =>
+      import('./pages/story-detail/story-detail.component').then(
+        (m) => m.StoryDetailComponent
+      ),
+    data: { view: 'presentation' },
   },
   {
     path: 'story/:id/guide',

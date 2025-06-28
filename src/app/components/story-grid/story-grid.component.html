@@ -1,66 +1,34 @@
 <div class="bg-black py-8">
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto px-4">
-    @for (story of gridItems; track story.id) {
-    <div
-      class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl overflow-hidden shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:scale-105 border border-gray-700"
-    >
-      <div class="flex flex-col md:flex-row">
-        <!-- Story Cover Image -->
-        <div class="md:w-64 md:h-80 w-full h-64 flex-shrink-0 relative">
-          <div
-            class="w-full h-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center"
-          >
-            @if (story.imageUrl) {
-            <img
-              [src]="story.imageUrl"
-              [alt]="story.title"
-              class="w-full h-full object-cover"
-            />
-            } @else {
-            <div class="text-center text-white">
-              <svg
-                class="w-16 h-16 mx-auto mb-4 opacity-80"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2M7 4h10M7 4L6 20h12l-1-16M10 8v8m4-8v8"
-                ></path>
-              </svg>
-              <p class="text-lg font-medium">{{ story.title }}</p>
-            </div>
-            }
-          </div>
-          <!-- Premium Badge if not free -->
-          @if (!story.isFree) {
-          <div
-            class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-3 py-1 rounded-full text-xs font-bold"
-          >
-            PREMIUM
-          </div>
-          }
+  <div class="w-full px-4">
+    <div class="space-y-4">
+      @for (story of gridItems; track story.id) {
+      <div
+        class="w-full bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.01] border border-gray-700"
+      >
+        <!-- Custom Phrase Header (Top) -->
+        <div class="bg-gray-800 px-3 py-2 text-center">
+          <span class="text-white text-xs font-medium">
+            {{ story.customPhrase || "Custom phrase" }}
+          </span>
         </div>
 
-        <!-- Story Content -->
-        <div class="flex-1 p-8 flex flex-col justify-between">
-          <!-- Story Header -->
-          <div class="mb-6">
-            <h3 class="text-2xl font-bold text-white mb-3 leading-tight">
-              {{ story.title }}
-            </h3>
-            <p class="text-gray-400 text-sm mb-4 line-clamp-3">
-              Una experiencia musical única que transformará tu perspectiva.
-              Cada historia está cuidadosamente diseñada para tocar las fibras
-              más profundas del alma.
-            </p>
-            <div class="flex items-center space-x-4 text-sm text-gray-500">
-              <span class="flex items-center">
+        <!-- Main Content: Image, Title, Containers (Horizontal) -->
+        <div class="flex flex-col sm:flex-row items-stretch">
+          <!-- Image Section -->
+          <div class="sm:w-64 flex-shrink-0">
+            <div
+              class="aspect-square bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center relative"
+            >
+              @if (story.imageUrl) {
+              <img
+                [src]="story.imageUrl"
+                [alt]="story.title"
+                class="w-full h-full object-cover"
+              />
+              } @else {
+              <div class="text-center text-white p-4">
                 <svg
-                  class="w-4 h-4 mr-1"
+                  class="w-12 h-12 mx-auto mb-2 opacity-80"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -69,168 +37,115 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                   ></path>
                 </svg>
-                25-35 min
-              </span>
-              <span class="flex items-center">
-                <svg
-                  class="w-4 h-4 mr-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-                  ></path>
-                </svg>
-                Audio Original
-              </span>
+                <p class="text-sm font-medium">{{ story.title }}</p>
+              </div>
+              }
+
+              <!-- Premium Badge -->
+              @if (!story.isFree) {
+              <div
+                class="absolute top-2 right-2 bg-yellow-500 text-black px-2 py-1 rounded-full text-xs font-bold"
+              >
+                PREMIUM
+              </div>
+              }
             </div>
           </div>
 
-          <!-- Action Buttons -->
-          <div class="space-y-4">
-            <!-- Primary Actions Row -->
-            <div class="flex flex-col sm:flex-row gap-3">
-              @if (story.isFree) {
-              <button
-                (click)="openStoryDetail(story.id, 'preview')"
-                class="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center"
-              >
-                <svg
-                  class="w-5 h-5 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10v4a2 2 0 002 2h2a2 2 0 002-2v-4M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1"
-                  ></path>
-                </svg>
-                Escuchar Gratis
-              </button>
-              } @else {
-              <button
-                (click)="openStoryDetail(story.id, 'preview')"
-                class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center"
-              >
-                <svg
-                  class="w-5 h-5 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10v4a2 2 0 002 2h2a2 2 0 002-2v-4M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1"
-                  ></path>
-                </svg>
-                Muestra Gratis
-              </button>
-              <button
-                (click)="openStoryDetail(story.id)"
-                class="flex-1 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center"
-              >
-                <svg
-                  class="w-5 h-5 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M16 11V7a4 4 0 00-8 0v4M8 11v6a2 2 0 002 2h4a2 2 0 002-2v-6M8 11h8"
-                  ></path>
-                </svg>
-                Comprar Ahora
-              </button>
-              }
-            </div>
+          <!-- Title Section -->
+          <div
+            class="sm:w-48 flex-shrink-0 flex items-center justify-center p-4"
+          >
+            <h3 class="text-white text-lg font-semibold text-center">
+              {{ story.title }}
+            </h3>
+          </div>
 
-            <!-- Secondary Actions Row -->
-            <div class="grid grid-cols-2 gap-3">
-              <button
-                (click)="openStoryDetail(story.id, 'dedication')"
-                class="bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 border border-gray-600 hover:border-gray-500 flex items-center justify-center text-sm"
+          <!-- Containers Section -->
+          <div class="flex-1 p-4 flex items-center">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+              <!-- Container 1: Listen/Purchase -->
+              <div
+                class="bg-gray-800 rounded-lg p-4 flex items-center justify-center min-h-[120px]"
               >
-                <svg
-                  class="w-4 h-4 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  ></path>
-                </svg>
-                Dedicatoria
-              </button>
-              <button
-                (click)="openStoryDetail(story.id, 'guide')"
-                class="bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 border border-gray-600 hover:border-gray-500 flex items-center justify-center text-sm"
-              >
-                <svg
-                  class="w-4 h-4 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  ></path>
-                </svg>
-                Guías
-              </button>
-            </div>
+                @if (story.isFree) {
+                <div class="flex justify-center w-full">
+                  <button
+                    (click)="openStoryDetail(story.id, 'preview')"
+                    class="w-full bg-green-600 hover:bg-green-700 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  >
+                    Título del cuento al completo
+                  </button>
+                </div>
+                } @else {
+                <div class="flex flex-col items-center space-y-2 w-full">
+                  <button
+                    (click)="openStoryDetail(story.id, 'preview')"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  >
+                    Escucha un fragmento
+                  </button>
+                  <button
+                    (click)="openStoryDetail(story.id, 'purchase')"
+                    class="w-full bg-blue-700 hover:bg-blue-800 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  >
+                    Compra el cuento
+                  </button>
+                </div>
+                }
+              </div>
 
-            <!-- Additional Guide Buttons -->
-            <div class="pt-2 border-t border-gray-700">
-              <p class="text-xs text-gray-500 mb-3">
-                Recursos adicionales incluidos:
-              </p>
-              <div class="grid grid-cols-3 gap-2">
+              <!-- Container 2: Dedication/Presentation -->
+              <div
+                class="bg-purple-900 rounded-lg p-4 flex items-center justify-center min-h-[120px]"
+              >
+                <div class="flex flex-col items-center space-y-2 w-full">
+                  <button
+                    (click)="openStoryDetail(story.id, 'dedication')"
+                    class="w-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  >
+                    Dedicatoria
+                  </button>
+                  <button
+                    (click)="openStoryDetail(story.id, 'presentation')"
+                    class="w-full bg-purple-700 hover:bg-purple-800 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  >
+                    Presentación
+                  </button>
+                </div>
+              </div>
+
+              <!-- Container 3: Guides -->
+              <div
+                class="bg-indigo-900 rounded-lg p-4 flex flex-col items-center justify-center min-h-[120px] space-y-2"
+              >
                 <button
-                  (click)="openStoryDetail(story.id, 'guide')"
-                  class="bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-gray-300 text-xs py-2 px-3 rounded-md transition-all duration-300 border border-gray-700 hover:border-gray-600"
+                  (click)="openStoryDetail(story.id, 'emotional-guide')"
+                  class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
                 >
-                  Guía Emocional
+                  Guía emocional
                 </button>
                 <button
-                  (click)="openStoryDetail(story.id, 'guide')"
-                  class="bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-gray-300 text-xs py-2 px-3 rounded-md transition-all duration-300 border border-gray-700 hover:border-gray-600"
+                  (click)="openStoryDetail(story.id, 'awakening-guide')"
+                  class="w-full bg-indigo-700 hover:bg-indigo-800 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
                 >
-                  Despertar
+                  Guía despertador
                 </button>
                 <button
-                  (click)="openStoryDetail(story.id, 'guide')"
-                  class="bg-gray-900 hover:bg-gray-800 text-gray-400 hover:text-gray-300 text-xs py-2 px-3 rounded-md transition-all duration-300 border border-gray-700 hover:border-gray-600"
+                  (click)="openStoryDetail(story.id, 'musical-guide')"
+                  class="w-full bg-indigo-800 hover:bg-indigo-900 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
                 >
-                  Musical
+                  Guía musical
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      }
     </div>
-    }
   </div>
 </div>

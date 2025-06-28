@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Story } from '../../../interfaces/story';
+import { StoryService } from '../../../services/story.service';
 
 @Component({
   selector: 'app-story-summary',
@@ -12,43 +13,42 @@ import { Story } from '../../../interfaces/story';
 })
 export class StorySummaryComponent implements OnInit {
   stories: Story[] = [];
+  isLoading = false;
+  errorMessage = '';
 
-  constructor() {}
+  constructor(private storyService: StoryService) {}
 
   ngOnInit() {
-    // Here you would call a service to get the stories
-    // For now, just set some dummy data
-    this.stories = [
-      {
-        id: 1,
-        title: 'El Bosque Encantado',
-        content: 'Contenido del cuento...',
-        description: 'Un cuento mágico sobre un bosque encantado',
-        imageUrl: 'forest.jpg',
-        hasInteractiveElements: false,
+    this.loadStories();
+  }
+
+  loadStories() {
+    this.isLoading = true;
+    this.storyService.getAllStories().subscribe({
+      next: (stories) => {
+        this.stories = stories;
+        this.isLoading = false;
       },
-      {
-        id: 2,
-        title: 'El Mar Azul',
-        content: 'Contenido del cuento...',
-        description: 'Aventuras en el mar azul',
-        imageUrl: 'sea.jpg',
-        hasInteractiveElements: true,
+      error: (error) => {
+        console.error('Error loading stories:', error);
+        this.errorMessage = 'Error loading stories';
+        this.isLoading = false;
       },
-      {
-        id: 3,
-        title: 'La Montaña Mágica',
-        content: 'Contenido del cuento...',
-        description: 'Descubriendo los secretos de la montaña',
-        imageUrl: 'mountain.jpg',
-        hasInteractiveElements: false,
-      },
-    ];
+    });
   }
 
   deleteStory(id: number) {
-    // Here you would call a service to delete the story
-    console.log('Deleting story with id:', id);
-    this.stories = this.stories.filter((story) => story.id !== id);
+    if (confirm('¿Estás seguro de que quieres eliminar este cuento?')) {
+      this.storyService.deleteStory(id).subscribe({
+        next: () => {
+          console.log('Story deleted successfully');
+          this.loadStories(); // Reload the list
+        },
+        error: (error) => {
+          console.error('Error deleting story:', error);
+          this.errorMessage = 'Error deleting story';
+        },
+      });
+    }
   }
 }

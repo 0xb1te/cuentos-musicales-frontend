@@ -1,37 +1,47 @@
 <div class="menu-management-container max-w-4xl mx-auto p-4">
   <!-- Sección de gestión de opciones de menú -->
-  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-    <h2 class="text-xl font-bold mb-4 text-center">
+  <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-600 p-6 mb-6">
+    <h2 class="text-2xl font-bold mb-6 text-center text-white">
       Gestión de Opciones de Menú
     </h2>
 
     <!-- Lista de opciones de menú -->
     <div class="mb-6">
-      <h3 class="text-lg font-medium mb-2">Opciones de Menú Actuales</h3>
-      <div class="bg-gray-50 p-3 rounded-lg max-h-60 overflow-y-auto">
+      <h3 class="text-lg font-medium mb-4 text-gray-200">
+        Opciones de Menú Actuales
+      </h3>
+      <div
+        class="bg-gray-700 p-4 rounded-lg max-h-60 overflow-y-auto border border-gray-600"
+      >
         <table class="w-full">
-          <thead class="bg-gray-100">
+          <thead class="bg-gray-600">
             <tr>
-              <th class="py-2 px-3 text-left">Título</th>
-              <th class="py-2 px-3 text-center">Tipo</th>
-              <th class="py-2 px-3 text-center">Acciones</th>
+              <th class="py-3 px-4 text-left text-gray-200 font-medium">
+                Título
+              </th>
+              <th class="py-3 px-4 text-center text-gray-200 font-medium">
+                Tipo
+              </th>
+              <th class="py-3 px-4 text-center text-gray-200 font-medium">
+                Acciones
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr
               *ngFor="let option of menuOptionsFlat"
-              class="border-b border-gray-200 hover:bg-gray-100"
+              class="border-b border-gray-600 hover:bg-gray-600 transition-colors"
             >
-              <td class="py-2 px-3">{{ option.title }}</td>
-              <td class="py-2 px-3 text-center">
+              <td class="py-3 px-4 text-gray-200">{{ option.title }}</td>
+              <td class="py-3 px-4 text-center">
                 <span
                   *ngIf="option.images && option.images.length > 0"
-                  class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded"
+                  class="bg-blue-600 text-blue-100 text-xs font-medium px-3 py-1 rounded-full"
                   >Con imágenes</span
                 >
                 <span
                   *ngIf="checkForChildren(option.id)"
-                  class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded"
+                  class="bg-green-600 text-green-100 text-xs font-medium px-3 py-1 rounded-full"
                   >Con hijos</span
                 >
                 <span
@@ -39,28 +49,31 @@
                     !checkForChildren(option.id) &&
                     (!option.images || option.images.length === 0)
                   "
-                  class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded"
+                  class="bg-gray-500 text-gray-100 text-xs font-medium px-3 py-1 rounded-full"
                   >Normal</span
                 >
               </td>
-              <td class="py-2 px-3 flex justify-center space-x-2">
+              <td class="py-3 px-4 flex justify-center space-x-2">
                 <button
                   (click)="selectOptionForEdit(option)"
-                  class="bg-blue-500 text-white px-3 py-1 rounded text-xs"
+                  class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition-colors"
                 >
                   Editar
                 </button>
                 <button
                   (click)="deleteOption(option.id)"
-                  class="bg-red-500 text-white px-3 py-1 rounded text-xs"
+                  class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition-colors"
                 >
                   Eliminar
                 </button>
               </td>
             </tr>
             <tr *ngIf="menuOptionsFlat.length === 0">
-              <td colspan="3" class="py-4 text-center text-gray-500">
-                No hay opciones de menú disponibles
+              <td colspan="3" class="py-6 text-center text-gray-400">
+                <div class="flex flex-col items-center">
+                  <div class="text-2xl mb-2">📋</div>
+                  <div>No hay opciones de menú disponibles</div>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -70,31 +83,31 @@
   </div>
 
   <!-- Formulario para añadir/editar opciones de menú -->
-  <div class="bg-white rounded-lg shadow-md p-6">
-    <h2 class="text-xl font-bold mb-4 text-center">
+  <div class="bg-gray-800 rounded-lg shadow-lg border border-gray-600 p-6">
+    <h2 class="text-2xl font-bold mb-6 text-center text-white">
       {{ isEditing ? "Editar opción de menú" : "Insertar una opción de menú" }}
     </h2>
 
     <!-- Advertencia para elementos con hijos -->
     <div
       *ngIf="isEditing && hasChildItems"
-      class="bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-3 rounded mb-4"
+      class="bg-yellow-900 border border-yellow-600 text-yellow-200 px-4 py-3 rounded-lg mb-6"
     >
       <strong>Atención:</strong> Esta opción de menú tiene elementos hijos. Si
       se añaden imágenes, estas se convertirán en un ítem final sin hijos.
     </div>
 
     <form [formGroup]="menuOptionForm" (ngSubmit)="onSubmit()">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
           <div class="flex justify-between items-center">
-            <label class="block text-sm font-medium"
+            <label class="block text-sm font-medium text-gray-200 mb-2"
               >Imágenes
-              <span class="text-xs text-gray-500">(máx 10)</span></label
+              <span class="text-xs text-gray-400">(máx 10)</span></label
             >
             <span
               *ngIf="uploadedImages.length > 0"
-              class="text-xs text-blue-600"
+              class="text-xs text-blue-400 font-medium"
               >{{ uploadedImages.length }} imágenes</span
             >
           </div>
@@ -102,11 +115,11 @@
             type="file"
             (change)="onFileSelected($event)"
             accept="image/*"
-            class="w-full p-2 border rounded mt-1"
+            class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
             [disabled]="uploadedImages.length >= 10 || isLoading"
           />
-          <div class="flex justify-between items-center mt-2">
-            <div class="text-xs text-gray-500">
+          <div class="flex justify-between items-center mt-3">
+            <div class="text-xs text-gray-400">
               <span *ngIf="uploadedImages.length > 0"
                 >Un menú con imágenes no puede tener elementos hijos</span
               >
@@ -116,7 +129,7 @@
               [disabled]="
                 !selectedFile || isLoading || uploadedImages.length >= 10
               "
-              class="bg-blue-500 text-white px-4 py-1 rounded text-sm"
+              class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               (click)="uploadImage()"
             >
               Añadir
@@ -125,11 +138,15 @@
         </div>
 
         <div class="image-select-area">
-          <h3 class="text-sm font-medium mb-2">Imágenes añadidas:</h3>
-          <div class="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto">
+          <h3 class="text-sm font-medium mb-3 text-gray-200">
+            Imágenes añadidas:
+          </h3>
+          <div
+            class="grid grid-cols-2 gap-3 max-h-40 overflow-y-auto bg-gray-700 p-3 rounded-lg border border-gray-600"
+          >
             <div
               *ngFor="let image of uploadedImages; let i = index"
-              class="relative p-1 border rounded"
+              class="relative p-2 border border-gray-600 rounded-lg bg-gray-800"
             >
               <img
                 [src]="image"
@@ -139,31 +156,37 @@
               <button
                 type="button"
                 (click)="removeImage(i)"
-                class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                class="absolute -top-1 -right-1 bg-red-600 hover:bg-red-700 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold transition-colors"
                 title="Eliminar imagen"
               >
-                X
+                ×
               </button>
-              <div class="text-xs text-center mt-1">Imagen {{ i + 1 }}</div>
+              <div class="text-xs text-center mt-2 text-gray-300">
+                Imagen {{ i + 1 }}
+              </div>
             </div>
             <div
               *ngIf="uploadedImages.length === 0"
-              class="text-gray-500 text-sm italic p-4 border rounded flex items-center justify-center"
+              class="col-span-2 text-gray-400 text-sm italic p-6 border border-gray-600 border-dashed rounded-lg flex items-center justify-center"
             >
-              No hay imágenes añadidas
+              <div class="text-center">
+                <div class="text-2xl mb-2">🖼️</div>
+                <div>No hay imágenes añadidas</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="mb-4">
-        <label class="block text-sm font-medium"
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-200 mb-2"
           >Título de la opción del menú</label
         >
         <input
           type="text"
           formControlName="title"
-          class="w-full p-2 border rounded mt-1"
+          class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+          placeholder="Ingrese el título de la opción"
           [ngClass]="{
             'border-red-500':
               menuOptionForm.get('title')?.invalid &&
@@ -175,89 +198,87 @@
             menuOptionForm.get('title')?.invalid &&
             menuOptionForm.get('title')?.touched
           "
-          class="text-red-500 text-sm mt-1"
+          class="text-red-400 text-sm mt-2"
         >
           El título es obligatorio
         </div>
       </div>
 
-      <div class="mb-4">
-        <label class="block text-sm font-medium">
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-200 mb-2">
           Ruta
-          <span *ngIf="uploadedImages.length > 0" class="text-red-500">*</span>
+          <span *ngIf="uploadedImages.length > 0" class="text-red-400">*</span>
           <span
             *ngIf="uploadedImages.length === 0"
-            class="text-xs text-gray-500"
+            class="text-xs text-gray-400"
             >(opcional)</span
           >
         </label>
         <input
           type="text"
           formControlName="route"
-          class="w-full p-2 border rounded mt-1"
+          class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
           placeholder="/ruta/aqui"
           [ngClass]="{
             'border-red-500':
+              uploadedImages.length > 0 &&
               menuOptionForm.get('route')?.invalid &&
               menuOptionForm.get('route')?.touched
           }"
         />
         <div
           *ngIf="
-            menuOptionForm.hasError('routeRequiredWithImages') &&
+            uploadedImages.length > 0 &&
+            menuOptionForm.get('route')?.invalid &&
             menuOptionForm.get('route')?.touched
           "
-          class="text-red-500 text-sm mt-1"
+          class="text-red-400 text-sm mt-2"
         >
-          La ruta es obligatoria cuando se añaden imágenes
+          La ruta es obligatoria para menús con imágenes
         </div>
       </div>
 
-      <div class="mb-4">
-        <label class="block text-sm font-medium">Opción padre</label>
-        <select
-          formControlName="parentId"
-          class="w-full p-2 border rounded mt-1"
-          [disabled]="isEditing && hasChildItems"
-        >
-          <option [value]="0">Nivel principal</option>
-          <option *ngFor="let option of menuOptionsFlat" [value]="option.id">
-            {{ option.title }}
-          </option>
-        </select>
-        <div
-          *ngIf="isEditing && hasChildItems"
-          class="text-gray-500 text-xs mt-1"
-        >
-          No se puede cambiar el padre porque esta opción tiene elementos hijos
-        </div>
-      </div>
-
-      <div
-        *ngIf="menuOptionForm.hasError('cannotHaveImagesAndChildren')"
-        class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4"
-      >
-        Una opción de menú no puede tener imágenes y elementos hijos al mismo
-        tiempo.
-      </div>
-
-      <div class="flex justify-end mt-4 space-x-3">
+      <!-- Botones de acción -->
+      <div class="flex justify-end space-x-4">
         <button
-          *ngIf="isEditing"
           type="button"
+          *ngIf="isEditing"
           (click)="cancelEdit()"
-          class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500"
+          class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
         >
           Cancelar
         </button>
         <button
           type="submit"
-          class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
           [disabled]="menuOptionForm.invalid || isLoading"
+          class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         >
-          {{
-            isLoading ? "Procesando..." : isEditing ? "Actualizar" : "Continuar"
-          }}
+          <span *ngIf="isLoading" class="flex items-center">
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            {{ isEditing ? "Actualizando..." : "Guardando..." }}
+          </span>
+          <span *ngIf="!isLoading">{{
+            isEditing ? "Actualizar" : "Guardar"
+          }}</span>
         </button>
       </div>
     </form>

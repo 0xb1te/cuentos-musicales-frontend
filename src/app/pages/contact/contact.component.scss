@@ -1,0 +1,224 @@
+.contact-page {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+
+  .hero-section {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    h1 {
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 1s ease-out;
+    }
+
+    p {
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+  }
+
+  // Form styling
+  .bg-gray-900 {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  // Input field animations
+  input,
+  textarea {
+    transition: all 0.3s ease;
+
+    &:focus {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(147, 51, 234, 0.2);
+    }
+
+    &::placeholder {
+      transition: opacity 0.3s ease;
+    }
+
+    &:focus::placeholder {
+      opacity: 0.7;
+    }
+  }
+
+  // Button animations
+  button {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+      );
+      transition: left 0.5s ease;
+    }
+
+    &:hover::before {
+      left: 100%;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      transform: none;
+
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  // Contact info icons
+  .bg-purple-600,
+  .bg-blue-600,
+  .bg-indigo-600 {
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+  }
+
+  // FAQ section
+  .border-b {
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: rgba(147, 51, 234, 0.5);
+      padding-left: 1rem;
+    }
+  }
+
+  // Success/Error message animations
+  .bg-green-600,
+  .bg-red-600 {
+    animation: slideInDown 0.5s ease-out;
+  }
+
+  // Loading spinner
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+}
+
+// Keyframe animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Responsive design
+@media (max-width: 1024px) {
+  .contact-page {
+    .hero-section {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-page {
+    .hero-section {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+
+    .bg-gray-900 {
+      padding: 1.5rem;
+    }
+
+    .grid {
+      gap: 2rem;
+    }
+  }
+}

@@ -1,9 +1,9 @@
 // story-grid.component.ts
-import { Component, OnInit, effect } from '@angular/core'; // Import effect
+import { Component, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoryService } from '../../services/story.service';
 import { Story } from '../../interfaces/story';
-import { CategoryService } from '../../services/category.service'; // Import the service
+import { CategoryService } from '../../services/category.service';
 import { PopupService } from '../../services/popup.service';
 
 @Component({

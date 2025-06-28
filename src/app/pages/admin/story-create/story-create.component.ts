@@ -38,11 +38,19 @@ export class StoryCreateComponent {
       audioFullUrl: [''],
       indicativeImage1: [''],
       indicativeImage2: [''],
+      dedicationImageUrl: [''],
+      presentationImageUrl: [''],
       emotionalGuideUrl: [''],
       musicalGuideUrl: [''],
       educationalGuideUrl: [''],
       duration: [0],
       hasInteractiveElements: [false],
+      customPhrase: [''],
+      // Color theme fields
+      backgroundColor: ['#1f2937'],
+      buttonsColor: ['#3b82f6'],
+      textColorButtons: ['#ffffff'],
+      textColor: ['#f9fafb'],
     });
 
     // Verificar que el usuario está autenticado
@@ -59,24 +67,18 @@ export class StoryCreateComponent {
       console.log('Files to upload:', Object.keys(this.files).length);
 
       // First upload all files
-      const fileUploads = Object.keys(this.files)
-        .map((field) => {
-          const file = this.files[field];
-          if (file) {
-            console.log(
-              `Uploading file for field: ${field}, name: ${file.name}, size: ${file.size} bytes`
-            );
-            return this.storyService.uploadFile(file, field).pipe(
-              finalize(() => {
-                // Remove the file after upload to avoid re-uploading
-                delete this.files[field];
-              })
-            );
-          } else {
-            return of(null);
-          }
-        })
-        .filter((upload) => upload !== null);
+      const fileFields = Object.keys(this.files);
+      const fileUploads = fileFields.map((field) => {
+        const file = this.files[field];
+        console.log(
+          `Uploading file for field: ${field}, name: ${file.name}, size: ${file.size} bytes`
+        );
+        return this.storyService.uploadFile(file, field).pipe(
+          finalize(() => {
+            console.log(`Upload completed for field: ${field}`);
+          })
+        );
+      });
 
       if (fileUploads.length > 0) {
         console.log(`Starting upload of ${fileUploads.length} files`);
@@ -86,13 +88,16 @@ export class StoryCreateComponent {
             // Update form with URLs from upload results
             results.forEach((result, index) => {
               if (result && result.url) {
-                const fieldName = Object.keys(this.files)[index];
+                const fieldName = fileFields[index];
                 this.storyForm.get(fieldName)?.setValue(result.url);
                 console.log(
                   `Updated form field ${fieldName} with URL: ${result.url}`
                 );
               }
             });
+
+            // Clear the files dictionary since they're now uploaded
+            this.files = {};
             this.createStory();
           },
           error: (error) => {
@@ -104,6 +109,9 @@ export class StoryCreateComponent {
         console.log('No files to upload, proceeding to create story');
         this.createStory();
       }
+    } else {
+      console.log('Form is invalid:', this.storyForm.errors);
+      this.errorMessage = 'Por favor, completa todos los campos requeridos.';
     }
   }
 
@@ -147,6 +155,18 @@ export class StoryCreateComponent {
         }, 2000);
         return;
       }
+
+      if (error.status === 413) {
+        this.errorMessage =
+          'El archivo es demasiado grande. El tamaño máximo permitido es 10MB.';
+        return;
+      }
+
+      if (error.status === 415) {
+        this.errorMessage =
+          'Tipo de archivo no permitido. Por favor, verifica que el archivo sea válido.';
+        return;
+      }
     }
 
     this.errorMessage =
@@ -156,6 +176,15 @@ export class StoryCreateComponent {
   handleFileUpload(event: any, field: string) {
     const file = event.target.files[0];
     if (file) {
+      // Validate file size (10MB limit)
+      const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+      if (file.size > maxSize) {
+        this.errorMessage = `El archivo ${file.name} es demasiado grande. El tamaño máximo permitido es 10MB.`;
+        // Clear the input
+        event.target.value = '';
+        return;
+      }
+
       // Store file for later upload
       this.files[field] = file;
       // For preview purposes, update the form with the file name
@@ -164,9 +193,14 @@ export class StoryCreateComponent {
         `File selected for ${field}:`,
         file.name,
         'Size:',
-        file.size,
-        'bytes'
+        (file.size / 1024 / 1024).toFixed(2),
+        'MB'
       );
+
+      // Clear any previous error messages
+      if (this.errorMessage.includes('demasiado grande')) {
+        this.errorMessage = '';
+      }
     }
   }
 }

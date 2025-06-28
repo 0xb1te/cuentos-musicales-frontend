@@ -1,9 +1,9 @@
 export interface Story {
   id: number;
   title: string;
-  description: string; // Added this
+  description: string;
   content: string;
-  imageUrl: string; // Added this
+  imageUrl: string;
   hasInteractiveElements: boolean;
   interactiveElements?: InteractiveElement[];
   teachingGuide?: TeachingGuide;
@@ -14,10 +14,18 @@ export interface Story {
   audioFullUrl?: string;
   indicativeImage1?: string;
   indicativeImage2?: string;
+  dedicationImageUrl?: string;
+  presentationImageUrl?: string;
   emotionalGuideUrl?: string;
   musicalGuideUrl?: string;
   educationalGuideUrl?: string;
-  duration?: number; // in minutes
+  duration?: number;
+  customPhrase?: string;
+  // Color theme fields for admin customization
+  backgroundColor?: string; // background color of the card and pop-ups
+  buttonsColor?: string; // background color for the buttons of the story
+  textColorButtons?: string; // text color used on the text of the buttons
+  textColor?: string; // text color used on the text of the pop-ups
 }
 
 export interface TeachingGuide {

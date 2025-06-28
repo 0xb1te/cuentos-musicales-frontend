@@ -29,6 +29,8 @@ export class StoryDetailComponent implements OnInit {
   error = signal<string | null>(null);
   loading = signal<boolean>(true);
   currentView = signal<string>('detail');
+  showDedicationModal = signal<boolean>(false);
+  showPresentationModal = signal<boolean>(false);
 
   ngOnInit() {
     this.currentView.set(this.view);
@@ -51,9 +53,16 @@ export class StoryDetailComponent implements OnInit {
       });
   }
 
-  onReadStory() {
-    console.log('Reading story:', this.story()?.id);
-    // Implement story reading logic
+  setView(view: string) {
+    this.currentView.set(view);
+  }
+
+  goToSection(section: string) {
+    this.setView(section);
+  }
+
+  onPurchase() {
+    console.log('Purchase button clicked');
   }
 
   onBuyStory() {
@@ -72,7 +81,22 @@ export class StoryDetailComponent implements OnInit {
   }
 
   onViewFullGuide() {
-    console.log('Viewing full guide for story:', this.story()?.id);
-    // Implement full guide view logic
+    console.log('View full guide clicked');
+  }
+
+  openDedicationModal() {
+    this.showDedicationModal.set(true);
+  }
+
+  closeDedicationModal() {
+    this.showDedicationModal.set(false);
+  }
+
+  openPresentationModal() {
+    this.showPresentationModal.set(true);
+  }
+
+  closePresentationModal() {
+    this.showPresentationModal.set(false);
   }
 }

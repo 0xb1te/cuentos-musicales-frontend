@@ -11,10 +11,10 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  scrollToStories() {
-    const storiesSection = document.getElementById('stories');
-    if (storiesSection) {
-      storiesSection.scrollIntoView({ behavior: 'smooth' });
+  scrollToSection(sectionId: string) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   }
 }

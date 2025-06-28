@@ -1,0 +1,112 @@
+/* Hide scrollbar for horizontal scroll */
+.scrollbar-hide {
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scrolling */
+.scrollbar-hide {
+  scroll-behavior: smooth;
+}
+
+.story-grid-container {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  min-height: 100vh;
+
+  .story-card {
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.01);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3),
+        0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .story-image {
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    // Button containers
+    .button-container {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      // Container-specific styling
+      &.listen-purchase {
+        background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+      }
+
+      &.dedication-presentation {
+        background: linear-gradient(135deg, #581c87 0%, #4c1d95 100%);
+      }
+
+      &.guides {
+        background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%);
+      }
+    }
+
+    .action-button {
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 640px) {
+    .story-card {
+      .flex-col {
+        flex-direction: column;
+      }
+
+      .action-buttons {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .button-container {
+        padding: 1rem;
+      }
+    }
+  }
+
+  @media (min-width: 641px) {
+    .story-card {
+      .flex-row {
+        flex-direction: row;
+      }
+
+      .action-buttons {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+
+      .button-container {
+        padding: 1rem;
+      }
+    }
+  }
+}

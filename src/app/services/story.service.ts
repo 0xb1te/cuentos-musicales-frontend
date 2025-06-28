@@ -8,6 +8,7 @@ export enum HttpRoutes {
   Menu = '/api/menu',
   Stories = '/api/stories',
   Upload = '/api/upload',
+  AdminUpload = '/api/admin/upload',
 }
 
 @Injectable({
@@ -60,11 +61,38 @@ export class StoryService {
   uploadFile(file: File, type: string): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('type', type);
+
+    // Determine file type based on the field type and file extension
+    const fileType = this.determineFileType(type, file.name);
+    formData.append('fileType', fileType);
 
     return this.http.post<any>(
-      `${environment.apiBaseUrl}${HttpRoutes.Upload}`,
+      `${environment.apiBaseUrl}${HttpRoutes.AdminUpload}`,
       formData
     );
+  }
+
+  private determineFileType(fieldType: string, fileName: string): string {
+    const extension = fileName.toLowerCase().split('.').pop();
+
+    // Map field types to storage directories
+    if (fieldType.includes('audio') || fieldType.includes('Audio')) {
+      return 'audio';
+    }
+
+    if (fieldType.includes('guide') || fieldType.includes('Guide')) {
+      return 'documents';
+    }
+
+    if (
+      fieldType.includes('image') ||
+      fieldType.includes('Image') ||
+      ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(extension || '')
+    ) {
+      return 'images';
+    }
+
+    // Default fallback
+    return 'uploads';
   }
 }

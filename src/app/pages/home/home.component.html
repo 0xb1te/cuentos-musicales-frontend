@@ -1,101 +1,113 @@
 <!-- Floating Navbar -->
 <app-navbar></app-navbar>
 
-<div class="relative bg-black min-h-screen">
-  <!-- Hero Section with Professional Design -->
-  <div class="relative">
-    <!-- Main Hero -->
+<div class="relative bg-black">
+  <!-- Section 1: Hero Section with Background Image -->
+  <div
+    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+  >
+    <!-- Background Image -->
     <div
-      class="min-h-screen flex items-center justify-center relative overflow-hidden"
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      style="
+        background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+      "
+    >
+      <div class="absolute inset-0 bg-black opacity-60"></div>
+    </div>
+
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-600 rounded-full blur-3xl animate-pulse"
+      ></div>
+      <div
+        class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse delay-1000"
+      ></div>
+    </div>
+
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <div class="mb-8">
+        <h1
+          class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent leading-tight"
+        >
+          Cuentos Musicales
+        </h1>
+        <h2 class="text-3xl md:text-5xl font-light text-gray-300 mb-8">
+          para el Alma
+        </h2>
+      </div>
+
+      <p
+        class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
+      >
+        Descubre historias que tocan el corazón a través del poder transformador
+        de la música
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <button
+          (click)="scrollToSection('features')"
+          class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+        >
+          Explorar Catálogo
+        </button>
+        <button
+          class="px-8 py-4 border-2 border-gray-600 text-gray-300 font-semibold rounded-full hover:border-gray-400 hover:text-white transform hover:scale-105 transition-all duration-300"
+        >
+          Escuchar Muestra
+        </button>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div
+      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+      (click)="scrollToSection('features')"
     >
       <div
-        class="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800"
+        class="flex flex-col items-center text-gray-400 hover:text-white transition-colors"
       >
-        <div class="absolute inset-0 bg-black opacity-40"></div>
-      </div>
-
-      <!-- Animated background elements -->
-      <div class="absolute inset-0 opacity-10">
-        <div
-          class="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-600 rounded-full blur-3xl animate-pulse"
-        ></div>
-        <div
-          class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse delay-1000"
-        ></div>
-      </div>
-
-      <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <div class="mb-8">
-          <h1
-            class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent leading-tight"
-          >
-            Cuentos Musicales
-          </h1>
-          <h2 class="text-3xl md:text-5xl font-light text-gray-300 mb-8">
-            para el Alma
-          </h2>
-        </div>
-
-        <p
-          class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
+        <svg
+          class="w-6 h-6 mb-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
-          Descubre historias que tocan el corazón a través del poder
-          transformador de la música
-        </p>
-
-        <div
-          class="flex flex-col sm:flex-row gap-4 justify-center items-center"
-        >
-          <button
-            (click)="scrollToStories()"
-            class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
-          >
-            Explorar Catálogo
-          </button>
-          <button
-            class="px-8 py-4 border-2 border-gray-600 text-gray-300 font-semibold rounded-full hover:border-gray-400 hover:text-white transform hover:scale-105 transition-all duration-300"
-          >
-            Escuchar Muestra
-          </button>
-        </div>
-      </div>
-
-      <!-- Scroll indicator -->
-      <div
-        class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
-        (click)="scrollToStories()"
-      >
-        <div
-          class="flex flex-col items-center text-gray-400 hover:text-white transition-colors"
-        >
-          <svg
-            class="w-6 h-6 mb-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            ></path>
-          </svg>
-          <span class="text-sm">Desliza</span>
-        </div>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          ></path>
+        </svg>
+        <span class="text-sm">Desliza</span>
       </div>
     </div>
   </div>
 
-  <!-- Features Section -->
-  <div class="py-20 bg-gradient-to-b from-black to-gray-900">
-    <div class="container mx-auto px-6">
+  <!-- Section 2: Features Section with Background Image -->
+  <div
+    id="features"
+    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+  >
+    <!-- Background Image -->
+    <div
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      style="
+        background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+      "
+    >
+      <div class="absolute inset-0 bg-black opacity-70"></div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-6">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
           Una Experiencia Única
         </h2>
-        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-          Cada cuento combina narrativa cautivadora con paisajes sonoros
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          Cada cuento combina narrativa cautivadora with paisajes sonoros
           envolventes
         </p>
       </div>
@@ -120,7 +132,7 @@
             </svg>
           </div>
           <h3 class="text-2xl font-bold text-white mb-4">Audio Inmersivo</h3>
-          <p class="text-gray-400">
+          <p class="text-gray-300">
             Experimenta cada historia con música original y efectos de sonido
             diseñados especialmente
           </p>
@@ -147,7 +159,7 @@
           <h3 class="text-2xl font-bold text-white mb-4">
             Historias que Sanan
           </h3>
-          <p class="text-gray-400">
+          <p class="text-gray-300">
             Cada cuento está creado para tocar fibras emocionales profundas y
             generar transformación
           </p>
@@ -172,16 +184,161 @@
             </svg>
           </div>
           <h3 class="text-2xl font-bold text-white mb-4">Guías Incluidas</h3>
-          <p class="text-gray-400">
+          <p class="text-gray-300">
             Accede a guías emocionales, musicales y de despertar para
             profundizar tu experiencia
           </p>
         </div>
       </div>
     </div>
+
+    <!-- Scroll indicator -->
+    <div
+      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+      (click)="scrollToSection('experience')"
+    >
+      <div
+        class="flex flex-col items-center text-gray-400 hover:text-white transition-colors"
+      >
+        <svg
+          class="w-6 h-6 mb-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          ></path>
+        </svg>
+        <span class="text-sm">Continúa</span>
+      </div>
+    </div>
   </div>
 
-  <!-- Stories section with professional header -->
+  <!-- Section 3: Experience Section with Background Image -->
+  <div
+    id="experience"
+    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+  >
+    <!-- Background Image -->
+    <div
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      style="
+        background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+      "
+    >
+      <div class="absolute inset-0 bg-black opacity-65"></div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-6 text-center">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">
+          Transforma tu Mundo Interior
+        </h2>
+        <p class="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed">
+          Sumérgete en un viaje de autodescubrimiento donde cada nota musical y
+          cada palabra te guían hacia una conexión más profunda contigo mismo
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <div
+            class="bg-black bg-opacity-40 backdrop-blur-sm rounded-lg p-8 border border-gray-700"
+          >
+            <div
+              class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">
+              Despertar Emocional
+            </h3>
+            <p class="text-gray-300">
+              Cada historia está diseñada para despertar emociones dormidas y
+              facilitar procesos de sanación profunda
+            </p>
+          </div>
+
+          <div
+            class="bg-black bg-opacity-40 backdrop-blur-sm rounded-lg p-8 border border-gray-700"
+          >
+            <div
+              class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <svg
+                class="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-4">
+              Inspiración Creativa
+            </h3>
+            <p class="text-gray-300">
+              Desbloquea tu potencial creativo a través de narrativas que
+              estimulan la imaginación y la expresión personal
+            </p>
+          </div>
+        </div>
+
+        <button
+          (click)="scrollToSection('stories')"
+          class="px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-full hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+        >
+          Descubre Nuestras Historias
+        </button>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div
+      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+      (click)="scrollToSection('stories')"
+    >
+      <div
+        class="flex flex-col items-center text-gray-400 hover:text-white transition-colors"
+      >
+        <svg
+          class="w-6 h-6 mb-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          ></path>
+        </svg>
+        <span class="text-sm">Ver Catálogo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Stories section -->
   <div id="stories" class="bg-black py-20">
     <div class="container mx-auto px-6">
       <div class="text-center mb-16">

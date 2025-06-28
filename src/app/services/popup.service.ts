@@ -10,16 +10,29 @@ export class PopupService {
   constructor(private dialog: MatDialog) {}
 
   openStoryDetail(storyId: number, view: string = 'detail') {
+    const titles: { [key: string]: string } = {
+      detail: 'Detalles del Cuento',
+      preview: 'Vista Previa',
+      dedication: '', // No title for dedication
+      presentation: '', // No title for presentation
+      purchase: 'Comprar Cuento',
+      guide: 'Guías Didácticas',
+      'emotional-guide': 'Guía Emocional',
+      'awakening-guide': 'Guía Despertador',
+      'musical-guide': 'Guía Musical',
+    };
+
     this.dialog.open(MaterialPopupComponent, {
       width: '80%',
       maxWidth: '800px',
       data: {
-        title: 'Detalles del Cuento',
+        title: titles[view] || 'Detalles del Cuento',
         component: StoryDetailComponent,
         inputs: {
           storyId,
           view,
         },
+        hideHeader: view === 'dedication' || view === 'presentation',
       },
     });
   }
