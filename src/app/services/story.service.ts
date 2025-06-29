@@ -76,18 +76,31 @@ export class StoryService {
     const extension = fileName.toLowerCase().split('.').pop();
 
     // Map field types to storage directories
-    if (fieldType.includes('audio') || fieldType.includes('Audio')) {
+    if (
+      fieldType.includes('audio') ||
+      fieldType.includes('Audio') ||
+      ['mp3', 'wav', 'ogg', 'm4a', 'webm', 'weba', 'flac', 'aac'].includes(
+        extension || ''
+      )
+    ) {
       return 'audio';
     }
 
+    // Guide fields are now images, not documents
     if (fieldType.includes('guide') || fieldType.includes('Guide')) {
+      return 'images';
+    }
+
+    if (['pdf', 'doc', 'docx', 'txt', 'rtf'].includes(extension || '')) {
       return 'documents';
     }
 
     if (
       fieldType.includes('image') ||
       fieldType.includes('Image') ||
-      ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(extension || '')
+      ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'].includes(
+        extension || ''
+      )
     ) {
       return 'images';
     }

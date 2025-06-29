@@ -25,9 +25,15 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule],
   template: `
-    <div class="popup-container">
-      <div class="header-container" *ngIf="!data.hideHeader">
-        <h2 mat-dialog-title style="color: white;">{{ data.title }}</h2>
+    <div class="popup-container" [style.background]="getPopupBackground()">
+      <div
+        class="header-container"
+        *ngIf="!data.hideHeader"
+        [style.background]="getHeaderBackground()"
+      >
+        <h2 mat-dialog-title [style.color]="data.textColor || '#f9fafb'">
+          {{ data.title }}
+        </h2>
         <button mat-icon-button (click)="onClose()" class="close-button">
           <mat-icon>close</mat-icon>
         </button>
@@ -40,7 +46,11 @@ import { MatIconModule } from '@angular/material/icon';
       >
         <mat-icon>close</mat-icon>
       </button>
-      <mat-dialog-content [class.no-header]="data.hideHeader">
+      <mat-dialog-content
+        [class.no-header]="data.hideHeader"
+        [style.background]="getContentBackground()"
+        [style.color]="data.textColor || '#f9fafb'"
+      >
         <ng-container #content></ng-container>
       </mat-dialog-content>
     </div>
@@ -230,5 +240,41 @@ export class MaterialPopupComponent implements OnInit {
     if (this.componentRef) {
       this.componentRef.destroy();
     }
+  }
+
+  getPopupBackground() {
+    if (this.data.backgroundColor) {
+      return this.data.backgroundColor;
+    }
+    return 'linear-gradient(145deg, #1f2937, #111827)';
+  }
+
+  getHeaderBackground() {
+    if (this.data.backgroundColor) {
+      // Create a slightly darker version for the header
+      return this.adjustColorOpacity(this.data.backgroundColor, 0.9);
+    }
+    return 'rgba(31, 41, 55, 0.8)';
+  }
+
+  getContentBackground() {
+    if (this.data.backgroundColor) {
+      return this.data.backgroundColor;
+    }
+    return 'linear-gradient(145deg, #1f2937, #111827)';
+  }
+
+  // Helper method to adjust color opacity
+  adjustColorOpacity(color: string, opacity: number): string {
+    // If color is hex, convert to rgba
+    if (color.startsWith('#')) {
+      const hex = color.replace('#', '');
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    }
+    // If already rgba/rgb, return as is (simplified)
+    return color;
   }
 }

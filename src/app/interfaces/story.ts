@@ -18,7 +18,7 @@ export interface Story {
   presentationImageUrl?: string;
   emotionalGuideUrl?: string;
   musicalGuideUrl?: string;
-  educationalGuideUrl?: string;
+  awakeningGuideUrl?: string;
   duration?: number;
   customPhrase?: string;
   // Color theme fields for admin customization
@@ -26,6 +26,7 @@ export interface Story {
   buttonsColor?: string; // background color for the buttons of the story
   textColorButtons?: string; // text color used on the text of the buttons
   textColor?: string; // text color used on the text of the pop-ups
+  containerBackgroundColor?: string; // background color for the button containers
 }
 
 export interface TeachingGuide {

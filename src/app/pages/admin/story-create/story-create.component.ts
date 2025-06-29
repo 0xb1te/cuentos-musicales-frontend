@@ -42,7 +42,7 @@ export class StoryCreateComponent {
       presentationImageUrl: [''],
       emotionalGuideUrl: [''],
       musicalGuideUrl: [''],
-      educationalGuideUrl: [''],
+      awakeningGuideUrl: [''],
       duration: [0],
       hasInteractiveElements: [false],
       customPhrase: [''],
@@ -51,6 +51,7 @@ export class StoryCreateComponent {
       buttonsColor: ['#3b82f6'],
       textColorButtons: ['#ffffff'],
       textColor: ['#f9fafb'],
+      containerBackgroundColor: ['#374151'],
     });
 
     // Verificar que el usuario está autenticado
@@ -137,6 +138,14 @@ export class StoryCreateComponent {
     if (error instanceof HttpErrorResponse) {
       console.error(`Status: ${error.status}, Message: ${error.message}`);
 
+      // Try to extract error message from response body
+      let serverErrorMessage = '';
+      if (error.error && typeof error.error === 'object') {
+        serverErrorMessage = error.error.error || error.error.message || '';
+      } else if (typeof error.error === 'string') {
+        serverErrorMessage = error.error;
+      }
+
       if (error.status === 403) {
         this.errorMessage =
           'No tienes permiso para realizar esta acción. Por favor, inicia sesión nuevamente.';
@@ -167,6 +176,24 @@ export class StoryCreateComponent {
           'Tipo de archivo no permitido. Por favor, verifica que el archivo sea válido.';
         return;
       }
+
+      if (
+        error.status === 400 &&
+        serverErrorMessage.includes('Invalid file type')
+      ) {
+        this.errorMessage = `Error de tipo de archivo: ${serverErrorMessage}`;
+        return;
+      }
+
+      if (error.status === 500) {
+        if (serverErrorMessage.includes('Upload failed')) {
+          this.errorMessage = `Error subiendo archivo: ${serverErrorMessage}`;
+        } else {
+          this.errorMessage =
+            'Error interno del servidor. Por favor, inténtalo de nuevo más tarde.';
+        }
+        return;
+      }
     }
 
     this.errorMessage =
@@ -185,6 +212,13 @@ export class StoryCreateComponent {
         return;
       }
 
+      // Validate file type based on field
+      if (!this.isValidFileForField(file, field)) {
+        this.errorMessage = `El tipo de archivo ${file.name} no es válido para este campo. Por favor, selecciona un archivo compatible.`;
+        event.target.value = '';
+        return;
+      }
+
       // Store file for later upload
       this.files[field] = file;
       // For preview purposes, update the form with the file name
@@ -194,13 +228,86 @@ export class StoryCreateComponent {
         file.name,
         'Size:',
         (file.size / 1024 / 1024).toFixed(2),
-        'MB'
+        'MB',
+        'Type:',
+        file.type
       );
 
       // Clear any previous error messages
-      if (this.errorMessage.includes('demasiado grande')) {
+      if (
+        this.errorMessage.includes('demasiado grande') ||
+        this.errorMessage.includes('no es válido')
+      ) {
         this.errorMessage = '';
       }
     }
+  }
+
+  private isValidFileForField(file: File, field: string): boolean {
+    const fileName = file.name.toLowerCase();
+    const fileType = file.type.toLowerCase();
+    const extension = fileName.split('.').pop() || '';
+
+    // Audio fields
+    if (field.includes('audio') || field.includes('Audio')) {
+      const audioExtensions = [
+        'mp3',
+        'wav',
+        'ogg',
+        'm4a',
+        'webm',
+        'weba',
+        'flac',
+        'aac',
+      ];
+      const audioTypes = ['audio/', 'application/octet-stream']; // octet-stream for .weba files
+      return (
+        audioExtensions.includes(extension) ||
+        audioTypes.some((type) => fileType.startsWith(type))
+      );
+    }
+
+    // Image fields
+    if (
+      field.includes('image') ||
+      field.includes('Image') ||
+      field.includes('Url')
+    ) {
+      const imageExtensions = [
+        'jpg',
+        'jpeg',
+        'png',
+        'gif',
+        'webp',
+        'bmp',
+        'svg',
+      ];
+      const imageTypes = ['image/'];
+      return (
+        imageExtensions.includes(extension) ||
+        imageTypes.some((type) => fileType.startsWith(type))
+      );
+    }
+
+    // Guide fields are now images instead of documents
+    if (field.includes('guide') || field.includes('Guide')) {
+      const imageExtensions = [
+        'jpg',
+        'jpeg',
+        'png',
+        'gif',
+        'webp',
+        'bmp',
+        'svg',
+      ];
+      const imageTypes = ['image/'];
+      return (
+        imageExtensions.includes(extension) ||
+        imageTypes.some((type) => fileType.startsWith(type))
+      );
+    }
+
+    // Default: allow most common formats
+    return true;
   }
 }

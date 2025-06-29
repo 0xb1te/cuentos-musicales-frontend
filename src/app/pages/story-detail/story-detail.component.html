@@ -17,8 +17,9 @@
     <div class="rounded-lg">
       <div class="flex flex-col md:flex-row gap-8">
         <!-- Story image - hidden for dedication and presentation views -->
-        @if (currentView() !== 'dedication' && currentView() !== 'presentation')
-        {
+        @if (currentView() !== 'dedication' && currentView() !== 'presentation'
+        && currentView() !== 'emotional-guide' && currentView() !==
+        'awakening-guide' && currentView() !== 'musical-guide') {
         <div class="w-full md:w-1/3">
           <div
             class="aspect-square bg-orange-500 rounded-lg flex items-center justify-center"
@@ -45,8 +46,11 @@
           "
         >
           @if (currentView() !== 'dedication' && currentView() !==
-          'presentation') {
-          <h1 class="text-3xl font-bold text-white mb-4">
+          'presentation' && !currentView().includes('-guide')) {
+          <h1
+            class="text-3xl font-bold mb-4"
+            [style.color]="story()?.textColor || '#ffffff'"
+          >
             {{ story()?.title }}
           </h1>
 
@@ -62,24 +66,37 @@
             @if (story()?.isFree) {
             <button
               (click)="onDownloadStory()"
-              class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition shadow-lg hover:shadow-xl"
+              class="px-6 py-3 rounded-lg transition shadow-lg hover:shadow-xl"
+              [style.background-color]="story()?.buttonsColor || '#059669'"
+              [style.color]="story()?.textColorButtons || '#ffffff'"
             >
               Descargar Gratis
             </button>
             } @else {
             <div class="mb-4">
-              <p class="text-xl font-bold text-white">Precio: 5€</p>
+              <p
+                class="text-xl font-bold"
+                [style.color]="story()?.textColor || '#ffffff'"
+              >
+                Precio: 5€
+              </p>
             </div>
             <button
               (click)="onBuyStory()"
-              class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-lg hover:shadow-xl"
+              class="px-6 py-3 rounded-lg transition shadow-lg hover:shadow-xl"
+              [style.background-color]="story()?.buttonsColor || '#2563eb'"
+              [style.color]="story()?.textColorButtons || '#ffffff'"
             >
               Comprar Cuento
             </button>
             }
             <button
               (click)="onDownloadGuide()"
-              class="px-6 py-3 bg-gray-700 text-gray-200 rounded-lg hover:bg-gray-600 transition shadow-lg hover:shadow-xl"
+              class="px-6 py-3 rounded-lg transition shadow-lg hover:shadow-xl"
+              [style.background-color]="
+                adjustColor(story()?.buttonsColor || '#6b7280', 20)
+              "
+              [style.color]="story()?.textColorButtons || '#d1d5db'"
             >
               Descargar Guía Didáctica
             </button>
@@ -121,15 +138,12 @@
             </button>
           </div>
           } } @case ('preview') {
-          <div class="mb-6">
+          <div>
             <h2 class="text-xl font-semibold mb-3 text-white">
               Fragmento de Audio
             </h2>
             @if (story()?.audioPreviewUrl) {
-            <audio
-              controls
-              class="w-full rounded-lg bg-gray-800 border border-gray-700"
-            >
+            <audio controls class="w-full rounded-lg">
               <source [src]="story()?.audioPreviewUrl" type="audio/mpeg" />
               Tu navegador no soporta el elemento de audio.
             </audio>
@@ -140,7 +154,7 @@
             }
           </div>
           } @case ('dedication') {
-          <div class="mb-6">
+          <div>
             @if (story()?.dedicationImageUrl) {
             <div class="text-center">
               <img
@@ -156,7 +170,7 @@
             }
           </div>
           } @case ('presentation') {
-          <div class="mb-6">
+          <div>
             @if (story()?.presentationImageUrl) {
             <div class="text-center">
               <img
@@ -171,59 +185,53 @@
             </p>
             }
           </div>
-          } @case ('guide') {
-          <div class="mb-6">
-            <h2 class="text-xl font-semibold mb-3 text-white">
-              Guía Didáctica
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              @if (story()?.emotionalGuideUrl) {
-              <a
-                [href]="story()?.emotionalGuideUrl"
-                target="_blank"
-                class="p-4 bg-orange-900/30 border border-orange-600/30 rounded-lg hover:bg-orange-900/50 transition-all duration-300 group"
-              >
-                <h3
-                  class="font-medium mb-2 text-orange-300 group-hover:text-orange-200"
-                >
-                  Guía Emocional
-                </h3>
-                <p class="text-gray-300 text-sm">
-                  Guía para entender las emociones del cuento.
-                </p>
-              </a>
-              } @if (story()?.musicalGuideUrl) {
-              <a
-                [href]="story()?.musicalGuideUrl"
-                target="_blank"
-                class="p-4 bg-blue-900/30 border border-blue-600/30 rounded-lg hover:bg-blue-900/50 transition-all duration-300 group"
-              >
-                <h3
-                  class="font-medium mb-2 text-blue-300 group-hover:text-blue-200"
-                >
-                  Guía Musical
-                </h3>
-                <p class="text-gray-300 text-sm">
-                  Elementos musicales y sonoros del cuento.
-                </p>
-              </a>
-              } @if (story()?.educationalGuideUrl) {
-              <a
-                [href]="story()?.educationalGuideUrl"
-                target="_blank"
-                class="p-4 bg-green-900/30 border border-green-600/30 rounded-lg hover:bg-green-900/50 transition-all duration-300 group"
-              >
-                <h3
-                  class="font-medium mb-2 text-green-300 group-hover:text-green-200"
-                >
-                  Guía Educativa
-                </h3>
-                <p class="text-gray-300 text-sm">
-                  Guía para uso educativo del cuento.
-                </p>
-              </a>
-              }
+          } @case ('emotional-guide') {
+          <div>
+            @if (story()?.emotionalGuideUrl) {
+            <div class="text-center">
+              <img
+                [src]="story()?.emotionalGuideUrl"
+                [alt]="'Guía Emocional de ' + story()?.title"
+                class="max-w-full h-auto rounded-lg shadow-2xl mx-auto"
+              />
             </div>
+            } @else {
+            <p class="text-gray-300 text-center">
+              No hay guía emocional disponible para esta historia.
+            </p>
+            }
+          </div>
+          } @case ('awakening-guide') {
+          <div>
+            @if (story()?.awakeningGuideUrl) {
+            <div class="text-center">
+              <img
+                [src]="story()?.awakeningGuideUrl"
+                [alt]="'Guía Despertador de ' + story()?.title"
+                class="max-w-full h-auto rounded-lg shadow-2xl mx-auto"
+              />
+            </div>
+            } @else {
+            <p class="text-gray-300 text-center">
+              No hay guía despertador disponible para esta historia.
+            </p>
+            }
+          </div>
+          } @case ('musical-guide') {
+          <div>
+            @if (story()?.musicalGuideUrl) {
+            <div class="text-center">
+              <img
+                [src]="story()?.musicalGuideUrl"
+                [alt]="'Guía Musical de ' + story()?.title"
+                class="max-w-full h-auto rounded-lg shadow-2xl mx-auto"
+              />
+            </div>
+            } @else {
+            <p class="text-gray-300 text-center">
+              No hay guía musical disponible para esta historia.
+            </p>
+            }
           </div>
           } }
         </div>

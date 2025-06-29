@@ -72,7 +72,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
           <label class="block text-sm font-medium text-gray-200 mb-2"
-            >Imagen de presentación</label
+            >Imagen Principal / Portada</label
           >
           <input
             type="file"
@@ -80,6 +80,10 @@
             class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
             accept="image/*"
           />
+          <p class="text-xs text-gray-400 mt-2">
+            Esta será la imagen principal que aparece en el catálogo y en el
+            detalle del cuento
+          </p>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-200 mb-2"
@@ -172,7 +176,7 @@
             accept="image/*"
           />
           <p class="text-xs text-gray-400 mt-2">
-            Esta imagen se mostrará cuando el usuario haga clic en "Dedicatoria"
+            Imagen que se mostrará cuando se pulse el botón "Dedicatoria"
           </p>
         </div>
         <div>
@@ -182,12 +186,11 @@
           <input
             type="file"
             (change)="handleFileUpload($event, 'presentationImageUrl')"
-            class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+            class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
             accept="image/*"
           />
           <p class="text-xs text-gray-400 mt-2">
-            Esta imagen se mostrará cuando el usuario haga clic en
-            "Presentación"
+            Imagen que se mostrará cuando se pulse el botón "Presentación"
           </p>
         </div>
       </div>
@@ -201,8 +204,11 @@
             type="file"
             (change)="handleFileUpload($event, 'emotionalGuideUrl')"
             class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
-            accept=".pdf,.doc,.docx"
+            accept="image/*"
           />
+          <p class="text-xs text-gray-400 mt-2">
+            Solo se aceptan archivos de imagen (JPG, PNG, GIF, etc.)
+          </p>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-200 mb-2"
@@ -212,19 +218,25 @@
             type="file"
             (change)="handleFileUpload($event, 'musicalGuideUrl')"
             class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
-            accept=".pdf,.doc,.docx"
+            accept="image/*"
           />
+          <p class="text-xs text-gray-400 mt-2">
+            Solo se aceptan archivos de imagen (JPG, PNG, GIF, etc.)
+          </p>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-200 mb-2"
-            >Guía Didáctica</label
+            >Guía Despertador</label
           >
           <input
             type="file"
-            (change)="handleFileUpload($event, 'educationalGuideUrl')"
+            (change)="handleFileUpload($event, 'awakeningGuideUrl')"
             class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
-            accept=".pdf,.doc,.docx"
+            accept="image/*"
           />
+          <p class="text-xs text-gray-400 mt-2">
+            Solo se aceptan archivos de imagen (JPG, PNG, GIF, etc.)
+          </p>
         </div>
       </div>
 
@@ -265,6 +277,80 @@
               class="mr-2 text-blue-600 bg-gray-700 border-gray-600 focus:ring-blue-500"
             />
             <label for="interactive-no" class="text-gray-200">No</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Theme Section -->
+      <div class="mb-6 p-4 bg-gray-700 rounded-lg border-2 border-blue-500">
+        <h3 class="text-lg font-semibold text-white mb-4">
+          🎨 Tema de Colores del Cuento
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-200 mb-2">
+              Color de Fondo
+            </label>
+            <input
+              type="color"
+              formControlName="backgroundColor"
+              class="w-full h-12 bg-gray-600 border border-gray-500 rounded-lg cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+            />
+            <p class="text-xs text-gray-400 mt-1">
+              Color de fondo para las tarjetas y pop-ups del cuento
+            </p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-200 mb-2">
+              Color de Botones
+            </label>
+            <input
+              type="color"
+              formControlName="buttonsColor"
+              class="w-full h-12 bg-gray-600 border border-gray-500 rounded-lg cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+            />
+            <p class="text-xs text-gray-400 mt-1">
+              Color de fondo para los botones del cuento
+            </p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-200 mb-2">
+              Color de Texto en Botones
+            </label>
+            <input
+              type="color"
+              formControlName="textColorButtons"
+              class="w-full h-12 bg-gray-600 border border-gray-500 rounded-lg cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+            />
+            <p class="text-xs text-gray-400 mt-1">
+              Color del texto en los botones del cuento
+            </p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-200 mb-2">
+              Color de Texto en Pop-ups
+            </label>
+            <input
+              type="color"
+              formControlName="textColor"
+              class="w-full h-12 bg-gray-600 border border-gray-500 rounded-lg cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+            />
+            <p class="text-xs text-gray-400 mt-1">
+              Color del texto en los pop-ups del cuento
+            </p>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-200 mb-2">
+              Color de Fondo de Contenedores
+            </label>
+            <input
+              type="color"
+              formControlName="containerBackgroundColor"
+              class="w-full h-12 bg-gray-600 border border-gray-500 rounded-lg cursor-pointer focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+            />
+            <p class="text-xs text-gray-400 mt-1">
+              Color de fondo para los contenedores de botones
+            </p>
           </div>
         </div>
       </div>

@@ -2,16 +2,16 @@
   <div class="w-full px-4">
     <div class="space-y-4">
       @for (story of gridItems; track story.id) {
+      <!-- Custom Phrase Header (Top) -->
+      <div class="px-3 py-2 text-center bg-black">
+        <span class="text-xs font-medium" [style.color]="'#ffffff'">
+          {{ story.customPhrase || "Custom phrase" }}
+        </span>
+      </div>
       <div
-        class="w-full bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.01] border border-gray-700"
+        class="story-card bg-gray-800 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-700"
+        [style.background-color]="story.backgroundColor || '#1f2937'"
       >
-        <!-- Custom Phrase Header (Top) -->
-        <div class="bg-gray-800 px-3 py-2 text-center">
-          <span class="text-white text-xs font-medium">
-            {{ story.customPhrase || "Custom phrase" }}
-          </span>
-        </div>
-
         <!-- Main Content: Image, Title, Containers (Horizontal) -->
         <div class="flex flex-col sm:flex-row items-stretch">
           <!-- Image Section -->
@@ -40,7 +40,12 @@
                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                   ></path>
                 </svg>
-                <p class="text-sm font-medium">{{ story.title }}</p>
+                <p
+                  class="text-sm font-medium"
+                  [style.color]="story.textColor || '#ffffff'"
+                >
+                  {{ story.title }}
+                </p>
               </div>
               }
 
@@ -59,7 +64,10 @@
           <div
             class="sm:w-48 flex-shrink-0 flex items-center justify-center p-4"
           >
-            <h3 class="text-white text-lg font-semibold text-center">
+            <h3
+              class="text-lg font-semibold text-center"
+              [style.color]="story.textColor || '#ffffff'"
+            >
               {{ story.title }}
             </h3>
           </div>
@@ -69,28 +77,46 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
               <!-- Container 1: Listen/Purchase -->
               <div
-                class="bg-gray-800 rounded-lg p-4 flex items-center justify-center min-h-[120px]"
+                class="rounded-lg p-4 flex items-center justify-center min-h-[120px]"
+                [style.background-color]="
+                  story.containerBackgroundColor || '#374151'
+                "
               >
                 @if (story.isFree) {
                 <div class="flex justify-center w-full">
                   <button
                     (click)="openStoryDetail(story.id, 'preview')"
-                    class="w-full bg-green-600 hover:bg-green-700 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                    class="w-full text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                    [style.background-color]="story.buttonsColor || '#059669'"
+                    [style.color]="story.textColorButtons || '#ffffff'"
+                    [style.border]="
+                      '1px solid ' + (story.buttonsColor || '#059669')
+                    "
                   >
-                    Título del cuento al completo
+                    {{ story.customPhrase || "Título del cuento al completo" }}
                   </button>
                 </div>
                 } @else {
                 <div class="flex flex-col items-center space-y-2 w-full">
                   <button
                     (click)="openStoryDetail(story.id, 'preview')"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                    class="w-full text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                    [style.background-color]="story.buttonsColor || '#2563eb'"
+                    [style.color]="story.textColorButtons || '#ffffff'"
+                    [style.border]="
+                      '1px solid ' + (story.buttonsColor || '#2563eb')
+                    "
                   >
                     Escucha un fragmento
                   </button>
                   <button
                     (click)="openStoryDetail(story.id, 'purchase')"
-                    class="w-full bg-blue-700 hover:bg-blue-800 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                    class="w-full text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                    [style.background-color]="story.buttonsColor || '#2563eb'"
+                    [style.color]="story.textColorButtons || '#ffffff'"
+                    [style.border]="
+                      '1px solid ' + (story.buttonsColor || '#2563eb')
+                    "
                   >
                     Compra el cuento
                   </button>
@@ -100,18 +126,31 @@
 
               <!-- Container 2: Dedication/Presentation -->
               <div
-                class="bg-purple-900 rounded-lg p-4 flex items-center justify-center min-h-[120px]"
+                class="rounded-lg p-4 flex items-center justify-center min-h-[120px]"
+                [style.background-color]="
+                  story.containerBackgroundColor || '#374151'
+                "
               >
                 <div class="flex flex-col items-center space-y-2 w-full">
                   <button
                     (click)="openStoryDetail(story.id, 'dedication')"
-                    class="w-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                    class="w-full text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                    [style.background-color]="story.buttonsColor || '#7c3aed'"
+                    [style.color]="story.textColorButtons || '#ffffff'"
+                    [style.border]="
+                      '1px solid ' + (story.buttonsColor || '#7c3aed')
+                    "
                   >
                     Dedicatoria
                   </button>
                   <button
                     (click)="openStoryDetail(story.id, 'presentation')"
-                    class="w-full bg-purple-700 hover:bg-purple-800 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                    class="w-full text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                    [style.background-color]="story.buttonsColor || '#7c3aed'"
+                    [style.color]="story.textColorButtons || '#ffffff'"
+                    [style.border]="
+                      '1px solid ' + (story.buttonsColor || '#7c3aed')
+                    "
                   >
                     Presentación
                   </button>
@@ -120,23 +159,41 @@
 
               <!-- Container 3: Guides -->
               <div
-                class="bg-indigo-900 rounded-lg p-4 flex flex-col items-center justify-center min-h-[120px] space-y-2"
+                class="rounded-lg p-4 flex flex-col items-center justify-center min-h-[120px] space-y-2"
+                [style.background-color]="
+                  story.containerBackgroundColor || '#374151'
+                "
               >
                 <button
                   (click)="openStoryDetail(story.id, 'emotional-guide')"
-                  class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  class="w-full text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  [style.background-color]="story.buttonsColor || '#4338ca'"
+                  [style.color]="story.textColorButtons || '#ffffff'"
+                  [style.border]="
+                    '1px solid ' + (story.buttonsColor || '#4338ca')
+                  "
                 >
                   Guía emocional
                 </button>
                 <button
                   (click)="openStoryDetail(story.id, 'awakening-guide')"
-                  class="w-full bg-indigo-700 hover:bg-indigo-800 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  class="w-full text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  [style.background-color]="story.buttonsColor || '#4338ca'"
+                  [style.color]="story.textColorButtons || '#ffffff'"
+                  [style.border]="
+                    '1px solid ' + (story.buttonsColor || '#4338ca')
+                  "
                 >
                   Guía despertador
                 </button>
                 <button
                   (click)="openStoryDetail(story.id, 'musical-guide')"
-                  class="w-full bg-indigo-800 hover:bg-indigo-900 text-white text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  class="w-full text-sm font-medium py-2 px-3 rounded transition-colors duration-200"
+                  [style.background-color]="story.buttonsColor || '#4338ca'"
+                  [style.color]="story.textColorButtons || '#ffffff'"
+                  [style.border]="
+                    '1px solid ' + (story.buttonsColor || '#4338ca')
+                  "
                 >
                   Guía musical
                 </button>

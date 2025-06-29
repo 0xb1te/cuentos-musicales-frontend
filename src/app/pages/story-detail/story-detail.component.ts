@@ -33,13 +33,24 @@ export class StoryDetailComponent implements OnInit {
   showPresentationModal = signal<boolean>(false);
 
   ngOnInit() {
+    console.log('StoryDetail ngOnInit - Input view:', this.view);
     this.currentView.set(this.view);
+    console.log('StoryDetail currentView set to:', this.currentView());
 
     this.storyService
       .getStoryById(this.storyId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (story) => {
+          console.log('Story loaded:', {
+            id: story.id,
+            title: story.title,
+            dedicationImageUrl: story.dedicationImageUrl,
+            presentationImageUrl: story.presentationImageUrl,
+            emotionalGuideUrl: story.emotionalGuideUrl,
+            musicalGuideUrl: story.musicalGuideUrl,
+            awakeningGuideUrl: story.awakeningGuideUrl,
+          });
           this.story.set(story);
           this.loading.set(false);
         },
@@ -98,5 +109,34 @@ export class StoryDetailComponent implements OnInit {
 
   closePresentationModal() {
     this.showPresentationModal.set(false);
+  }
+
+  // Utility method to adjust color brightness
+  adjustColor(color: string, percent: number): string {
+    // Remove # if present
+    const hex = color.replace('#', '');
+
+    // Parse RGB values
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+
+    // Adjust brightness
+    const adjustedR = Math.max(
+      0,
+      Math.min(255, r + Math.round((r * percent) / 100))
+    );
+    const adjustedG = Math.max(
+      0,
+      Math.min(255, g + Math.round((g * percent) / 100))
+    );
+    const adjustedB = Math.max(
+      0,
+      Math.min(255, b + Math.round((b * percent) / 100))
+    );
+
+    // Convert back to hex
+    const toHex = (n: number) => n.toString(16).padStart(2, '0');
+    return `#${toHex(adjustedR)}${toHex(adjustedG)}${toHex(adjustedB)}`;
   }
 }

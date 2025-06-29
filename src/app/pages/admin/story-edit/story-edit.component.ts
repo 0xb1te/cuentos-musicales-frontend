@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoryService } from '../../../services/story.service';
 import { Story } from '../../../interfaces/story';
+import { finalize, forkJoin, of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-story-edit',
@@ -16,6 +19,7 @@ import { Story } from '../../../interfaces/story';
 export class StoryEditComponent implements OnInit {
   storyId?: number;
   storyForm: FormGroup;
+  files: { [key: string]: File } = {};
   selectedImage: string | null = null;
   isLoading = false;
   errorMessage = '';
@@ -24,7 +28,8 @@ export class StoryEditComponent implements OnInit {
     private fb: FormBuilder,
     public router: Router,
     private route: ActivatedRoute,
-    private storyService: StoryService
+    private storyService: StoryService,
+    private authService: AuthService
   ) {
     this.storyForm = this.fb.group({
       title: ['', Validators.required],
@@ -41,7 +46,7 @@ export class StoryEditComponent implements OnInit {
       presentationImageUrl: [''],
       emotionalGuideUrl: [''],
       musicalGuideUrl: [''],
-      educationalGuideUrl: [''],
+      awakeningGuideUrl: [''],
       duration: [0],
       hasInteractiveElements: [false],
       customPhrase: [''],
@@ -50,6 +55,7 @@ export class StoryEditComponent implements OnInit {
       buttonsColor: ['#3b82f6'],
       textColorButtons: ['#ffffff'],
       textColor: ['#f9fafb'],
+      containerBackgroundColor: ['#374151'],
     });
   }
 
@@ -71,20 +77,46 @@ export class StoryEditComponent implements OnInit {
           author: story.author,
           description: story.description,
           content: story.content,
-          imageUrl: story.imageUrl,
+          imageUrl: this.files['imageUrl']
+            ? this.storyForm.get('imageUrl')?.value
+            : story.imageUrl,
           isFree: story.isFree,
-          audioPreviewUrl: story.audioPreviewUrl,
-          audioFullUrl: story.audioFullUrl,
-          indicativeImage1: story.indicativeImage1,
-          indicativeImage2: story.indicativeImage2,
-          dedicationImageUrl: story.dedicationImageUrl,
-          presentationImageUrl: story.presentationImageUrl,
-          emotionalGuideUrl: story.emotionalGuideUrl,
-          musicalGuideUrl: story.musicalGuideUrl,
-          educationalGuideUrl: story.educationalGuideUrl,
+          audioPreviewUrl: this.files['audioPreviewUrl']
+            ? this.storyForm.get('audioPreviewUrl')?.value
+            : story.audioPreviewUrl,
+          audioFullUrl: this.files['audioFullUrl']
+            ? this.storyForm.get('audioFullUrl')?.value
+            : story.audioFullUrl,
+          indicativeImage1: this.files['indicativeImage1']
+            ? this.storyForm.get('indicativeImage1')?.value
+            : story.indicativeImage1,
+          indicativeImage2: this.files['indicativeImage2']
+            ? this.storyForm.get('indicativeImage2')?.value
+            : story.indicativeImage2,
+          dedicationImageUrl: this.files['dedicationImageUrl']
+            ? this.storyForm.get('dedicationImageUrl')?.value
+            : story.dedicationImageUrl,
+          presentationImageUrl: this.files['presentationImageUrl']
+            ? this.storyForm.get('presentationImageUrl')?.value
+            : story.presentationImageUrl,
+          emotionalGuideUrl: this.files['emotionalGuideUrl']
+            ? this.storyForm.get('emotionalGuideUrl')?.value
+            : story.emotionalGuideUrl,
+          musicalGuideUrl: this.files['musicalGuideUrl']
+            ? this.storyForm.get('musicalGuideUrl')?.value
+            : story.musicalGuideUrl,
+          awakeningGuideUrl: this.files['awakeningGuideUrl']
+            ? this.storyForm.get('awakeningGuideUrl')?.value
+            : story.awakeningGuideUrl,
           duration: story.duration,
           hasInteractiveElements: story.hasInteractiveElements,
           customPhrase: story.customPhrase,
+          // Color theme fields
+          backgroundColor: story.backgroundColor || '#1f2937',
+          buttonsColor: story.buttonsColor || '#3b82f6',
+          textColorButtons: story.textColorButtons || '#ffffff',
+          textColor: story.textColor || '#f9fafb',
+          containerBackgroundColor: story.containerBackgroundColor || '#374151',
         });
         this.isLoading = false;
       },
@@ -101,21 +133,249 @@ export class StoryEditComponent implements OnInit {
       this.isLoading = true;
       this.errorMessage = '';
 
-      this.storyService
-        .updateStory(this.storyId, this.storyForm.value)
-        .subscribe({
-          next: (story) => {
-            console.log('Story updated successfully:', story);
-            this.isLoading = false;
-            this.router.navigate(['/admin/summary']);
+      console.log('Starting story update process');
+      console.log('Files to upload:', Object.keys(this.files).length);
+
+      // First upload all files
+      const fileFields = Object.keys(this.files);
+      const fileUploads = fileFields.map((field) => {
+        const file = this.files[field];
+        console.log(
+          `Uploading file for field: ${field}, name: ${file.name}, size: ${file.size} bytes`
+        );
+        return this.storyService.uploadFile(file, field).pipe(
+          finalize(() => {
+            console.log(`Upload completed for field: ${field}`);
+          })
+        );
+      });
+
+      if (fileUploads.length > 0) {
+        console.log(`Starting upload of ${fileUploads.length} files`);
+        forkJoin(fileUploads).subscribe({
+          next: (results) => {
+            console.log('All files uploaded successfully, results:', results);
+            // Update form with URLs from upload results
+            results.forEach((result, index) => {
+              if (result && result.url) {
+                const fieldName = fileFields[index];
+                this.storyForm.get(fieldName)?.setValue(result.url);
+                console.log(
+                  `Updated form field ${fieldName} with URL: ${result.url}`
+                );
+              }
+            });
+
+            // Clear the files dictionary since they're now uploaded
+            this.files = {};
+            this.updateStory();
           },
           error: (error) => {
-            console.error('Error updating story:', error);
-            this.errorMessage = 'Error updating story';
-            this.isLoading = false;
+            console.error('Error uploading files:', error);
+            this.handleError(error);
           },
         });
+      } else {
+        console.log('No files to upload, proceeding to update story');
+        this.updateStory();
+      }
     }
+  }
+
+  private updateStory() {
+    console.log('Updating story with data:', this.storyForm.value);
+    this.storyService
+      .updateStory(this.storyId!, this.storyForm.value)
+      .subscribe({
+        next: (story) => {
+          console.log('Story updated successfully:', story);
+          this.isLoading = false;
+          this.router.navigate(['/admin/summary']);
+        },
+        error: (error) => {
+          console.error('Error updating story:', error);
+          this.handleError(error);
+        },
+      });
+  }
+
+  private handleError(error: any) {
+    this.isLoading = false;
+    console.error('Error details:', error);
+
+    if (error instanceof HttpErrorResponse) {
+      console.error(`Status: ${error.status}, Message: ${error.message}`);
+
+      // Try to extract error message from response body
+      let serverErrorMessage = '';
+      if (error.error && typeof error.error === 'object') {
+        serverErrorMessage = error.error.error || error.error.message || '';
+      } else if (typeof error.error === 'string') {
+        serverErrorMessage = error.error;
+      }
+
+      if (error.status === 403) {
+        this.errorMessage =
+          'No tienes permiso para realizar esta acción. Por favor, inicia sesión nuevamente.';
+        setTimeout(() => {
+          this.authService.logout();
+        }, 2000);
+        return;
+      }
+
+      if (error.status === 401) {
+        this.errorMessage =
+          'Tu sesión ha expirado. Por favor, inicia sesión nuevamente.';
+        setTimeout(() => {
+          this.authService.logout();
+        }, 2000);
+        return;
+      }
+
+      if (error.status === 413) {
+        this.errorMessage =
+          'El archivo es demasiado grande. El tamaño máximo permitido es 10MB.';
+        return;
+      }
+
+      if (error.status === 415) {
+        this.errorMessage =
+          'Tipo de archivo no permitido. Por favor, verifica que el archivo sea válido.';
+        return;
+      }
+
+      if (
+        error.status === 400 &&
+        serverErrorMessage.includes('Invalid file type')
+      ) {
+        this.errorMessage = `Error de tipo de archivo: ${serverErrorMessage}`;
+        return;
+      }
+
+      if (error.status === 500) {
+        if (serverErrorMessage.includes('Upload failed')) {
+          this.errorMessage = `Error subiendo archivo: ${serverErrorMessage}`;
+        } else {
+          this.errorMessage =
+            'Error interno del servidor. Por favor, inténtalo de nuevo más tarde.';
+        }
+        return;
+      }
+    }
+
+    this.errorMessage =
+      'Ha ocurrido un error al actualizar el cuento. Por favor, inténtalo de nuevo.';
+  }
+
+  handleFileUpload(event: any, field: string) {
+    const file = event.target.files[0];
+    if (file) {
+      // Validate file size (10MB limit)
+      const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+      if (file.size > maxSize) {
+        this.errorMessage = `El archivo ${file.name} es demasiado grande. El tamaño máximo permitido es 10MB.`;
+        // Clear the input
+        event.target.value = '';
+        return;
+      }
+
+      // Validate file type based on field
+      if (!this.isValidFileForField(file, field)) {
+        this.errorMessage = `El tipo de archivo ${file.name} no es válido para este campo. Por favor, selecciona un archivo compatible.`;
+        event.target.value = '';
+        return;
+      }
+
+      // Store file for later upload
+      this.files[field] = file;
+      // For preview purposes, update the form with the file name
+      this.storyForm.get(field)?.setValue(file.name);
+      console.log(
+        `File selected for ${field}:`,
+        file.name,
+        'Size:',
+        (file.size / 1024 / 1024).toFixed(2),
+        'MB',
+        'Type:',
+        file.type
+      );
+
+      // Clear any previous error messages
+      if (
+        this.errorMessage.includes('demasiado grande') ||
+        this.errorMessage.includes('no es válido')
+      ) {
+        this.errorMessage = '';
+      }
+    }
+  }
+
+  private isValidFileForField(file: File, field: string): boolean {
+    const fileName = file.name.toLowerCase();
+    const fileType = file.type.toLowerCase();
+    const extension = fileName.split('.').pop() || '';
+
+    // Audio fields
+    if (field.includes('audio') || field.includes('Audio')) {
+      const audioExtensions = [
+        'mp3',
+        'wav',
+        'ogg',
+        'm4a',
+        'webm',
+        'weba',
+        'flac',
+        'aac',
+      ];
+      const audioTypes = ['audio/', 'application/octet-stream']; // octet-stream for .weba files
+      return (
+        audioExtensions.includes(extension) ||
+        audioTypes.some((type) => fileType.startsWith(type))
+      );
+    }
+
+    // Image fields
+    if (
+      field.includes('image') ||
+      field.includes('Image') ||
+      field.includes('Url')
+    ) {
+      const imageExtensions = [
+        'jpg',
+        'jpeg',
+        'png',
+        'gif',
+        'webp',
+        'bmp',
+        'svg',
+      ];
+      const imageTypes = ['image/'];
+      return (
+        imageExtensions.includes(extension) ||
+        imageTypes.some((type) => fileType.startsWith(type))
+      );
+    }
+
+    // Guide fields are now images instead of documents
+    if (field.includes('guide') || field.includes('Guide')) {
+      const imageExtensions = [
+        'jpg',
+        'jpeg',
+        'png',
+        'gif',
+        'webp',
+        'bmp',
+        'svg',
+      ];
+      const imageTypes = ['image/'];
+      return (
+        imageExtensions.includes(extension) ||
+        imageTypes.some((type) => fileType.startsWith(type))
+      );
+    }
+
+    // Default: allow most common formats
+    return true;
   }
 
   handleImageSelection(image: string) {
