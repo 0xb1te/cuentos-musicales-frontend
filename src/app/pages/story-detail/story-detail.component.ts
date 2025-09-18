@@ -31,10 +31,13 @@ export class StoryDetailComponent implements OnInit {
   currentView = signal<string>('detail');
   showDedicationModal = signal<boolean>(false);
   showPresentationModal = signal<boolean>(false);
+  showPurchaseModal = signal<boolean>(false);
 
   ngOnInit() {
     console.log('StoryDetail ngOnInit - Input view:', this.view);
-    this.currentView.set(this.view);
+    // Ensure we have a valid view, default to 'detail' if not provided
+    const viewToSet = this.view || 'detail';
+    this.currentView.set(viewToSet);
     console.log('StoryDetail currentView set to:', this.currentView());
 
     this.storyService
@@ -45,6 +48,8 @@ export class StoryDetailComponent implements OnInit {
           console.log('Story loaded:', {
             id: story.id,
             title: story.title,
+            isFree: story.isFree,
+            currentView: this.currentView(),
             dedicationImageUrl: story.dedicationImageUrl,
             presentationImageUrl: story.presentationImageUrl,
             emotionalGuideUrl: story.emotionalGuideUrl,
@@ -53,6 +58,7 @@ export class StoryDetailComponent implements OnInit {
           });
           this.story.set(story);
           this.loading.set(false);
+          console.log('Story set, current view is:', this.currentView());
         },
         error: (err) => {
           console.error('Error loading story:', err);
@@ -78,7 +84,7 @@ export class StoryDetailComponent implements OnInit {
 
   onBuyStory() {
     console.log('Buying story:', this.story()?.id);
-    // Implement story purchase logic
+    this.showPurchaseModal.set(true);
   }
 
   onDownloadStory() {
@@ -109,6 +115,24 @@ export class StoryDetailComponent implements OnInit {
 
   closePresentationModal() {
     this.showPresentationModal.set(false);
+  }
+
+  openPurchaseModal() {
+    this.showPurchaseModal.set(true);
+  }
+
+  closePurchaseModal() {
+    this.showPurchaseModal.set(false);
+  }
+
+  onConfirmPurchase() {
+    console.log('Confirming purchase for story:', this.story()?.id);
+    // Here you would integrate with your payment system
+    // For now, we'll just show a success message
+    alert(
+      '¡Compra realizada con éxito! El cuento se descargará automáticamente.'
+    );
+    this.closePurchaseModal();
   }
 
   // Utility method to adjust color brightness

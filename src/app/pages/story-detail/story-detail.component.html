@@ -81,7 +81,7 @@
                 class="text-xl font-bold"
                 [style.color]="story()?.textColor || '#ffffff'"
               >
-                Precio: 5€
+                Precio: {{ story()?.price }}€
               </p>
             </div>
             <button
@@ -239,6 +239,91 @@
             </p>
             }
           </div>
+          } @case ('purchase') {
+          <!-- Purchase view - price and button on both sides -->
+          @if (story()?.isFree) {
+          <div class="flex justify-center">
+            <button
+              (click)="onDownloadStory()"
+              class="px-6 py-3 rounded-lg transition shadow-lg hover:shadow-xl"
+              [style.background-color]="story()?.buttonsColor || '#059669'"
+              [style.color]="story()?.textColorButtons || '#ffffff'"
+            >
+              Descargar Gratis
+            </button>
+          </div>
+          } @else {
+          <div
+            class="flex flex-col sm:flex-row justify-between items-center gap-4 p-4 bg-gray-800/30 rounded-lg border border-gray-700"
+          >
+            <!-- Price on the left -->
+            <div class="flex items-center">
+              <p
+                class="text-2xl font-bold"
+                [style.color]="story()?.textColor || '#ffffff'"
+              >
+                Precio: {{ story()?.price }}€
+              </p>
+            </div>
+
+            <!-- Button on the right -->
+            <div class="flex items-center">
+              <button
+                (click)="onBuyStory()"
+                class="px-6 py-3 rounded-lg transition shadow-lg hover:shadow-xl bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 transform hover:scale-105"
+                [style.background-color]="story()?.buttonsColor || '#2563eb'"
+                [style.color]="story()?.textColorButtons || '#ffffff'"
+              >
+                🛒 Comprar Cuento
+              </button>
+            </div>
+          </div>
+          } } @default {
+          <!-- Default case - show detail view -->
+          <div class="text-yellow-400 mb-4 text-sm">
+            Warning: Unknown view "{{ currentView() }}", showing default detail
+            view
+          </div>
+          <!-- Action buttons -->
+          <div class="flex flex-wrap gap-4">
+            @if (story()?.isFree) {
+            <button
+              (click)="onDownloadStory()"
+              class="px-6 py-3 rounded-lg transition shadow-lg hover:shadow-xl"
+              [style.background-color]="story()?.buttonsColor || '#059669'"
+              [style.color]="story()?.textColorButtons || '#ffffff'"
+            >
+              Descargar Gratis
+            </button>
+            } @else {
+            <div class="mb-4">
+              <p
+                class="text-xl font-bold"
+                [style.color]="story()?.textColor || '#ffffff'"
+              >
+                Precio: {{ story()?.price }}€
+              </p>
+            </div>
+            <button
+              (click)="onBuyStory()"
+              class="px-6 py-3 rounded-lg transition shadow-lg hover:shadow-xl"
+              [style.background-color]="story()?.buttonsColor || '#2563eb'"
+              [style.color]="story()?.textColorButtons || '#ffffff'"
+            >
+              Comprar Cuento
+            </button>
+            }
+            <button
+              (click)="onDownloadGuide()"
+              class="px-6 py-3 rounded-lg transition shadow-lg hover:shadow-xl"
+              [style.background-color]="
+                adjustColor(story()?.buttonsColor || '#6b7280', 20)
+              "
+              [style.color]="story()?.textColorButtons || '#d1d5db'"
+            >
+              Descargar Guía Didáctica
+            </button>
+          </div>
           } }
         </div>
       </div>
@@ -312,6 +397,150 @@
         class="max-w-full max-h-full object-contain rounded-lg"
         (click)="$event.stopPropagation()"
       />
+    </div>
+  </div>
+  }
+
+  <!-- Purchase Modal -->
+  @if (showPurchaseModal()) {
+  <div
+    class="purchase-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+    (click)="closePurchaseModal()"
+  >
+    <div
+      class="modal-content bg-gray-900 rounded-lg p-6 max-w-md w-full mx-4 border border-gray-700"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-bold text-white">Comprar Cuento</h3>
+        <button
+          (click)="closePurchaseModal()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Story Info -->
+      <div class="mb-6">
+        <div class="flex items-center space-x-4 mb-4">
+          <div
+            class="w-16 h-16 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0"
+          >
+            @if (story()?.imageUrl) {
+            <img
+              [src]="story()?.imageUrl"
+              [alt]="story()?.title"
+              class="w-full h-full object-cover rounded-lg"
+            />
+            } @else {
+            <span class="text-white text-sm">IMG</span>
+            }
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold text-white text-lg">
+              {{ story()?.title }}
+            </h4>
+            <p class="text-gray-400 text-sm">Cuento musical completo</p>
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="bg-gray-800 rounded-lg p-4 mb-4">
+          <div class="flex justify-between items-center">
+            <span class="text-gray-300">Precio:</span>
+            <span class="text-2xl font-bold text-white"
+              >{{ story()?.price }}€</span
+            >
+          </div>
+        </div>
+
+        <!-- What's included -->
+        <div class="bg-gray-800/50 rounded-lg p-4">
+          <h5 class="font-medium text-white mb-2">Incluye:</h5>
+          <ul class="text-gray-300 text-sm space-y-1">
+            <li class="flex items-center">
+              <svg
+                class="w-4 h-4 text-green-400 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+              Audio completo del cuento
+            </li>
+            <li class="flex items-center">
+              <svg
+                class="w-4 h-4 text-green-400 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+              Guías emocional y musical
+            </li>
+            <li class="flex items-center">
+              <svg
+                class="w-4 h-4 text-green-400 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                ></path>
+              </svg>
+              Descarga inmediata
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex space-x-3">
+        <button
+          (click)="closePurchaseModal()"
+          class="flex-1 px-4 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
+        >
+          Cancelar
+        </button>
+        <button
+          (click)="onConfirmPurchase()"
+          class="purchase-button flex-1 px-4 py-3 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl"
+          [style.background-color]="story()?.buttonsColor || '#2563eb'"
+          [style.color]="story()?.textColorButtons || '#ffffff'"
+        >
+          Confirmar Compra
+        </button>
+      </div>
     </div>
   </div>
   }

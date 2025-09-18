@@ -1,14 +1,19 @@
 export interface Story {
   id: number;
   title: string;
+  slug?: string;
   description: string;
   content: string;
+  previewContent?: string;
   imageUrl: string;
+  coverImageUrl?: string;
   hasInteractiveElements: boolean;
   interactiveElements?: InteractiveElement[];
   teachingGuide?: TeachingGuide;
   menuLevelId?: number;
   author?: string;
+  price?: number;
+  stripePriceId?: string;
   isFree?: boolean;
   audioPreviewUrl?: string;
   audioFullUrl?: string;
@@ -27,6 +32,9 @@ export interface Story {
   textColorButtons?: string; // text color used on the text of the buttons
   textColor?: string; // text color used on the text of the pop-ups
   containerBackgroundColor?: string; // background color for the button containers
+  // Timestamps
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface TeachingGuide {
