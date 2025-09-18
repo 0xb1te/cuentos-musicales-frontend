@@ -1,10 +1,7 @@
-<!-- Floating Navbar -->
-<app-navbar></app-navbar>
-
 <div class="relative bg-black">
   <!-- Section 1: Hero Section with Background Image -->
   <div
-    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+    class="relative min-h-screen md:min-h-screen flex items-center justify-center overflow-hidden"
   >
     <!-- Background Image -->
     <div
@@ -19,41 +16,45 @@
     <!-- Animated background elements -->
     <div class="absolute inset-0 opacity-10">
       <div
-        class="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-600 rounded-full blur-3xl animate-pulse"
+        class="absolute top-1/4 left-1/4 w-48 md:w-72 h-48 md:h-72 bg-blue-600 rounded-full blur-3xl animate-pulse"
       ></div>
       <div
-        class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse delay-1000"
+        class="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-purple-600 rounded-full blur-3xl animate-pulse delay-1000"
       ></div>
     </div>
 
-    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-      <div class="mb-8">
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto pt-20 md:pt-0">
+      <div class="mb-6 md:mb-8">
         <h1
-          class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent leading-tight"
+          class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent leading-tight"
         >
           Cuentos Musicales
         </h1>
-        <h2 class="text-3xl md:text-5xl font-light text-gray-300 mb-8">
+        <h2
+          class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-light text-gray-300 mb-4 md:mb-8"
+        >
           para el Alma
         </h2>
       </div>
 
       <p
-        class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
+        class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-400 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed px-2"
       >
         Descubre historias que tocan el corazón a través del poder transformador
         de la música
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <div
+        class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center px-4"
+      >
         <button
           (click)="scrollToSection('features')"
-          class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+          class="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl text-sm md:text-base"
         >
           Explorar Catálogo
         </button>
         <button
-          class="px-8 py-4 border-2 border-gray-600 text-gray-300 font-semibold rounded-full hover:border-gray-400 hover:text-white transform hover:scale-105 transition-all duration-300"
+          class="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 border-2 border-gray-600 text-gray-300 font-semibold rounded-full hover:border-gray-400 hover:text-white transform hover:scale-105 transition-all duration-300 text-sm md:text-base"
         >
           Escuchar Muestra
         </button>
@@ -62,14 +63,14 @@
 
     <!-- Scroll indicator -->
     <div
-      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+      class="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer z-20"
       (click)="scrollToSection('features')"
     >
       <div
         class="flex flex-col items-center text-gray-400 hover:text-white transition-colors"
       >
         <svg
-          class="w-6 h-6 mb-2"
+          class="w-5 h-5 md:w-6 md:h-6 mb-2"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -81,7 +82,6 @@
             d="M19 14l-7 7m0 0l-7-7m7 7V3"
           ></path>
         </svg>
-        <span class="text-sm">Desliza</span>
       </div>
     </div>
   </div>
@@ -89,7 +89,7 @@
   <!-- Section 2: Features Section with Background Image -->
   <div
     id="features"
-    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+    class="relative h-screen flex items-center justify-center overflow-hidden"
   >
     <!-- Background Image -->
     <div
@@ -101,90 +101,53 @@
       <div class="absolute inset-0 bg-black opacity-70"></div>
     </div>
 
-    <div class="relative z-10 container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+    <div class="relative z-10 container mx-auto px-4 md:px-6">
+      <div class="text-center mb-8 md:mb-16">
+        <h2
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-6"
+        >
           Una Experiencia Única
         </h2>
-        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-          Cada cuento combina narrativa cautivadora with paisajes sonoros
+        <p class="text-base md:text-xl text-gray-300 max-w-3xl mx-auto px-2">
+          Cada cuento combina narrativa cautivadora con paisajes sonoros
           envolventes
         </p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-        <div class="text-center group">
-          <div
-            class="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
-          >
-            <svg
-              class="w-10 h-10 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-              ></path>
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-4">Audio Inmersivo</h3>
-          <p class="text-gray-300">
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 max-w-6xl mx-auto"
+      >
+        <div
+          class="text-center group bg-black bg-opacity-30 rounded-lg p-4 md:p-6 backdrop-blur-sm"
+        >
+          <h3 class="text-lg md:text-2xl font-bold text-white mb-2 md:mb-4">
+            Audio Inmersivo
+          </h3>
+          <p class="text-sm md:text-base text-gray-300">
             Experimenta cada historia con música original y efectos de sonido
             diseñados especialmente
           </p>
         </div>
 
-        <div class="text-center group">
-          <div
-            class="w-20 h-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
-          >
-            <svg
-              class="w-10 h-10 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              ></path>
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-4">
+        <div
+          class="text-center group bg-black bg-opacity-30 rounded-lg p-4 md:p-6 backdrop-blur-sm"
+        >
+          <h3 class="text-lg md:text-2xl font-bold text-white mb-2 md:mb-4">
             Historias que Sanan
           </h3>
-          <p class="text-gray-300">
+          <p class="text-sm md:text-base text-gray-300">
             Cada cuento está creado para tocar fibras emocionales profundas y
             generar transformación
           </p>
         </div>
 
-        <div class="text-center group">
-          <div
-            class="w-20 h-20 bg-gradient-to-r from-green-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300"
-          >
-            <svg
-              class="w-10 h-10 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-              ></path>
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold text-white mb-4">Guías Incluidas</h3>
-          <p class="text-gray-300">
+        <div
+          class="text-center group bg-black bg-opacity-30 rounded-lg p-4 md:p-6 backdrop-blur-sm"
+        >
+          <h3 class="text-lg md:text-2xl font-bold text-white mb-2 md:mb-4">
+            Guías Incluidas
+          </h3>
+          <p class="text-sm md:text-base text-gray-300">
             Accede a guías emocionales, musicales y de despertar para
             profundizar tu experiencia
           </p>
@@ -194,14 +157,14 @@
 
     <!-- Scroll indicator -->
     <div
-      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+      class="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer z-20"
       (click)="scrollToSection('experience')"
     >
       <div
         class="flex flex-col items-center text-gray-400 hover:text-white transition-colors"
       >
         <svg
-          class="w-6 h-6 mb-2"
+          class="w-5 h-5 md:w-6 md:h-6 mb-2"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -213,7 +176,6 @@
             d="M19 14l-7 7m0 0l-7-7m7 7V3"
           ></path>
         </svg>
-        <span class="text-sm">Continúa</span>
       </div>
     </div>
   </div>
@@ -221,7 +183,7 @@
   <!-- Section 3: Experience Section with Background Image -->
   <div
     id="experience"
-    class="relative min-h-screen flex items-center justify-center overflow-hidden"
+    class="relative h-screen flex items-center justify-center overflow-hidden"
   >
     <!-- Background Image -->
     <div
@@ -233,25 +195,31 @@
       <div class="absolute inset-0 bg-black opacity-65"></div>
     </div>
 
-    <div class="relative z-10 container mx-auto px-6 text-center">
+    <div class="relative z-10 container mx-auto px-4 md:px-6 text-center">
       <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">
+        <h2
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-8"
+        >
           Transforma tu Mundo Interior
         </h2>
-        <p class="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed">
+        <p
+          class="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 md:mb-12 leading-relaxed px-2"
+        >
           Sumérgete en un viaje de autodescubrimiento donde cada nota musical y
           cada palabra te guían hacia una conexión más profunda contigo mismo
         </p>
 
-        <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-12"
+        >
           <div
-            class="bg-black bg-opacity-40 backdrop-blur-sm rounded-lg p-8 border border-gray-700"
+            class="bg-black bg-opacity-40 backdrop-blur-sm rounded-lg p-4 md:p-8 border border-gray-700"
           >
             <div
-              class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6"
+              class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-6"
             >
               <svg
-                class="w-8 h-8 text-white"
+                class="w-6 h-6 md:w-8 md:h-8 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -264,23 +232,23 @@
                 ></path>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-white mb-4">
+            <h3 class="text-lg md:text-2xl font-bold text-white mb-2 md:mb-4">
               Despertar Emocional
             </h3>
-            <p class="text-gray-300">
+            <p class="text-sm md:text-base text-gray-300">
               Cada historia está diseñada para despertar emociones dormidas y
               facilitar procesos de sanación profunda
             </p>
           </div>
 
           <div
-            class="bg-black bg-opacity-40 backdrop-blur-sm rounded-lg p-8 border border-gray-700"
+            class="bg-black bg-opacity-40 backdrop-blur-sm rounded-lg p-4 md:p-8 border border-gray-700"
           >
             <div
-              class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6"
+              class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-6"
             >
               <svg
-                class="w-8 h-8 text-white"
+                class="w-6 h-6 md:w-8 md:h-8 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -293,10 +261,10 @@
                 ></path>
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-white mb-4">
+            <h3 class="text-lg md:text-2xl font-bold text-white mb-2 md:mb-4">
               Inspiración Creativa
             </h3>
-            <p class="text-gray-300">
+            <p class="text-sm md:text-base text-gray-300">
               Desbloquea tu potencial creativo a través de narrativas que
               estimulan la imaginación y la expresión personal
             </p>
@@ -305,7 +273,7 @@
 
         <button
           (click)="scrollToSection('stories')"
-          class="px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-full hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+          class="w-full sm:w-auto px-8 md:px-10 py-3 md:py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-full hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl text-sm md:text-base"
         >
           Descubre Nuestras Historias
         </button>
@@ -314,14 +282,14 @@
 
     <!-- Scroll indicator -->
     <div
-      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer"
+      class="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer z-20"
       (click)="scrollToSection('stories')"
     >
       <div
         class="flex flex-col items-center text-gray-400 hover:text-white transition-colors"
       >
         <svg
-          class="w-6 h-6 mb-2"
+          class="w-5 h-5 md:w-6 md:h-6 mb-2"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -333,24 +301,27 @@
             d="M19 14l-7 7m0 0l-7-7m7 7V3"
           ></path>
         </svg>
-        <span class="text-sm">Ver Catálogo</span>
       </div>
     </div>
   </div>
 
   <!-- Section 4: Stories section -->
-  <div id="stories" class="bg-black py-20">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+  <div id="stories" class="bg-black h-screen flex flex-col">
+    <div class="container mx-auto px-4 md:px-6 py-8 flex flex-col h-full">
+      <div class="text-center mb-6 flex-shrink-0">
+        <h2
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-6"
+        >
           Nuestro Catálogo
         </h2>
-        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+        <p class="text-base md:text-xl text-gray-400 max-w-2xl mx-auto px-2">
           Explora nuestra colección de historias cuidadosamente creadas para
           inspirar y transformar
         </p>
       </div>
-      <app-story-grid></app-story-grid>
+      <div class="flex-1 overflow-y-auto">
+        <app-story-grid></app-story-grid>
+      </div>
     </div>
   </div>
 </div>

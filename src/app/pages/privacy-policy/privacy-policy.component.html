@@ -1,0 +1,900 @@
+<div class="privacy-policy-page bg-black min-h-screen">
+  <!-- Hero Section -->
+  <div
+    class="hero-section bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 py-20"
+  >
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+        Política de Privacidad y Cookies
+      </h1>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+        En Cuentos Musicales para el Alma, respetamos tu privacidad y nos
+        comprometemos a proteger tus datos personales. Aquí te explicamos cómo
+        recopilamos, usamos y protegemos tu información.
+      </p>
+      <div class="mt-8 text-sm text-gray-400">
+        Última actualización: {{ lastUpdated | date : "dd/MM/yyyy" }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="container mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <!-- Table of Contents -->
+      <div class="lg:col-span-1">
+        <div
+          class="table-of-contents sticky top-8 bg-gray-900 rounded-2xl p-6 border border-gray-700"
+        >
+          <h3 class="text-xl font-bold text-white mb-4">Índice</h3>
+          <nav class="space-y-2">
+            <a
+              (click)="scrollToSection('informacion-general')"
+              class="block text-gray-300 hover:text-purple-400 cursor-pointer transition-colors text-sm"
+            >
+              1. Información General
+            </a>
+            <a
+              (click)="scrollToSection('datos-recopilados')"
+              class="block text-gray-300 hover:text-purple-400 cursor-pointer transition-colors text-sm"
+            >
+              2. Datos que Recopilamos
+            </a>
+            <a
+              (click)="scrollToSection('uso-datos')"
+              class="block text-gray-300 hover:text-purple-400 cursor-pointer transition-colors text-sm"
+            >
+              3. Uso de los Datos
+            </a>
+            <a
+              (click)="scrollToSection('cookies')"
+              class="block text-gray-300 hover:text-purple-400 cursor-pointer transition-colors text-sm"
+            >
+              4. Política de Cookies
+            </a>
+            <a
+              (click)="scrollToSection('derechos-usuario')"
+              class="block text-gray-300 hover:text-purple-400 cursor-pointer transition-colors text-sm"
+            >
+              5. Derechos del Usuario
+            </a>
+            <a
+              (click)="scrollToSection('seguridad')"
+              class="block text-gray-300 hover:text-purple-400 cursor-pointer transition-colors text-sm"
+            >
+              6. Seguridad de Datos
+            </a>
+            <a
+              (click)="scrollToSection('terceros')"
+              class="block text-gray-300 hover:text-purple-400 cursor-pointer transition-colors text-sm"
+            >
+              7. Compartir con Terceros
+            </a>
+            <a
+              (click)="scrollToSection('menores')"
+              class="block text-gray-300 hover:text-purple-400 cursor-pointer transition-colors text-sm"
+            >
+              8. Protección de Menores
+            </a>
+            <a
+              (click)="scrollToSection('cambios')"
+              class="block text-gray-300 hover:text-purple-400 cursor-pointer transition-colors text-sm"
+            >
+              9. Cambios en la Política
+            </a>
+            <a
+              (click)="scrollToSection('contacto')"
+              class="block text-gray-300 hover:text-purple-400 cursor-pointer transition-colors text-sm"
+            >
+              10. Contacto
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="lg:col-span-3">
+        <div
+          class="bg-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-700"
+        >
+          <!-- Section 1: Información General -->
+          <section id="informacion-general" class="privacy-section mb-12">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+              <span
+                class="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mr-4"
+                >1</span
+              >
+              Información General
+            </h2>
+            <div class="section-content text-gray-300 space-y-4">
+              <p>
+                <strong class="text-white"
+                  >Cuentos Musicales para el Alma</strong
+                >
+                (en adelante, "nosotros", "nuestro" o "la plataforma") se
+                compromete a proteger la privacidad de todos los usuarios que
+                visitan y utilizan nuestros servicios.
+              </p>
+              <p>
+                Esta Política de Privacidad explica cómo recopilamos,
+                utilizamos, divulgamos y protegemos la información personal que
+                obtenemos de los usuarios de nuestro sitio web y aplicaciones
+                móviles relacionadas con cuentos musicales para niños.
+              </p>
+              <div class="highlight-box p-4 rounded-lg mt-4">
+                <p class="text-purple-200">
+                  <strong>Importante:</strong> Al utilizar nuestros servicios,
+                  aceptas las prácticas descritas en esta política. Si no estás
+                  de acuerdo con algún aspecto de esta política, te recomendamos
+                  que no utilices nuestros servicios.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 2: Datos que Recopilamos -->
+          <section id="datos-recopilados" class="privacy-section mb-12">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+              <span
+                class="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mr-4"
+                >2</span
+              >
+              Datos que Recopilamos
+            </h2>
+            <div class="section-content text-gray-300 space-y-6">
+              <div>
+                <h3 class="text-xl font-semibold text-white mb-3">
+                  2.1 Información Personal
+                </h3>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                  <li>Nombre completo y dirección de correo electrónico</li>
+                  <li>
+                    Información de pago y facturación (procesada de forma
+                    segura)
+                  </li>
+                  <li>
+                    Preferencias de contenido y configuraciones de usuario
+                  </li>
+                  <li>
+                    Comunicaciones que nos envías (consultas, comentarios,
+                    reseñas)
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-white mb-3">
+                  2.2 Información Técnica
+                </h3>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                  <li>Dirección IP y ubicación geográfica aproximada</li>
+                  <li>Tipo de dispositivo, sistema operativo y navegador</li>
+                  <li>Páginas visitadas y tiempo de permanencia</li>
+                  <li>Patrones de uso y preferencias de navegación</li>
+                  <li>Información de cookies y tecnologías similares</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-semibold text-white mb-3">
+                  2.3 Información de Uso
+                </h3>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                  <li>Cuentos reproducidos y preferencias de contenido</li>
+                  <li>Historial de compras y descargas</li>
+                  <li>Interacciones con elementos educativos y musicales</li>
+                  <li>Feedback y valoraciones de contenido</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 3: Uso de los Datos -->
+          <section id="uso-datos" class="privacy-section mb-12">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+              <span
+                class="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mr-4"
+                >3</span
+              >
+              Uso de los Datos
+            </h2>
+            <div class="section-content text-gray-300 space-y-4">
+              <p>
+                Utilizamos la información recopilada para los siguientes
+                propósitos:
+              </p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
+                  <h4 class="text-lg font-semibold text-purple-400 mb-2">
+                    📚 Provisión de Servicios
+                  </h4>
+                  <ul class="text-sm space-y-1">
+                    <li>• Entregar contenido personalizado</li>
+                    <li>• Procesar compras y pagos</li>
+                    <li>• Gestionar cuentas de usuario</li>
+                    <li>• Proporcionar soporte técnico</li>
+                  </ul>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
+                  <h4 class="text-lg font-semibold text-blue-400 mb-2">
+                    🎯 Mejora del Servicio
+                  </h4>
+                  <ul class="text-sm space-y-1">
+                    <li>• Analizar patrones de uso</li>
+                    <li>• Desarrollar nuevos contenidos</li>
+                    <li>• Optimizar la experiencia del usuario</li>
+                    <li>• Realizar investigación educativa</li>
+                  </ul>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
+                  <h4 class="text-lg font-semibold text-green-400 mb-2">
+                    📧 Comunicación
+                  </h4>
+                  <ul class="text-sm space-y-1">
+                    <li>• Enviar notificaciones importantes</li>
+                    <li>• Newsletters educativas opcionales</li>
+                    <li>• Responder consultas y soporte</li>
+                    <li>• Informar sobre nuevos contenidos</li>
+                  </ul>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-600">
+                  <h4 class="text-lg font-semibold text-yellow-400 mb-2">
+                    🔒 Seguridad y Legal
+                  </h4>
+                  <ul class="text-sm space-y-1">
+                    <li>• Prevenir uso fraudulento</li>
+                    <li>• Cumplir obligaciones legales</li>
+                    <li>• Proteger derechos de autor</li>
+                    <li>• Mantener la seguridad del sitio</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 4: Política de Cookies -->
+          <section id="cookies" class="privacy-section mb-12">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+              <span
+                class="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mr-4"
+                >4</span
+              >
+              Política de Cookies
+            </h2>
+            <div class="section-content text-gray-300 space-y-6">
+              <p>
+                Utilizamos cookies y tecnologías similares para mejorar tu
+                experiencia en nuestro sitio web. Una cookie es un pequeño
+                archivo de texto que se almacena en tu dispositivo cuando
+                visitas nuestro sitio.
+              </p>
+
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div
+                  class="bg-green-900/30 border border-green-600 p-4 rounded-lg"
+                >
+                  <h4 class="text-lg font-semibold text-green-400 mb-2">
+                    🔧 Cookies Esenciales
+                  </h4>
+                  <p class="text-sm">
+                    Necesarias para el funcionamiento básico del sitio. No se
+                    pueden desactivar.
+                  </p>
+                  <ul class="text-xs mt-2 space-y-1">
+                    <li>• Gestión de sesiones</li>
+                    <li>• Preferencias de idioma</li>
+                    <li>• Funcionalidades de carrito</li>
+                  </ul>
+                </div>
+
+                <div
+                  class="bg-blue-900/30 border border-blue-600 p-4 rounded-lg"
+                >
+                  <h4 class="text-lg font-semibold text-blue-400 mb-2">
+                    📊 Cookies Analíticas
+                  </h4>
+                  <p class="text-sm">
+                    Nos ayudan a entender cómo interactúas con el sitio para
+                    mejorarlo.
+                  </p>
+                  <ul class="text-xs mt-2 space-y-1">
+                    <li>• Google Analytics</li>
+                    <li>• Métricas de rendimiento</li>
+                    <li>• Análisis de comportamiento</li>
+                  </ul>
+                </div>
+
+                <div
+                  class="bg-purple-900/30 border border-purple-600 p-4 rounded-lg"
+                >
+                  <h4 class="text-lg font-semibold text-purple-400 mb-2">
+                    🎯 Cookies de Marketing
+                  </h4>
+                  <p class="text-sm">
+                    Para personalizar contenido y mostrar publicidad relevante.
+                  </p>
+                  <ul class="text-xs mt-2 space-y-1">
+                    <li>• Contenido personalizado</li>
+                    <li>• Recomendaciones</li>
+                    <li>• Publicidad dirigida</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="highlight-box p-4 rounded-lg">
+                <h4 class="text-lg font-semibold text-white mb-2">
+                  ⚙️ Control de Cookies
+                </h4>
+                <p class="text-sm">
+                  Puedes controlar y configurar las cookies desde la
+                  configuración de tu navegador. Ten en cuenta que desactivar
+                  ciertas cookies puede afectar la funcionalidad del sitio.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 5: Derechos del Usuario -->
+          <section id="derechos-usuario" class="privacy-section mb-12">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+              <span
+                class="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mr-4"
+                >5</span
+              >
+              Derechos del Usuario
+            </h2>
+            <div class="section-content text-gray-300 space-y-4">
+              <p>
+                De acuerdo con la normativa de protección de datos (RGPD),
+                tienes los siguientes derechos respecto a tu información
+                personal:
+              </p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                <div class="flex items-start space-x-3">
+                  <div class="bg-purple-600 rounded-full p-2 flex-shrink-0">
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                      <path
+                        fill-rule="evenodd"
+                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">Derecho de Acceso</h4>
+                    <p class="text-sm">
+                      Solicitar información sobre qué datos tenemos sobre ti.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-3">
+                  <div class="bg-blue-600 rounded-full p-2 flex-shrink-0">
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">
+                      Derecho de Rectificación
+                    </h4>
+                    <p class="text-sm">
+                      Corregir datos inexactos o incompletos.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-3">
+                  <div class="bg-red-600 rounded-full p-2 flex-shrink-0">
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        d="M4 5a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 2a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">
+                      Derecho de Supresión
+                    </h4>
+                    <p class="text-sm">
+                      Solicitar la eliminación de tus datos personales.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-3">
+                  <div class="bg-green-600 rounded-full p-2 flex-shrink-0">
+                    <svg
+                      class="w-4 h-4 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">
+                      Derecho de Portabilidad
+                    </h4>
+                    <p class="text-sm">
+                      Obtener tus datos en formato legible por máquina.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="highlight-box p-4 rounded-lg mt-6">
+                <p class="text-purple-200">
+                  <strong>Para ejercer estos derechos,</strong> ponte en
+                  contacto con nosotros a través de los canales indicados en la
+                  sección de contacto. Responderemos a tu solicitud en un plazo
+                  máximo de 30 días.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 6: Seguridad de Datos -->
+          <section id="seguridad" class="privacy-section mb-12">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+              <span
+                class="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mr-4"
+                >6</span
+              >
+              Seguridad de Datos
+            </h2>
+            <div class="section-content text-gray-300 space-y-4">
+              <p>
+                Implementamos medidas de seguridad técnicas y organizativas
+                apropiadas para proteger tu información personal contra acceso
+                no autorizado, alteración, divulgación o destrucción.
+              </p>
+
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6"
+              >
+                <div
+                  class="bg-gray-800 p-4 rounded-lg border border-gray-600 text-center"
+                >
+                  <div class="text-3xl mb-2">🔐</div>
+                  <h4 class="font-semibold text-white mb-1">Cifrado SSL/TLS</h4>
+                  <p class="text-sm">Todas las comunicaciones están cifradas</p>
+                </div>
+
+                <div
+                  class="bg-gray-800 p-4 rounded-lg border border-gray-600 text-center"
+                >
+                  <div class="text-3xl mb-2">🛡️</div>
+                  <h4 class="font-semibold text-white mb-1">Firewalls</h4>
+                  <p class="text-sm">
+                    Protección contra accesos no autorizados
+                  </p>
+                </div>
+
+                <div
+                  class="bg-gray-800 p-4 rounded-lg border border-gray-600 text-center"
+                >
+                  <div class="text-3xl mb-2">💳</div>
+                  <h4 class="font-semibold text-white mb-1">Pagos Seguros</h4>
+                  <p class="text-sm">Procesamiento PCI DSS compliant</p>
+                </div>
+
+                <div
+                  class="bg-gray-800 p-4 rounded-lg border border-gray-600 text-center"
+                >
+                  <div class="text-3xl mb-2">🔄</div>
+                  <h4 class="font-semibold text-white mb-1">
+                    Copias de Seguridad
+                  </h4>
+                  <p class="text-sm">Respaldos regulares y seguros</p>
+                </div>
+
+                <div
+                  class="bg-gray-800 p-4 rounded-lg border border-gray-600 text-center"
+                >
+                  <div class="text-3xl mb-2">👥</div>
+                  <h4 class="font-semibold text-white mb-1">Acceso Limitado</h4>
+                  <p class="text-sm">
+                    Solo personal autorizado accede a los datos
+                  </p>
+                </div>
+
+                <div
+                  class="bg-gray-800 p-4 rounded-lg border border-gray-600 text-center"
+                >
+                  <div class="text-3xl mb-2">📋</div>
+                  <h4 class="font-semibold text-white mb-1">Auditorías</h4>
+                  <p class="text-sm">Revisiones regulares de seguridad</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 7: Compartir con Terceros -->
+          <section id="terceros" class="privacy-section mb-12">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+              <span
+                class="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mr-4"
+                >7</span
+              >
+              Compartir con Terceros
+            </h2>
+            <div class="section-content text-gray-300 space-y-4">
+              <p>
+                No vendemos, intercambiamos o transferimos tu información
+                personal a terceros sin tu consentimiento, excepto en las
+                siguientes circunstancias:
+              </p>
+
+              <div class="space-y-4 mt-6">
+                <div
+                  class="bg-gray-800 p-4 rounded-lg border-l-4 border-blue-500"
+                >
+                  <h4 class="font-semibold text-white mb-2">
+                    🔧 Proveedores de Servicios
+                  </h4>
+                  <p class="text-sm">
+                    Compartimos datos con proveedores que nos ayudan a operar
+                    nuestro servicio (hosting, pagos, análisis).
+                  </p>
+                </div>
+
+                <div
+                  class="bg-gray-800 p-4 rounded-lg border-l-4 border-green-500"
+                >
+                  <h4 class="font-semibold text-white mb-2">
+                    ⚖️ Requerimientos Legales
+                  </h4>
+                  <p class="text-sm">
+                    Cuando sea requerido por ley, orden judicial o proceso legal
+                    válido.
+                  </p>
+                </div>
+
+                <div
+                  class="bg-gray-800 p-4 rounded-lg border-l-4 border-red-500"
+                >
+                  <h4 class="font-semibold text-white mb-2">
+                    🛡️ Protección de Derechos
+                  </h4>
+                  <p class="text-sm">
+                    Para proteger nuestros derechos, propiedad, seguridad o la
+                    de nuestros usuarios.
+                  </p>
+                </div>
+
+                <div
+                  class="bg-gray-800 p-4 rounded-lg border-l-4 border-purple-500"
+                >
+                  <h4 class="font-semibold text-white mb-2">
+                    🏢 Transferencias Comerciales
+                  </h4>
+                  <p class="text-sm">
+                    En caso de fusión, adquisición o venta de activos, con
+                    notificación previa.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 8: Protección de Menores -->
+          <section id="menores" class="privacy-section mb-12">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+              <span
+                class="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mr-4"
+                >8</span
+              >
+              Protección de Menores
+            </h2>
+            <div class="section-content text-gray-300 space-y-4">
+              <div class="highlight-box p-6 rounded-lg">
+                <div class="flex items-center mb-4">
+                  <div class="text-4xl mr-4">👶</div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-white">
+                      Compromiso con la Seguridad Infantil
+                    </h3>
+                    <p class="text-purple-200">
+                      Nuestro contenido está diseñado especialmente para niños
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 class="font-semibold text-white mb-3">
+                    🔒 Medidas Especiales
+                  </h4>
+                  <ul class="space-y-2 text-sm">
+                    <li class="flex items-start">
+                      <span class="text-green-400 mr-2">✓</span>
+                      No recopilamos información personal de menores de 13 años
+                      sin consentimiento parental
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-green-400 mr-2">✓</span>
+                      Contenido revisado y apropiado para la edad
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-green-400 mr-2">✓</span>
+                      Sin publicidad dirigida a menores
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-green-400 mr-2">✓</span>
+                      Entorno seguro y controlado
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-white mb-3">
+                    👨‍👩‍👧‍👦 Para Padres y Tutores
+                  </h4>
+                  <ul class="space-y-2 text-sm">
+                    <li class="flex items-start">
+                      <span class="text-blue-400 mr-2">•</span>
+                      Supervisión recomendada durante el uso
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-blue-400 mr-2">•</span>
+                      Control parental sobre las compras
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-blue-400 mr-2">•</span>
+                      Pueden solicitar eliminación de datos de menores
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-blue-400 mr-2">•</span>
+                      Acceso a toda la información recopilada
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 9: Cambios en la Política -->
+          <section id="cambios" class="privacy-section mb-12">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+              <span
+                class="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mr-4"
+                >9</span
+              >
+              Cambios en la Política
+            </h2>
+            <div class="section-content text-gray-300 space-y-4">
+              <p>
+                Nos reservamos el derecho de actualizar esta Política de
+                Privacidad cuando sea necesario. Los cambios importantes serán
+                comunicados de las siguientes maneras:
+              </p>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                <div
+                  class="bg-gradient-to-r from-blue-900/50 to-purple-900/50 p-4 rounded-lg border border-gray-600"
+                >
+                  <div class="text-center">
+                    <div class="text-3xl mb-2">📧</div>
+                    <h4 class="font-semibold text-white mb-1">
+                      Notificación por Email
+                    </h4>
+                    <p class="text-sm">
+                      Te enviaremos un email con los cambios importantes
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="bg-gradient-to-r from-purple-900/50 to-pink-900/50 p-4 rounded-lg border border-gray-600"
+                >
+                  <div class="text-center">
+                    <div class="text-3xl mb-2">🔔</div>
+                    <h4 class="font-semibold text-white mb-1">
+                      Aviso en la Plataforma
+                    </h4>
+                    <p class="text-sm">
+                      Mostraremos notificaciones prominentes en el sitio
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="bg-gradient-to-r from-green-900/50 to-blue-900/50 p-4 rounded-lg border border-gray-600"
+                >
+                  <div class="text-center">
+                    <div class="text-3xl mb-2">📅</div>
+                    <h4 class="font-semibold text-white mb-1">
+                      Período de Gracia
+                    </h4>
+                    <p class="text-sm">
+                      30 días para revisar y aceptar los cambios
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="highlight-box p-4 rounded-lg mt-6">
+                <p class="text-purple-200">
+                  <strong>Fecha de última actualización:</strong>
+                  {{ lastUpdated | date : "dd/MM/yyyy" }}
+                  <br />
+                  Te recomendamos revisar esta política periódicamente para
+                  mantenerte informado sobre cómo protegemos tu información.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 10: Contacto -->
+          <section id="contacto" class="privacy-section">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+              <span
+                class="bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg mr-4"
+                >10</span
+              >
+              Contacto
+            </h2>
+            <div class="section-content text-gray-300 space-y-6">
+              <p>
+                Si tienes preguntas sobre esta Política de Privacidad, quieres
+                ejercer tus derechos o necesitas información adicional sobre
+                nuestras prácticas de privacidad, no dudes en contactarnos:
+              </p>
+
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div
+                  class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 p-6 rounded-lg border border-gray-600"
+                >
+                  <h4
+                    class="text-xl font-semibold text-white mb-4 flex items-center"
+                  >
+                    <svg
+                      class="w-6 h-6 mr-3 text-purple-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+                      />
+                      <path
+                        d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+                      />
+                    </svg>
+                    Información de Contacto
+                  </h4>
+                  <div class="space-y-3 text-sm">
+                    <div class="flex items-center">
+                      <span class="font-medium text-purple-300 w-20"
+                        >Email:</span
+                      >
+                      <span class="text-gray-300"
+                        >privacy&#64;cuentosmusicales.com</span
+                      >
+                    </div>
+                    <div class="flex items-center">
+                      <span class="font-medium text-purple-300 w-20"
+                        >Soporte:</span
+                      >
+                      <span class="text-gray-300"
+                        >soporte&#64;cuentosmusicales.com</span
+                      >
+                    </div>
+                    <div class="flex items-center">
+                      <span class="font-medium text-purple-300 w-20"
+                        >Respuesta:</span
+                      >
+                      <span class="text-gray-300">Máximo 48 horas</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="bg-gradient-to-r from-blue-900/30 to-green-900/30 p-6 rounded-lg border border-gray-600"
+                >
+                  <h4
+                    class="text-xl font-semibold text-white mb-4 flex items-center"
+                  >
+                    <svg
+                      class="w-6 h-6 mr-3 text-blue-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      />
+                    </svg>
+                    Delegado de Protección de Datos
+                  </h4>
+                  <div class="space-y-3 text-sm">
+                    <div class="flex items-center">
+                      <span class="font-medium text-blue-300 w-20">Email:</span>
+                      <span class="text-gray-300"
+                        >dpo&#64;cuentosmusicales.com</span
+                      >
+                    </div>
+                    <div class="flex items-center">
+                      <span class="font-medium text-blue-300 w-20"
+                        >Función:</span
+                      >
+                      <span class="text-gray-300"
+                        >Supervisión del cumplimiento RGPD</span
+                      >
+                    </div>
+                    <div class="flex items-center">
+                      <span class="font-medium text-blue-300 w-20"
+                        >Horario:</span
+                      >
+                      <span class="text-gray-300"
+                        >Lunes a Viernes 9:00-17:00</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bg-gray-800 p-6 rounded-lg border border-gray-600 text-center"
+              >
+                <h4 class="text-lg font-semibold text-white mb-3">
+                  ¿Necesitas ejercer tus derechos de privacidad?
+                </h4>
+                <p class="text-gray-300 mb-4">
+                  Utiliza nuestro formulario de contacto para solicitudes
+                  relacionadas con tus datos personales
+                </p>
+                <a
+                  href="/contact"
+                  class="inline-flex items-center bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200"
+                >
+                  <svg
+                    class="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+                    />
+                    <path
+                      d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+                    />
+                  </svg>
+                  Ir al Formulario de Contacto
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

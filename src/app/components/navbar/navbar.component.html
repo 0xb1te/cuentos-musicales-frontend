@@ -1,63 +1,74 @@
 <nav
-  class="fixed top-4 left-4 right-4 md:left-80 z-50 w-auto bg-gray-400/60 rounded-2xl shadow-2xl border border-gray-300/25 backdrop-blur-md"
+  class="fixed top-4 left-4 right-4 md:left-80 z-50 w-auto bg-gray-400/60 rounded-2xl shadow-2xl border border-gray-300/25 backdrop-blur-md transition-all duration-300"
+  [class.opacity-0]="sidebarOpen"
+  [class.pointer-events-none]="sidebarOpen"
+  [class.invisible]="sidebarOpen"
+  [class.scale-95]="sidebarOpen"
+  [class.-translate-y-2]="sidebarOpen"
+  [style.display]="sidebarOpen ? 'none' : 'block'"
+  [attr.data-sidebar-open]="sidebarOpen"
 >
   <div class="px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Page Title -->
       <div class="flex items-center">
-        <h1 class="text-xl font-bold text-white">
-          Cuentos Musicales para el Alma
-        </h1>
+        <h1 class="text-xl font-bold text-white">Cuentos Musicales</h1>
       </div>
 
-      <!-- Basic Search Bar -->
-      <div class="flex-1 max-w-md mx-8">
-        <div class="relative">
-          <div
-            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-          >
-            <svg
-              class="h-5 w-5 text-gray-300"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
-            </svg>
-          </div>
-          <input
-            type="text"
-            placeholder="Buscar cuentos..."
-            class="block w-full pl-10 pr-4 py-2 bg-gray-300/50 border border-gray-200/25 rounded-lg text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent hover:bg-gray-300/60 transition-all duration-200 backdrop-blur-sm"
-          />
-        </div>
-      </div>
-
-      <!-- Navigation Links -->
-      <div class="flex items-center space-x-4">
+      <!-- Desktop Navigation Links -->
+      <div class="hidden md:flex items-center space-x-4">
         <a
           routerLink="/"
+          routerLinkActive="text-blue-300"
           class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+          (click)="closeSidebar()"
         >
           Inicio
         </a>
         <a
-          routerLink="/stories"
-          class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-        >
-          Cuentos
-        </a>
-        <a
           routerLink="/contact"
-          class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105"
+          routerLinkActive="text-blue-300"
+          class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+          (click)="closeSidebar()"
         >
           Contacto
         </a>
+        <a
+          routerLink="/privacy-policy"
+          routerLinkActive="text-blue-300"
+          class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 transform hover:scale-105"
+          (click)="closeSidebar()"
+        >
+          Política de Privacidad
+        </a>
+      </div>
+
+      <!-- Mobile sidebar toggle button -->
+      <div class="md:hidden">
+        <button
+          type="button"
+          class="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors duration-200"
+          (click)="toggleSidebar()"
+          aria-controls="mobile-sidebar"
+        >
+          <span class="sr-only">Abrir menú principal</span>
+          <!-- Hamburger icon -->
+          <svg
+            class="block h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
       </div>
     </div>
   </div>

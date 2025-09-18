@@ -39,9 +39,41 @@ h2 {
   }
 }
 
+// Custom scrollbar styling for stories section
+#stories {
+  .overflow-y-auto {
+    scrollbar-width: thin;
+    scrollbar-color: #4f46e5 #1f2937;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #1f2937;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #4f46e5;
+      border-radius: 4px;
+
+      &:hover {
+        background: #6366f1;
+      }
+    }
+  }
+}
+
 // Responsive adjustments
 @media (max-width: 768px) {
   .h-screen {
     min-height: 400px;
+  }
+
+  // Make scrollbar slightly thinner on mobile
+  #stories .overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
   }
 }

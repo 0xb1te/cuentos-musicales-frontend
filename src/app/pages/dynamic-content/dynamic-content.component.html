@@ -10,7 +10,7 @@
     <button (click)="router.navigate(['/'])">Volver al inicio</button>
   </div>
   } @else if (menuItem) {
-  <div class="content-header">
+  <div class="content-header border-b border-white">
     <h1>{{ menuItem.title }}</h1>
     @if (menuItem.description) {
     <p class="description">{{ menuItem.description }}</p>

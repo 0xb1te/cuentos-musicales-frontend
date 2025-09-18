@@ -1,0 +1,85 @@
+// Navbar component styles for floating navigation
+.navbar-container {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  z-index: 50;
+
+  @media (min-width: 768px) {
+    left: 20rem; /* Account for sidebar width (320px / 20rem) */
+  }
+}
+
+// Ensure smooth transitions for hamburger/close icon
+.hamburger-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+// Better mobile responsiveness
+@media (max-width: 768px) {
+  nav {
+    left: 1rem !important;
+    right: 1rem !important;
+  }
+}
+
+// Active link styling
+.router-link-active {
+  color: rgb(147, 197, 253) !important; // blue-300
+
+  &.gradient-link {
+    background: linear-gradient(
+      to right,
+      rgb(147, 51, 234),
+      rgb(59, 130, 246)
+    ) !important; // purple-600 to blue-600
+  }
+}
+
+// Backdrop blur enhancement
+nav {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+// Smooth scaling for buttons
+button {
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Backup CSS rules to ensure navbar is hidden when sidebar is open */
+nav[data-sidebar-open="true"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Additional mobile-specific rules */
+@media (max-width: 768px) {
+  nav[data-sidebar-open="true"] {
+    transform: translateY(-100%) !important;
+  }
+}
+
+/* Animation for navbar hiding */
+nav {
+  transition: all 0.3s ease-in-out !important;
+}
+
+nav.navbar-hidden {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(-10px) scale(0.95) !important;
+}

@@ -1,5 +1,5 @@
 // sidebar.component.ts
-import { Component, signal, OnInit, HostListener } from '@angular/core';
+import { Component, signal, OnInit, HostListener, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
@@ -20,8 +20,12 @@ export class SidebarComponent implements OnInit {
   error = signal<string | null>(null);
 
   constructor(private menuService: MenuService, private router: Router) {
-    // Initialize sidebar state based on screen size
     this.checkScreenSize();
+
+    // Effect to track sidebar state changes
+    effect(() => {
+      console.log('Sidebar: sidebarOpen state changed to:', this.sidebarOpen());
+    });
   }
 
   ngOnInit() {
@@ -34,14 +38,20 @@ export class SidebarComponent implements OnInit {
   }
 
   private checkScreenSize() {
-    // Open by default on desktop (screens wider than 768px)
-    this.sidebarOpen.set(window.innerWidth >= 768);
+    const isMobile = window.innerWidth < 768;
+    const shouldBeOpen = !isMobile; // false for mobile, true for desktop
+    console.log(
+      'Sidebar: checkScreenSize - isMobile:',
+      isMobile,
+      'shouldBeOpen:',
+      shouldBeOpen
+    );
+    this.sidebarOpen.set(shouldBeOpen);
   }
 
   loadMenu() {
     this.menuService.getMenuStructure().subscribe({
       next: (items) => {
-        console.log('Response from menu', items.menuStructure.items);
         this.menuItems.set(items.menuStructure.items);
         this.loading.set(false);
       },
@@ -54,23 +64,28 @@ export class SidebarComponent implements OnInit {
   }
 
   toggleSidebar() {
+    const currentState = this.sidebarOpen();
+    console.log(
+      'Sidebar: toggleSidebar - current state:',
+      currentState,
+      'new state:',
+      !currentState
+    );
     this.sidebarOpen.update((value) => !value);
   }
 
   onMenuItemClick(item: MenuItem) {
-    console.log('Item clicked:', item);
-
-    // If the item has images and no route, navigate to dynamic content page
+    console.log('Sidebar: menu item clicked:', item.title);
+    // Navigate based on item configuration
     if (item.route && item.images && item.images.length > 0) {
-      console.log('Navigating to dynamic content page for menu item:', item.id);
       this.router.navigate(['/content', item.id]);
     } else {
-      console.log('Navigating to route:', item.route);
       this.router.navigate([item.route || '/']);
     }
 
     // Close sidebar on mobile after clicking a menu item
     if (window.innerWidth < 768) {
+      console.log('Sidebar: closing sidebar on mobile');
       this.sidebarOpen.set(false);
     }
   }

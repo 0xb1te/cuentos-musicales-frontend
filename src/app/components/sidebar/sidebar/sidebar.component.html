@@ -3,17 +3,20 @@
   <!-- Mobile overlay -->
   <div
     (click)="toggleSidebar()"
-    class="fixed inset-0 bg-black bg-opacity-80 z-20 transition-opacity duration-300 md:hidden backdrop-blur-sm"
+    class="fixed inset-0 bg-black bg-opacity-80 z-40 transition-opacity duration-300 md:hidden backdrop-blur-sm"
     [class.hidden]="!sidebarOpen()"
   ></div>
 
   <!-- Sidebar with Professional Design -->
   <aside
-    class="fixed md:static flex-shrink-0 w-72 flex flex-col z-30 transition-all duration-300 h-full bg-gradient-to-b from-gray-900 via-black to-gray-900 border-r border-gray-700"
-    [class.translate-x-0]="sidebarOpen()"
-    [class.-translate-x-full]="!sidebarOpen()"
+    class="fixed md:static flex-shrink-0 w-full md:w-72 flex flex-col z-50 transition-all duration-300 h-full bg-gradient-to-b from-gray-900 via-black to-gray-900 border-r border-gray-700"
+    [ngClass]="{
+      'translate-x-0': sidebarOpen(),
+      '-translate-x-full': !sidebarOpen(),
+      'md:translate-x-0': true
+    }"
   >
-    <!-- Brand Header -->
+    <!-- Brand Header with Close Button -->
     <div
       class="h-20 bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-between px-6 relative overflow-hidden"
     >
@@ -41,9 +44,12 @@
           <div class="text-blue-200 text-sm">para el Alma</div>
         </div>
       </div>
+
+      <!-- Close button for mobile -->
       <button
-        class="relative z-10 p-2 text-white md:hidden hover:bg-white hover:bg-opacity-20 rounded-lg transition-colors"
+        class="relative z-10 p-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg transition-colors md:hidden"
         (click)="toggleSidebar()"
+        aria-label="Cerrar menú"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +111,7 @@
       </div>
 
       <!-- Menu Items -->
-      <div class="flex-1 py-4">
+      <div class="flex-1 py-4 px-2">
         @for (item of menuItems(); track item.id) {
         <app-menu-item
           [item]="item"
@@ -162,33 +168,7 @@
 
   <!-- Main Content Area -->
   <div class="flex-1 flex flex-col">
-    <!-- Mobile menu button for floating navbar compatibility -->
-    <div
-      class="md:hidden flex items-center justify-between p-4 bg-black border-b border-gray-700"
-    >
-      <button
-        class="p-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-        (click)="toggleSidebar()"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          class="h-6 w-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
-      <span class="text-white font-semibold">CuentosMusicalesParaElAlma</span>
-    </div>
-
-    <!-- Main Content Wrapper -->
+    <!-- Main Content Wrapper with top padding for floating navbar -->
     <div class="flex-1 overflow-y-auto bg-black">
       <ng-content></ng-content>
     </div>

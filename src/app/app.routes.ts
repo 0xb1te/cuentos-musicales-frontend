@@ -23,6 +23,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'privacy-policy',
+    loadComponent: () =>
+      import('./pages/privacy-policy/privacy-policy.component').then(
+        (c) => c.PrivacyPolicyComponent
+      ),
+  },
+  {
     path: 'content/:id',
     loadComponent: () =>
       import('./pages/dynamic-content/dynamic-content.component').then(

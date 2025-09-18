@@ -1,5 +1,16 @@
-<div class="bg-black py-8">
+<div class="bg-black py-0">
   <div class="w-full px-4">
+    <!-- Story Count Display -->
+    <div class="mb-6 text-center">
+      <p class="text-white text-sm md:text-base font-medium">
+        <span class="text-blue-400">{{ gridItems.length }}</span>
+        {{
+          gridItems.length === 1
+            ? "historia disponible"
+            : "historias disponibles"
+        }}
+      </p>
+    </div>
     <div class="space-y-4">
       @for (story of gridItems; track story.id) {
       <!-- Custom Phrase Header (Top) -->

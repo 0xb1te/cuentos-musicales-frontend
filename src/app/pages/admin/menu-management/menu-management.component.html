@@ -19,6 +19,9 @@
               <th class="py-3 px-4 text-left text-gray-200 font-medium">
                 Título
               </th>
+              <th class="py-3 px-4 text-left text-gray-200 font-medium">
+                Padre
+              </th>
               <th class="py-3 px-4 text-center text-gray-200 font-medium">
                 Tipo
               </th>
@@ -33,6 +36,17 @@
               class="border-b border-gray-600 hover:bg-gray-600 transition-colors"
             >
               <td class="py-3 px-4 text-gray-200">{{ option.title }}</td>
+              <td class="py-3 px-4 text-gray-200">
+                <span
+                  *ngIf="option.parentId === 0 || !option.parentId"
+                  class="text-gray-400 italic"
+                >
+                  Raíz
+                </span>
+                <span *ngIf="option.parentId && option.parentId !== 0">
+                  {{ getParentTitle(option.parentId) }}
+                </span>
+              </td>
               <td class="py-3 px-4 text-center">
                 <span
                   *ngIf="option.images && option.images.length > 0"
@@ -69,7 +83,7 @@
               </td>
             </tr>
             <tr *ngIf="menuOptionsFlat.length === 0">
-              <td colspan="3" class="py-6 text-center text-gray-400">
+              <td colspan="4" class="py-6 text-center text-gray-400">
                 <div class="flex flex-col items-center">
                   <div class="text-2xl mb-2">📋</div>
                   <div>No hay opciones de menú disponibles</div>
@@ -205,6 +219,42 @@
       </div>
 
       <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-200 mb-2"
+          >Opción padre
+          <span class="text-xs text-gray-400">(opcional)</span>
+        </label>
+        <select
+          formControlName="parentId"
+          class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+          [ngClass]="{
+            'border-red-500':
+              menuOptionForm.get('parentId')?.invalid &&
+              menuOptionForm.get('parentId')?.touched
+          }"
+        >
+          <option value="0">Sin padre (nivel raíz)</option>
+          <option
+            *ngFor="let option of availableParentOptions"
+            [value]="option.id"
+          >
+            {{ option.title }}
+          </option>
+        </select>
+        <div class="text-xs text-gray-400 mt-2">
+          Solo se muestran opciones sin imágenes como posibles padres
+        </div>
+        <div
+          *ngIf="
+            menuOptionForm.get('parentId')?.invalid &&
+            menuOptionForm.get('parentId')?.touched
+          "
+          class="text-red-400 text-sm mt-2"
+        >
+          Debe seleccionar una opción padre válida
+        </div>
+      </div>
+
+      <div class="mb-6">
         <label class="block text-sm font-medium text-gray-200 mb-2">
           Ruta
           <span *ngIf="uploadedImages.length > 0" class="text-red-400">*</span>
@@ -226,6 +276,15 @@
               menuOptionForm.get('route')?.touched
           }"
         />
+        <div class="text-xs text-gray-400 mt-2">
+          <span *ngIf="uploadedImages.length > 0">
+            🔄 La ruta se genera automáticamente desde el título en formato
+            kebab-case (ej: "Mi Título" → "/mi-titulo")
+          </span>
+          <span *ngIf="uploadedImages.length === 0">
+            La ruta es opcional para menús sin imágenes
+          </span>
+        </div>
         <div
           *ngIf="
             uploadedImages.length > 0 &&
